@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 1.5s linear;
   }
 }
 
@@ -35,4 +35,79 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.button {
+  background-color: #0f0c19;
+  border: none;
+  color: #fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button-red {
+  background-color: #ff0000;
+  border: none;
+  color: #fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pfp {
+  margin-top: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+}
+
+header {
+  background-color: #0f0c19;
+}
+
+.userRow {
+  margin-top: 15px;
+  position: fixed;
+  top: 66%;
+}
+
+.userRow-1 {
+  position: fixed;
+  top: 90.75%;
+  left: 96.5%;
+}
+.userRow-2 {
+  position: fixed;
+  top: 92.33%;
+  left: 80.5%;
+}
+
+.signOut {
+  position: fixed;
+  top: 50%;
+  left: 46%;
+}
+
+.delete {
+  position: fixed;
+  top: 60%;
+  left: 44.25%;
+}
+
+
+.signIn {
+  position: fixed;
+  top: 50%;
+  left: 45%;
 }
