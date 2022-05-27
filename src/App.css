@@ -5,6 +5,7 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  width: auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -49,10 +50,11 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
+  box-shadow: 1px 10px 2 0 rgb(47, 47, 47);
 }
 
 .button-red {
-  background-color: #ff0000;
+  background-color: red;
   border: none;
   color: #fff;
   padding: 15px 32px;
@@ -63,6 +65,17 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
+  box-shadow: 1px 10px 2 0 rgb(47, 47, 47);
+}
+
+.button:hover {
+  box-shadow: 0px -7px 0.75 0 rgba(47, 47, 47, 0.203);
+  box-shadow: 1px 13px 3 0 rgb(47, 47, 47);
+}
+
+.button-red:hover {
+  box-shadow: 0px -7px 0.75 0 rgba(47, 47, 47, 0.203);
+  box-shadow: 1px 13px 3 0 rgb(47, 47, 47);
 }
 
 .pfp {
@@ -76,21 +89,23 @@ header {
   background-color: #0f0c19;
 }
 
-.userRow {
+.userItemContainer {
   margin-top: 15px;
   position: fixed;
-  top: 66%;
+  top: 35%;
+  left: 1%;
+  background-color: red;
 }
 
-.userRow-1 {
+.userItem-1 {
   position: fixed;
-  top: 90.75%;
-  left: 96.5%;
+  top: 2%;
+  left: 2%;
 }
-.userRow-2 {
+.userItem-2 {
   position: fixed;
-  top: 92.33%;
-  left: 80.5%;
+  top: 3.33%;
+  left: 5.5%;
 }
 
 .signOut {
@@ -112,6 +127,10 @@ header {
   left: 45%;
 }
 
-.bluetxt {
+.blue {
   color: blue;
+}
+
+.white {
+  color: white;
 }

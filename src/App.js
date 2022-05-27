@@ -54,9 +54,9 @@ function Dashboard() {
   return (
     <>
     <center>
-      <div className='userRow'>
-        <img alt='pfp.png' className='pfp userRow-1' src={pfp}></img>
-        <h2 className='userRow-2'>Logged In As <a className='blue'>{name}</a></h2>
+    <img alt='pfp.png' className='pfp userItem-1' src={pfp}></img>
+      <div className='userItemContainer'>
+        <h2 className='white userItem-2'>Logged In As {name}</h2>
       </div>
       <SignOut />
       <button className='delete button-red' onClick={() => auth.currentUser.delete()}>Delete Account</button>
