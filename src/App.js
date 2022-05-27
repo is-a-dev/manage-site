@@ -3,10 +3,9 @@ import './App.css';
 import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
 import banner from './banner.png';
-import './betatesters'
 
 import {useAuthState} from 'react-firebase-hooks/auth';
-import betatesters from './betatesters';
+import betatesters from '../betatesters';
 firebase.initializeApp({
   apiKey: "AIzaSyDR0dz0tI9bpCOTuRr5IGyNEkC7fTfoT2M",
   authDomain: "is-a-dev.firebaseapp.com",
