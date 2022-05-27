@@ -5,7 +5,6 @@ import firebase from 'firebase/compat/app';
 import banner from './banner.png';
 
 import {useAuthState} from 'react-firebase-hooks/auth';
-import betatesters from '../betatesters';
 firebase.initializeApp({
   apiKey: "AIzaSyDR0dz0tI9bpCOTuRr5IGyNEkC7fTfoT2M",
   authDomain: "is-a-dev.firebaseapp.com",
@@ -61,6 +60,8 @@ function Dashboard() {
       </div>
       <SignOut />
       <button className='delete button-red' onClick={() => auth.currentUser.delete()}>Delete Account</button>
+      <br />
+      <h3>Please do not share the link for this beta, however you can share screenshots!</h3>
     </center>
     </>
   ) 
