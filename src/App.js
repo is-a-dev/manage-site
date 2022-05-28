@@ -39,17 +39,16 @@ function SignIn() {
   );
 }
 
-
-
 function SignOut() {
   return (
     <button className='signOut button' onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
-async function Dashboard() {  
-  const name = await auth.currentUser.displayName;
-  const pfp = await auth.currentUser.photoURL;
+function Dashboard() {
+  
+  const name = auth.currentUser.displayName;
+  const pfp = auth.currentUser.photoURL;
 
   return (
     <>
@@ -60,11 +59,11 @@ async function Dashboard() {
       </div>
       <SignOut />
       <button className='delete button-red' onClick={() => auth.currentUser.delete()}>Delete Account</button>
-      <br />
+      <br/>
       <h3>Please do not share the link for this beta, however you can share screenshots!</h3>
     </center>
     </>
   ) 
-}
+  }
 
 export default App;
