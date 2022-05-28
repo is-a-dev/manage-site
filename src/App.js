@@ -47,9 +47,9 @@ function SignOut() {
   )
 }
 
-function Dashboard() {  
-  const name = auth.currentUser.displayName;
-  const pfp = auth.currentUser.photoURL;
+async function Dashboard() {  
+  const name = await auth.currentUser.displayName;
+  const pfp = await auth.currentUser.photoURL;
 
   return (
     <>
