@@ -6,5 +6,6 @@ module.exports = [
     "an4g7k@gmail.com",
     "andrew@win11react.com",
     "kumarjhaabhishek2002@gmail.com",
-    "327953@mariscollege.nl"
+    "327953@mariscollege.nl",
+    "omsenjalia@gmail.com"
 ]

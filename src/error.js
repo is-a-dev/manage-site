@@ -1,5 +1,5 @@
 import './App.css';
-import banner from './banner.png';
+import banner from './assets/banner.png';
 
 function ErrorFallback({error, resetErrorBoundary}) {
     return (

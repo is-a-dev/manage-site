@@ -2,11 +2,14 @@ import React from 'react';
 import './App.css';
 import 'firebase/compat/auth';
 import firebase from 'firebase/compat/app';
-import banner from './banner.png';
-
+import banner from './assets/banner.png';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import fork from './functions/fork';
+import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
+import config from './config.json';
+import vars from './vars'
 firebase.initializeApp({
-  apiKey: "AIzaSyDR0dz0tI9bpCOTuRr5IGyNEkC7fTfoT2M",
+  apiKey: config.key,
   authDomain: "is-a-dev.firebaseapp.com",
   projectId: "is-a-dev",
   storageBucket: "is-a-dev.appspot.com",
@@ -16,8 +19,19 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
-//auth.signInWithPopup(provider);
+//auth.signInWithPopup(provider)
+function SignIn() {
 
+  return (
+    <button className='button signIn' onClick={()=> {
+      auth.signInWithPopup(githubLoginProvider).then((res)=>{
+       console.log(res.credential.accessToken);
+       vars.token = res.credential.accessToken
+       Object.freeze(vars)
+      })
+    }}>Sign In With GitHub</button>
+  );
+}
 
 function App() {
   const [user] = useAuthState(auth);
@@ -32,20 +46,13 @@ function App() {
   );
 }
 
-function SignIn() {
-
-  return (
-    <button className='button signIn' onClick={() => auth.signInWithPopup(githubLoginProvider)}>Sign In With GitHub</button>
-  );
-}
-
 function SignOut() {
   return (
     <button className='signOut button' onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
-function Dashboard() {
+function Dashboard(props) {
   
   const name = auth.currentUser.displayName;
   const pfp = auth.currentUser.photoURL;
@@ -59,7 +66,6 @@ function Dashboard() {
       </div>
       <SignOut />
       <button className='delete button-red' onClick={() => auth.currentUser.delete()}>Delete Account</button>
-      <br/>
       <h3>Please do not share the link for this beta, however you can share screenshots!</h3>
     </center>
     </>
