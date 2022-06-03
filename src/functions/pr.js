@@ -3,7 +3,7 @@ import vars from '../vars'
 
 //open pr
 
-async function openPR() {
+async function openPR(domain) {
     const { Octokit } = require("@octokit/core");
     const { createTokenAuth } = require("@octokit/auth-token");
     const token = Object.values(vars)
