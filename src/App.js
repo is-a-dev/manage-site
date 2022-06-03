@@ -6,7 +6,7 @@ import banner from './assets/banner.png';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import fork from './functions/fork';
 import openPR from './functions/pr';
-import commit fromm './functions/commit';
+import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
 import config from './config.json';
 import vars from './vars'
