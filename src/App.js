@@ -27,6 +27,8 @@ function SignIn() {
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
        console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
+       vars.user = res.user.displayName;
+       vars.email = res.user.email;
        Object.freeze(vars)
       })
     }}>Sign In With GitHub</button>

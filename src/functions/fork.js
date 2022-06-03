@@ -16,7 +16,7 @@ async function fork(repository) {
     const { Octokit } = require("@octokit/core");
     const { createTokenAuth } = require("@octokit/auth-token");
     const token = Object.values(vars)
-    const ghtoken = token.toString();
+    const ghtoken = token[0].toString();
     console.log(ghtoken);
 
     const octokit = new Octokit({
