@@ -1,5 +1,5 @@
 import "@octokit/core";
-import vars from './vars'
+import vars from '../vars'
 
 
 
