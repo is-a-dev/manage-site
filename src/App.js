@@ -26,6 +26,7 @@ function SignIn() {
 
   return (
     <button className='button signIn' onClick={()=> {
+      githubLoginProvider.addScope('repo');  
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
        console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
