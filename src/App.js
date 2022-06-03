@@ -33,7 +33,7 @@ function SignIn() {
        vars.email = res.user.email;
        Object.freeze(vars)
        //fork on login
-       fork() 
+       fork('test-project') 
       })
     }}>Sign In With GitHub</button>
   );
