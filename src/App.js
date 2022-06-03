@@ -5,6 +5,8 @@ import firebase from 'firebase/compat/app';
 import banner from './assets/banner.png';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import fork from './functions/fork';
+import openPR from './functions/pr';
+import commit fromm './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
 import config from './config.json';
 import vars from './vars'
@@ -30,6 +32,8 @@ function SignIn() {
        vars.user = res.user.displayName;
        vars.email = res.user.email;
        Object.freeze(vars)
+       //fork on login
+       fork() 
       })
     }}>Sign In With GitHub</button>
   );
