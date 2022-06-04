@@ -5,6 +5,8 @@ import firebase from 'firebase/compat/app';
 import banner from './assets/banner.png';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import fork from './functions/fork';
+import openPR from './functions/pr';
+import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
 import config from './config.json';
 import vars from './vars'
@@ -24,12 +26,15 @@ function SignIn() {
 
   return (
     <button className='button signIn' onClick={()=> {
+      githubLoginProvider.addScope('repo');  
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
        console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
        vars.user = res.user.displayName;
        vars.email = res.user.email;
        Object.freeze(vars)
+       //fork on login
+       fork('test-project') 
       })
     }}>Sign In With GitHub</button>
   );
