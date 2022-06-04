@@ -1,6 +1,6 @@
 import "@octokit/core";
 import "@octokit/rest";
-import vars from './vars'
+import vars from '../vars'
 
 
 async function commit(domain, FileContents) {
