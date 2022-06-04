@@ -1,8 +1,6 @@
 import "@octokit/core";
 import vars from '../vars'
 
-//open pr
-
 async function openPR(domain) {
     const { Octokit } = require("@octokit/core");
     const { createTokenAuth } = require("@octokit/auth-token");
@@ -17,7 +15,7 @@ async function openPR(domain) {
     const pr = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
         owner: 'is-a-dev',
         repo: 'register',
-        title: 'Add domain programatically',
+        title: 'Add Subdomain:' + domain + ' via Web App',
         body: 'Added the domain  ' + domain + ' to the list of domains',
         head: user + ':main',
         base: 'main'

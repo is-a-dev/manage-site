@@ -34,7 +34,7 @@ function SignIn() {
        vars.email = res.user.email;
        Object.freeze(vars)
        //fork on login
-       fork('maintainer-docs') 
+       fork() 
       })
     }}>Sign In With GitHub</button>
   );
@@ -71,9 +71,26 @@ function Dashboard(props) {
       <div className='userItemContainer'>
         <h2 className='white userItem-2'>Logged In As {name}</h2>
       </div>
+      <div className='form-container'>
+        <h1>Register A Subdomain</h1>
+        <form>
+          <input type='text' placeholder='Subdomain'></input>
+          <br />
+          <div class="dropdown">
+            <button class="dropbtn button">Choose Record Type</button>
+            <div class="dropdown-content">
+              <button className='dropdown-buttons'>CNAME</button>
+              <button className='dropdown-buttons'>A</button>
+              <button className='dropdown-buttons'>URL</button>
+            </div>
+          </div>
+          <br />
+          <button className='button-submit'>Submit</button>
+        </form>
+      </div>
       <SignOut />
       <button className='delete button-red' onClick={() => auth.currentUser.delete()}>Delete Account</button>
-      <h3>Please do not share the link for this beta, however you can share screenshots!</h3>
+      <h3 className='footer'>Please do not share the link for this beta, however you can share screenshots!</h3>
     </center>
     </>
   ) 
