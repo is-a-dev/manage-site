@@ -43,6 +43,7 @@ function SignIn() {
 
 function App() {
   const [user] = useAuthState(auth);
+  
 
   return (
     <div className="App">
@@ -61,7 +62,8 @@ function SignOut() {
 }
 
 function Dashboard(props) {
-  
+  const queryParams = new URLSearchParams(window.location.search)
+  const record = queryParams.get("record")
   const name = auth.currentUser.displayName;
   const pfp = auth.currentUser.photoURL;
 
