@@ -30,7 +30,8 @@ function SignIn() {
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
        console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
-       vars.user = res.user.displayName;
+       vars.user = res.additionalUserInfo.username;
+       console.log(res.additionalUserInfo.username);
        vars.email = res.user.email;
        Object.freeze(vars)
        //fork on login
