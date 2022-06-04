@@ -30,7 +30,8 @@ function SignIn() {
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
        console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
-       vars.user = res.user.displayName;
+       vars.user = res.additionalUserInfo.username;
+       console.log(res.additionalUserInfo.username);
        vars.email = res.user.email;
        Object.freeze(vars)
        //fork on login
@@ -42,6 +43,7 @@ function SignIn() {
 
 function App() {
   const [user] = useAuthState(auth);
+  
 
   return (
     <div className="App">
@@ -60,7 +62,8 @@ function SignOut() {
 }
 
 function Dashboard(props) {
-  
+  const queryParams = new URLSearchParams(window.location.search)
+  const record = queryParams.get("record")
   const name = auth.currentUser.displayName;
   const pfp = auth.currentUser.photoURL;
 
