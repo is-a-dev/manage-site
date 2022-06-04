@@ -82,9 +82,9 @@ function Dashboard(props) {
           <div class="dropdown">
             <button class="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
-              <button className='dropdown-buttons'>CNAME</button>
-              <button className='dropdown-buttons'>A</button>
-              <button className='dropdown-buttons'>URL</button>
+              <button type='button' onClick={() => window.location.href = '/?record=CNAME'} className='dropdown-buttons'>CNAME</button>
+              <button type='button' onClick={() => window.location.href = '/?record=A'} className='dropdown-buttons'>A</button>
+              <button type='button' onClick={() => window.location.href = '/?record=URL'} className='dropdown-buttons'>URL</button>
             </div>
           </div>
           <br />
