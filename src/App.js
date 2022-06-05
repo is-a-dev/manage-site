@@ -41,7 +41,7 @@ function SignIn() {
        // For development set this varible to test-project
 
        vars.repo = 'test-project';
-       
+
        Object.freeze(vars)
        //fork on login
        fork()
@@ -72,7 +72,7 @@ function SignOut() {
 
 function Dashboard(props) {
   const queryParams = new URLSearchParams(window.location.search)
-  const record = queryParams.get("record")
+  const record = queryParams.get("records")
   const name = auth.currentUser.displayName;
   const pfp = auth.currentUser.photoURL;
 
@@ -98,6 +98,7 @@ function Dashboard(props) {
               <button type='button' onClick={(event) => {
                 event.preventDefault();
                 document.getElementById('dropbtn').innerText = 'A';
+                
               }} className='dropdown-buttons'>A</button>
 
               <button type='button' onClick={(event) => {
@@ -125,7 +126,7 @@ function Dashboard(props) {
                   "email": "${vars.email}"
                 },
                 "record": {
-                  "${record}": "${recordData}"
+                  "${document.getElementById('dropbtn').innerText}": "${recordData}"
                 }
               }
             `).then(() => openPR(subdomain));
