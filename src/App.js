@@ -78,7 +78,7 @@ function Dashboard(props) {
         <h1>Register A Subdomain</h1>
         <form>
         <div class="dropdown">
-            <button id='dropbtn' type='button' class="dropbtn button">Choose Record Type</button>
+            <button id='dropbtn'  class="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
               <button type='button' onClick={(event) => {
                 event.preventDefault();
@@ -113,8 +113,8 @@ function Dashboard(props) {
             commit(subdomain, `
               {
                 "owner": {
-                  username: "${vars.user}",
-                  email: "${vars.email}"
+                  "username": "${vars.user}",
+                  "email": "${vars.email}"
                 },
                 "record": {
                   "${record}": "${recordData}"
