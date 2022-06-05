@@ -113,8 +113,8 @@ function Dashboard(props) {
             commit(subdomain, `
               {
                 "owner": {
-                  username: "${auth.currentUser.displayName}",
-                  email: "${auth.currentUser.email}"
+                  username: "${vars.user}",
+                  email: "${vars.email}"
                 },
                 "record": {
                   "${record}": "${recordData}"
