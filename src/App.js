@@ -77,18 +77,51 @@ function Dashboard(props) {
       <div className='form-container'>
         <h1>Register A Subdomain</h1>
         <form>
-          <input type='text' placeholder='Subdomain'></input>
-          <br />
-          <div class="dropdown">
-            <button class="dropbtn button">Choose Record Type</button>
+        <div class="dropdown">
+            <button id='dropbtn' class="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
-              <button type='button' onClick={() => window.location.href = '/?record=CNAME'} className='dropdown-buttons'>CNAME</button>
-              <button type='button' onClick={() => window.location.href = '/?record=A'} className='dropdown-buttons'>A</button>
-              <button type='button' onClick={() => window.location.href = '/?record=URL'} className='dropdown-buttons'>URL</button>
+              <button type='button' onClick={(event) => {
+                event.preventDefault();
+                window.location.href = `/?record=CNAME`
+                document.getElementById('dropbtn').innerText = 'CNAME';
+                
+              }} className='dropdown-buttons'>CNAME</button>
+
+              <button type='button' onClick={(event) => {
+                event.preventDefault();
+                window.location.href = '/?record=A'
+              }} className='dropdown-buttons'>A</button>
+
+              <button type='button' onClick={(event) => {
+                event.preventDefault();
+                window.location.href = '/?record=URL'
+              }} className='dropdown-buttons'>URL</button>
+
             </div>
           </div>
           <br />
-          <button className='button-submit'>Submit</button>
+          <input id="subdomain" type='text' placeholder='Subdomain (without .is-a.dev)'></input>
+          <br />
+          <input id="value" type='text' placeholder='Record Value'></input>
+          <br />
+          <label class='blue'><a href="https://docs.is-a.dev/domain_structure/">Read about record types and domain structure.</a></label>
+          <br/>
+          <input type='submit' onClick={() => {
+            const subdomain = document.getElementById('subdomain').value;
+            const recordData = document.getElementById('value').value;
+
+            commit(subdomain, `
+              {
+                "owner": {
+                  username: "${auth.currentUser.displayName}",
+                  email: "${auth.currentUser.email}"
+                },
+                "record": {
+                  "${record}": "${recordData}"
+                }
+              }
+            `).then(() => openPR(subdomain));
+          }} className='button-submit' value='Submit'></input>
         </form>
       </div>
       <SignOut />
