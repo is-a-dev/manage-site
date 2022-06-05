@@ -86,7 +86,7 @@ function Dashboard(props) {
       <div className='form-container'>
         <h1>Register A Subdomain</h1>
         <form>
-        <div class="dropdown">
+        <div className="dropdown">
             <button id='dropbtn' type='button' className="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
               <button type='button' onClick={(event) => {
@@ -113,7 +113,7 @@ function Dashboard(props) {
           <br />
           <input id="value" type='text' placeholder='Record Value'></input>
           <br />
-          <label class='blue'><a href="https://docs.is-a.dev/domain_structure/">Read about record types and domain structure.</a></label>
+          <label className='blue'><a href="https://docs.is-a.dev/domain_structure/">Read about record types and domain structure.</a></label>
           <br/>
           <input type='button' onClick={() => {
             const subdomain = document.getElementById('subdomain').value;
