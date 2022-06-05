@@ -78,7 +78,7 @@ function Dashboard(props) {
         <h1>Register A Subdomain</h1>
         <form>
         <div class="dropdown">
-            <button id='dropbtn' class="dropbtn button">Choose Record Type</button>
+            <button id='dropbtn' type='button' class="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
               <button type='button' onClick={(event) => {
                 event.preventDefault();
@@ -106,7 +106,7 @@ function Dashboard(props) {
           <br />
           <label class='blue'><a href="https://docs.is-a.dev/domain_structure/">Read about record types and domain structure.</a></label>
           <br/>
-          <input type='submit' onClick={() => {
+          <input type='button' onClick={() => {
             const subdomain = document.getElementById('subdomain').value;
             const recordData = document.getElementById('value').value;
 
