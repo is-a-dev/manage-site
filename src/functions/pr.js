@@ -7,6 +7,7 @@ async function openPR(domain) {
     const token = Object.values(vars)
     const ghtoken = token[0].toString();
     const user = token[1].toString();
+    const repository = token[3].toString();
     console.log(ghtoken);
 
     const octokit = new Octokit({
@@ -14,7 +15,7 @@ async function openPR(domain) {
     })
     const pr = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
         owner: 'is-a-dev',
-        repo: 'register',
+        repo: repository,
         title: 'Add Subdomain:' + domain + ' via Web App',
         body: 'Added the domain  ' + domain + ' to the list of domains',
         head: user + ':main',

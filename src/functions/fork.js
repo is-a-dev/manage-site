@@ -6,17 +6,12 @@ import vars from '../vars'
 
 
 //make fork function
-async function fork(repository) {  
-    if (repository === undefined) {
-        repository = 'register';
-      }
-   // if (owner === undefined) {
-   //     owner = 'is-a-dev';
-   //   }  
+async function fork() {  
     const { Octokit } = require("@octokit/core");
     const { createTokenAuth } = require("@octokit/auth-token");
     const token = Object.values(vars)
     const ghtoken = token[0].toString();
+    const repository = token[3].toString();
     console.log(ghtoken);
 
     const octokit = new Octokit({

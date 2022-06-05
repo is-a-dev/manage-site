@@ -11,6 +11,7 @@ async function commit(domain, FileContents) {
     const ghtoken = token[0].toString();
     const user = token[1].toString();
     const email = token[2].toString();
+    const repository = token[3].toString();
     console.log(ghtoken);
     const contentEncoded = Base64.encode(FileContents);
 
@@ -22,7 +23,7 @@ async function commit(domain, FileContents) {
     let fileName = ChosenDomain.concat(type);
     const { data } = await octokit.repos.createOrUpdateFileContents({
               owner: user,
-              repo: "register",
+              repo: repository,
               path: 'domains/' + fileName,
               message: "feat: Added domain programatically",
               content: contentEncoded,

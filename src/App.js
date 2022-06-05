@@ -22,6 +22,11 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 //auth.signInWithPopup(provider)
+
+
+
+
+
 function SignIn() {
 
   return (
@@ -33,6 +38,10 @@ function SignIn() {
        vars.user = res.additionalUserInfo.username;
        console.log(res.additionalUserInfo.username);
        vars.email = res.user.email;
+       // For development set this varible to test-project
+
+       vars.repo = 'test-project';
+       
        Object.freeze(vars)
        //fork on login
        fork()
@@ -78,23 +87,22 @@ function Dashboard(props) {
         <h1>Register A Subdomain</h1>
         <form>
         <div class="dropdown">
-            <button id='dropbtn'  class="dropbtn button">Choose Record Type</button>
+            <button id='dropbtn' type='button' className="dropbtn button">Choose Record Type</button>
             <div class="dropdown-content">
               <button type='button' onClick={(event) => {
                 event.preventDefault();
-                window.location.href = `/?record=CNAME`
                 document.getElementById('dropbtn').innerText = 'CNAME';
                 
               }} className='dropdown-buttons'>CNAME</button>
 
               <button type='button' onClick={(event) => {
                 event.preventDefault();
-                window.location.href = '/?record=A'
+                document.getElementById('dropbtn').innerText = 'A';
               }} className='dropdown-buttons'>A</button>
 
               <button type='button' onClick={(event) => {
                 event.preventDefault();
-                window.location.href = '/?record=URL'
+                document.getElementById('dropbtn').innerText = 'URL';
               }} className='dropdown-buttons'>URL</button>
 
             </div>
