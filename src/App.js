@@ -51,6 +51,10 @@ function SignIn() {
 }
 
 function App() {
+  window.addEventListener('load', (event) => {
+    auth.signOut()
+  });
+  
   const [user] = useAuthState(auth);
   
 
@@ -88,7 +92,7 @@ function Dashboard(props) {
         <form>
         <div className="dropdown">
             <button id='dropbtn' type='button' className="dropbtn button">Choose Record Type</button>
-            <div class="dropdown-content">
+            <div className="dropdown-content">
               <button type='button' onClick={(event) => {
                 event.preventDefault();
                 document.getElementById('dropbtn').innerText = 'CNAME';
