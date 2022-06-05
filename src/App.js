@@ -38,9 +38,9 @@ function SignIn() {
        vars.user = res.additionalUserInfo.username;
        console.log(res.additionalUserInfo.username);
        vars.email = res.user.email;
+       
        // For development set this varible to test-project
-
-       vars.repo = 'test-project';
+       vars.repo = 'register';
 
        Object.freeze(vars)
        //fork on login
