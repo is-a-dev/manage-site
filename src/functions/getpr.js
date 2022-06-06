@@ -19,8 +19,6 @@ async function getpr() {
         user: user
     })
     res.then(res => {
-        console.log(res.data)
-        console.log(res.data[0].html_url)
         const url = res.data[0].html_url
         window.open(url, '_blank', 'noopener,noreferrer');
     })
