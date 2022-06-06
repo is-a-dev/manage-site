@@ -12,7 +12,6 @@ async function fork() {
     const token = Object.values(vars)
     const ghtoken = token[0].toString();
     const repository = token[3].toString();
-    console.log(ghtoken);
 
     const octokit = new Octokit({
         auth: ghtoken
