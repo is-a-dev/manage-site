@@ -119,7 +119,7 @@ function Dashboard(props) {
           <br />
           <label className='blue'><a href="https://docs.is-a.dev/domain_structure/">Read about record types and domain structure.</a></label>
           <br/>
-          <input type='button' onClick={() => {
+          <button id='register' type='button' onClick={() => {
             const subdomain = document.getElementById('subdomain').value;
             const recordData = document.getElementById('value').value;
 
@@ -134,7 +134,8 @@ function Dashboard(props) {
                 }
               }
             `).then(() => openPR(subdomain));
-          }} className='button-submit' value='Submit'></input>
+            document.getElementById('register').innerText = "Request Submitted";
+          }} className='button-submit'>Register</button>
         </form>
       </div>
       <SignOut />
