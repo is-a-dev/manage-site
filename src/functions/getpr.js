@@ -20,8 +20,13 @@ async function getpr() {
     })
     res.then(res => {
         const url = res.data[0].html_url
+        //pr number is res.data[0].number
         window.open(url, '_blank', 'noopener,noreferrer');
+        fetch("https://api.is-a-dev.asylum-os.com/pr/" + res.data[0].number)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
     })
+    
 
     return res
 
