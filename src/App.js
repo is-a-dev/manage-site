@@ -33,10 +33,8 @@ function SignIn() {
     <button className='button signIn' onClick={()=> {
       githubLoginProvider.addScope('repo');  
       auth.signInWithPopup(githubLoginProvider).then((res)=>{
-       console.log(res.credential.accessToken);
        vars.token = res.credential.accessToken
        vars.user = res.additionalUserInfo.username;
-       console.log(res.additionalUserInfo.username);
        vars.email = res.user.email;
        
        // For development set this varible to test-project
