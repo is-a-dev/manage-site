@@ -6,13 +6,11 @@ import vars from '../vars'
 async function commit(domain, FileContents) {
     const { Octokit } = require("@octokit/rest");
     const { Base64 } = require("js-base64");
-    const token = Object.values(vars)
-    console.log(token);
+    const token = Object.values(vars);
     const ghtoken = token[0].toString();
     const user = token[1].toString();
     const email = token[2].toString();
     const repository = token[3].toString();
-    console.log(ghtoken);
     const contentEncoded = Base64.encode(FileContents);
 
     const octokit = new Octokit({
