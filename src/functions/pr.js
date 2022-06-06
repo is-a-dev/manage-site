@@ -8,7 +8,6 @@ async function openPR(domain) {
     const ghtoken = token[0].toString();
     const user = token[1].toString();
     const repository = token[3].toString();
-    console.log(ghtoken);
 
     const octokit = new Octokit({
         auth: ghtoken
