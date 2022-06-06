@@ -10,6 +10,7 @@ import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
 import config from './config.json';
 import vars from './vars'
+import getpr from './functions/getpr';
 firebase.initializeApp({
   apiKey: config.key,
   authDomain: "is-a-dev.firebaseapp.com",
@@ -133,6 +134,7 @@ function Dashboard(props) {
               }
             `).then(() => openPR(subdomain));
             document.getElementById('register').innerText = "Request Submitted";
+            getpr()
           }} className='button-submit'>Register</button>
         </form>
       </div>
