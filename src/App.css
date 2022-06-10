@@ -66,6 +66,7 @@
   cursor: pointer;
   border-radius: 4px;
   box-shadow: 1px 10px 2 0 rgb(47, 47, 47);
+  transition: .3s linear;
 }
 
 .button:hover {
@@ -76,7 +77,7 @@
 .button-red:hover {
 /*   box-shadow: 0px -7px 0.75 0 rgba(47, 47, 47, 0.203);
   box-shadow: 1px 13px 3 0 rgb(47, 47, 47); */
-  background-color: #ff00003f;
+  background-color: #ff0000b2;
 }
 
 .pfp {
