@@ -45,7 +45,7 @@ function SignIn() {
        //fork on login
        fork()
       })
-    }}>Sign In With GitHub</button>
+    }}>Sign in with GitHub</button>
   );
 }
 
@@ -84,7 +84,7 @@ function Dashboard(props) {
     <center>
     <img alt='pfp.png' className='pfp userItem-1' src={pfp}></img>
       <div className='userItemContainer'>
-        <h2 className='white userItem-2'>Logged In As {name}</h2>
+        <h2 className='white userItem-2'>Logged in as {name}</h2>
       </div>
       <div className='form-container'>
         <h1>Register A Subdomain</h1>
