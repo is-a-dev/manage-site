@@ -12,6 +12,7 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import config from './config.json';
 import vars from './vars'
 import getpr from './functions/getpr';
+const betatesters = require('./betatesters');
 firebase.initializeApp({
   apiKey: config.key,
   authDomain: "is-a-dev.firebaseapp.com",
@@ -42,6 +43,12 @@ function SignIn() {
        Object.freeze(vars)
        //fork on login
        fork()
+      // remove after beta
+      
+      if(!betatesters.includes(vars.email)) {
+        auth.currentUser.delete()
+        alert('You are not a beta tester!')
+      }
       })
     }}>Sign in with GitHub</button>
   );
