@@ -1,13 +1,13 @@
 module.exports = [
-    "mahir@molai.dev",
-    "therealhackermon@gmail.com",
-    "mousemoosz@protonmail.com",
-    "contact@mail.badboy.is-a.dev",
+    "327953@mariscollege.nl",
     "an4g7k@gmail.com",
     "andrew@win11react.com",
+    "contact@mail.badboy.is-a.dev",
     "kumarjhaabhishek2002@gmail.com",
-    "327953@mariscollege.nl",
+    "lukasbatema@gmail.com",
+    "mahir@molai.dev",
+    "mousemoosz@protonmail.com",
     "omsenjalia@gmail.com",
-    "william@williamharrison.dev",
-    "lukasbatema@gmail.com"
+    "therealhackermon@gmail.com",
+    "william@williamharrison.dev"
 ]
