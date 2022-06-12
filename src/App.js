@@ -8,6 +8,7 @@ import fork from './functions/fork';
 import openPR from './functions/pr';
 import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import config from './config.json';
 import vars from './vars'
 import getpr from './functions/getpr';
@@ -23,10 +24,7 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 //auth.signInWithPopup(provider)
-
-
-
-
+const db = getFirestore();
 
 function SignIn() {
 
@@ -134,6 +132,10 @@ function Dashboard(props) {
               }
             `).then(() => openPR(subdomain));
             document.getElementById('register').innerText = "Request Submitted";
+            const docRef = addDoc(collection(db, "users"), {
+              domains: subdomain,
+              username: name
+            });
             getpr()
           }} className='button-submit'>Register</button>
         </form>
