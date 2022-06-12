@@ -40,7 +40,6 @@
 
 .button {
   background-color: #0f0c19;
-/*   border: none; */
   color: #fff;
   padding: 15px 32px;
   text-align: center;
@@ -49,15 +48,12 @@
   font-size: 24px;
   margin: 4px 2px;
   cursor: pointer;
-  border: 2px #0f0c19;
   border-radius: 30px;
-/*   box-shadow: 1px 10px 2 0 rgb(47, 47, 47); */
   transition: .3s linear;
 }
 
 .button-red {
-  background-color: red;
-/*   border: none; */
+  background-color: #ff0000;
   color: #fff;
   padding: 15px 32px;
   text-align: center;
@@ -67,21 +63,16 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 30px;
-/*   box-shadow: 1px 10px 2 0 rgb(47, 47, 47); */
   transition: .3s linear;
 }
 
 .button:hover {
-  border: 2px red;
-/*   box-shadow: 0px -7px 0.75 0 rgba(47, 47, 47, 0.203);
-  box-shadow: 1px 13px 3 0 rgb(47, 47, 47); */
+  border: 2px #0f0c19;
   background-color: #0f0c19b2;
 }
 
 .button-red:hover {
-  border: 2px red;
-/*   box-shadow: 0px -7px 0.75 0 rgba(47, 47, 47, 0.203);
-  box-shadow: 1px 13px 3 0 rgb(47, 47, 47); */
+  border: 2px #ff0000;
   background-color: #ff0000b2;
 }
 
