@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -22,7 +22,7 @@ Sentry.init({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ErrorBoundary FallbackComponent={ErrorFallback}><App /></ErrorBoundary>
+    <Suspense fallback={<h1>Loading...</h1>}><ErrorBoundary FallbackComponent={ErrorFallback}><App /></ErrorBoundary></Suspense>
   </React.StrictMode>
 );
 
