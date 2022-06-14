@@ -67,12 +67,12 @@
 }
 
 .button:hover {
-  border: 2px #0f0c19;
+  border: 2px solid #0f0c19;
   background-color: #0f0c19b2;
 }
 
 .button-red:hover {
-  border: 2px #ff0000;
+  border: 2px solid #ff0000;
   background-color: #ff0000b2;
 }
 
@@ -145,7 +145,6 @@ header {
 
 .button-submit {
   background-color: #0f0c19;
-/*   border: none; */
   color: #fff;
   padding: 15px 32px;
   text-align: center;
@@ -155,7 +154,6 @@ header {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
-/*   box-shadow: 1px 10px 2 0 rgb(47, 47, 47); */
   position: fixed;
   top: 70%;
   left: 47.7%;
@@ -163,8 +161,8 @@ header {
 }
 
 .button-submit {
+  border: 2px solid red;
   background-color: #0f0c19b2;
-  border: 2px red;
 }
 
 .dropbtn {
