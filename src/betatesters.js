@@ -10,5 +10,5 @@ module.exports = [
     "omsenjalia@gmail.com",
     "therealhackermon@gmail.com",
     "william@williamharrison.dev",
-    "lukasbatema@mg.batemadevelopment.com​"
+    "lukasbatema@mg.batemadevelopment.com"
 ]
