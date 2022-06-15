@@ -9,5 +9,6 @@ module.exports = [
     "mousemoosz@protonmail.com",
     "omsenjalia@gmail.com",
     "therealhackermon@gmail.com",
-    "william@williamharrison.dev"
+    "william@williamharrison.dev",
+    "lukasbatema@mg.batemadevelopment.com​"
 ]
