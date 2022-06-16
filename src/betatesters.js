@@ -5,10 +5,10 @@ module.exports = [
     "contact@mail.badboy.is-a.dev",
     "kumarjhaabhishek2002@gmail.com",
     "lukasbatema@gmail.com",
+    "lukasbatema@mg.batemadevelopment.com"
     "mahir@molai.dev",
     "mousemoosz@protonmail.com",
     "omsenjalia@gmail.com",
     "therealhackermon@gmail.com",
-    "william@williamharrison.dev",
-    "lukasbatema@mg.batemadevelopment.com"
+    "william@williamharrison.dev"
 ]
