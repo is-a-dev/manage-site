@@ -49,7 +49,7 @@
   font-size: 24px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: .3s linear;
 }
 
@@ -64,7 +64,7 @@
   font-size: 24px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: .3s linear;
 }
 
