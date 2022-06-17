@@ -15,7 +15,7 @@ import getpr from './functions/getpr';
 const betatesters = require('./betatesters');
 firebase.initializeApp({
   apiKey: config.key,
-  authDomain: "is-a-dev.firebaseapp.com",
+  authDomain: "is-a-dev.auth.andrewstech.me",
   projectId: "is-a-dev",
   storageBucket: "is-a-dev.appspot.com",
   messagingSenderId: "611825040570",
