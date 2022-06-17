@@ -137,13 +137,11 @@ function Dashboard(props) {
                   "${document.getElementById('dropbtn').innerText}": "${recordData}"
                 }
               }
-            `).then(() => openPR(subdomain));
-            document.getElementById('register').innerText = "Request Submitted";
+            `).then(() => document.getElementById('register').innerText = "Request Submitted");
             const docRef = addDoc(collection(db, "users"), {
               domains: subdomain,
               username: name
             });
-            getpr()
           }} className='button-submit'>Register</button>
         </form>
       </div>
