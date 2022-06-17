@@ -8,6 +8,7 @@ import fork from './functions/fork';
 import openPR from './functions/pr';
 import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
+const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import config from './config.json';
 import vars from './vars'
@@ -26,6 +27,14 @@ const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 //auth.signInWithPopup(provider)
 const db = getFirestore();
+
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH'),
+
+  // Optional argument. If true, the SDK automatically refreshes App Check
+  // tokens as needed.
+  isTokenAutoRefreshEnabled: true
+})
 
 function SignIn() {
 
