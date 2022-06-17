@@ -92,7 +92,6 @@ function Dashboard(props) {
         <h2 className='white userItem-2'>Logged in as {name}</h2>
       </div>
       <div className='form-container'>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>  
         <h1>Register A Subdomain</h1>
         <form>
         <div className="dropdown">
@@ -114,8 +113,6 @@ function Dashboard(props) {
                 event.preventDefault();
                 document.getElementById('dropbtn').innerText = 'URL';
               }} className='dropdown-buttons'>URL</button>
-
-              <div class="g-recaptcha" data-sitekey="6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH"></div>
 
             </div>
           </div>
@@ -145,6 +142,7 @@ function Dashboard(props) {
               domains: subdomain,
               username: name
             });
+    
           }} className='button-submit'>Register</button>
         </form>
       </div>
