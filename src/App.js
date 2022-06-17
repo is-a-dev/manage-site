@@ -8,7 +8,6 @@ import fork from './functions/fork';
 import openPR from './functions/pr';
 import commit from './functions/commit';
 import { GithubAuthProvider, OAuthCredential } from 'firebase/auth';
-const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import config from './config.json';
 import vars from './vars'
@@ -23,18 +22,12 @@ firebase.initializeApp({
   appId: "1:611825040570:web:98f70d5aaf5861552e1683",
   measurementId: "G-K9WXR60DWJ"
 });
+
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 //auth.signInWithPopup(provider)
 const db = getFirestore();
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH'),
-
-  // Optional argument. If true, the SDK automatically refreshes App Check
-  // tokens as needed.
-  isTokenAutoRefreshEnabled: true
-})
 
 function SignIn() {
 
@@ -122,6 +115,8 @@ function Dashboard(props) {
                 event.preventDefault();
                 document.getElementById('dropbtn').innerText = 'URL';
               }} className='dropdown-buttons'>URL</button>
+
+              <div class="g-recaptcha" data-sitekey="6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
 
             </div>
           </div>
