@@ -22,10 +22,12 @@ firebase.initializeApp({
   appId: "1:611825040570:web:98f70d5aaf5861552e1683",
   measurementId: "G-K9WXR60DWJ"
 });
+
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 //auth.signInWithPopup(provider)
 const db = getFirestore();
+
 
 function SignIn() {
 
@@ -114,6 +116,8 @@ function Dashboard(props) {
                 document.getElementById('dropbtn').innerText = 'URL';
               }} className='dropdown-buttons'>URL</button>
 
+              <div class="g-recaptcha" data-sitekey="6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+
             </div>
           </div>
           <br />
@@ -137,13 +141,12 @@ function Dashboard(props) {
                   "${document.getElementById('dropbtn').innerText}": "${recordData}"
                 }
               }
-            `).then(() => openPR(subdomain));
-            document.getElementById('register').innerText = "Request Submitted";
+            `).then(() => document.getElementById('register').innerText = "Request Submitted");
             const docRef = addDoc(collection(db, "users"), {
               domains: subdomain,
               username: name
             });
-            getpr()
+    
           }} className='button-submit'>Register</button>
         </form>
       </div>
