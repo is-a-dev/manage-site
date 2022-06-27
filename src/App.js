@@ -85,6 +85,9 @@ function Dashboard(props) {
   const record = queryParams.get("records")
   const name = auth.currentUser.displayName;
   const pfp = auth.currentUser.photoURL;
+  if(name == null){ 
+       auth.signOut(); 
+  } 
 
   return (
     <>
