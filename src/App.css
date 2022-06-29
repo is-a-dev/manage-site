@@ -141,7 +141,7 @@ header {
 .footer {
   position: fixed;
   top: 93%;
-  left: 33%;
+  left: 45%;
 }
 
 .button-submit {
@@ -155,8 +155,7 @@ header {
   font-size: 20px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 4px;
-  box-shadow: 1px 10px 2 0 rgb(47, 47, 47);
+  border-radius: 8px;
   position: fixed;
   top: 70%;
   left: 47.7%;
