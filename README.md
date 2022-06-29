@@ -1,6 +1,4 @@
-# is-a-dev
-This is a site for registering subdomains with is-a.dev!
+# is-a.dev Registration
+Register your own is-a.dev subdomain!
 
-*hosted on cloudflare pages* also known as WHY DO YOU TAKE SO LONG TO DEPLOY UGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-
-Made with ❤️ by people
+Made with :heart: by [andrewstech](https://github.com/andrewstech), [Mahir Molai](https://github.com/mtgsquad), [William Harrison](https://github.com/williamdavidharrison) and [Lukas-Batema](https://github.com/batemadevelopment).
