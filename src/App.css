@@ -1,9 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
 .App {
   text-align: center;
 }
 
+img {
+  max-width: 100%;
+}
+
 .App-logo {
-  height: 40vmin;
+  /* height: 40vmin; */
   pointer-events: none;
   width: auto;
 }
@@ -50,7 +61,7 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
-  transition: .3s linear;
+  transition: 0.3s linear;
 }
 
 .button-red {
@@ -65,7 +76,7 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
-  transition: .3s linear;
+  transition: 0.3s linear;
 }
 
 .button:hover {
@@ -76,15 +87,14 @@
   background-color: #ff0000b2;
 }
 
+header {
+  background-color: #0f0c19;
+}
+
 .pfp {
-  margin-top: 25px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-}
-
-header {
-  background-color: #0f0c19;
 }
 
 .userItemContainer {
@@ -97,31 +107,31 @@ header {
 
 .userItem-1 {
   position: fixed;
-  top: 2%;
-  left: 2%;
+  top: 1rem;
+  left: 1rem;
 }
 
 .userItem-2 {
   position: fixed;
-  top: 3.33%;
-  left: 5.5%;
+  top: 8px;
+  left: 5rem;
+  font-size: 1.25rem;
 }
 
 .signOut {
-  position: fixed;
+  /* position: fixed; */
   top: 77%;
   left: 53%;
 }
 
 .delete {
-  position: fixed;
+  /* position: fixed; */
   top: 77%;
   left: 40%;
 }
 
-
 .signIn {
-  position: fixed;
+  /* position: fixed; */
   top: 50%;
   left: 45%;
 }
@@ -139,7 +149,7 @@ header {
 }
 
 .footer {
-  position: fixed;
+  /* position: fixed; */
   top: 93%;
   left: 45%;
 }
@@ -156,13 +166,13 @@ header {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
-  position: fixed;
+  /* position: fixed; */
   top: 70%;
   left: 47.7%;
 }
 
 .dropbtn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -179,7 +189,7 @@ header {
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -190,14 +200,20 @@ header {
   display: block;
 }
 
-.dropdown-content button:hover {background-color: #ddd;}
+.dropdown-content button:hover {
+  background-color: #ddd;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
 
 /* Full-width input fields */
-input[type=text] {
+input[type="text"] {
   width: 40%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -207,7 +223,7 @@ input[type=text] {
   border-radius: 16px;
 }
 
-input[type=text]:focus {
+input[type="text"]:focus {
   background-color: #ddd;
   outline: none;
 }

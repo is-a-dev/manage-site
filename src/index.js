@@ -1,13 +1,11 @@
-import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {ErrorBoundary} from 'react-error-boundary'
-import ErrorFallback from './error';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./error";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-
 
 Sentry.init({
   dsn: "https://962651c0d4b74c5fbbeeb1c5e3553476@o1276241.ingest.sentry.io/6471661",
@@ -19,10 +17,14 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<h1>Loading...</h1>}><ErrorBoundary FallbackComponent={ErrorFallback}><App /></ErrorBoundary></Suspense>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <App />
+      </ErrorBoundary>
+    </Suspense>
   </React.StrictMode>
 );
 
