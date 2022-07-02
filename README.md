@@ -8,3 +8,4 @@ Made by:
 * [Mahir Molai](https://github.com/mtgsquad)
 * [William Harrison](https://github.com/williamdavidharrison)
 * [Lukas-Batema](https://github.com/batemadevelopment)
+* [Yashash](https://github.com/yashash1511)
