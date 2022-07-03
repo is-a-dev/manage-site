@@ -108,7 +108,10 @@ function Dashboard(props) {
           <option value="" selected disabled>
             Choose Record Type
           </option>
+          <option value="A">A</option>
           <option value="CNAME">CNAME</option>
+          <option value="MX">MX</option>
+          <option value="TXT">TXT</option>
           <option value="URL">URL</option>
         </select>
 
@@ -128,7 +131,11 @@ function Dashboard(props) {
         data-expired-callback="expiredRecaptchaCallback"
       ></div>
 
-      <a href="https://docs.is-a.dev/domain_structure/">
+      <a
+        href="https://docs.is-a.dev/domain_structure/"
+        target="_blank"
+        rel="noreferrer"
+      >
         Read about record types and domain structure.
       </a>
 
@@ -138,7 +145,16 @@ function Dashboard(props) {
           className="btn-green"
           onClick={() => {
             const subdomain = document.getElementById("subdomain").value;
-            const recordData = document.getElementById("value").value;
+            const recordType = document.getElementById("dropbtn").value;
+
+            let recordData = document.getElementById("value").value;
+            if (recordType === "A" || recordType === "MX") {
+              recordData = JSON.stringify(
+                recordData.split(",").map((s) => s.trim())
+              );
+            } else {
+              recordData = `"${recordData.trim()}"`;
+            }
 
             commit(
               subdomain,
@@ -149,7 +165,7 @@ function Dashboard(props) {
                   "email": "${vars.email}"
                 },
                 "record": {
-                  "${document.getElementById("dropbtn").value}": "${recordData}"
+                  "${recordType}": ${recordData}
                 }
               }
             `
