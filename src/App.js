@@ -12,7 +12,6 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
-const betatesters = require("./betatesters");
 firebase.initializeApp({
   apiKey: config.key,
   authDomain: "auth.is-a.dev",
@@ -65,12 +64,6 @@ function SignIn() {
           Object.freeze(vars);
           //fork on login
           fork();
-          // remove after beta
-
-          if (!betatesters.includes(vars.email)) {
-            auth.currentUser.delete();
-            alert("You are not a beta tester!");
-          }
         });
       }}
     >
