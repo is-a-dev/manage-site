@@ -1,2 +1,2 @@
-const vars = {}
-export default vars
+const vars = {};
+export default vars;
