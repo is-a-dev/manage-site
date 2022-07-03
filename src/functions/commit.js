@@ -20,34 +20,35 @@ async function commit(domain, FileContents) {
   let ChosenDomain = domain;
   let type = ".json";
   let fileName = ChosenDomain.concat(type);
-  let apiurl =
-    "https://api.github.com/repos/is-a-dev/register/contents/domains/" +
-    fileName;
-  try {
-    const response = await fetch(apiurl);
+  fetch(`https://api.github.com/repos/is-a-dev/register/contents/domains/${domain}.json`, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'mtgsquad'
+            }
+        }).then(async(res) => {
+            if(res.status && res.status == 404) {
+                const { data } = await octokit.repos.createOrUpdateFileContents({
+                  owner: user,
+                  repo: repository,
+                  path: "domains/" + fileName,
+                  message: "feat: Added domain programatically",
+                  content: contentEncoded,
+                  committer: {
+                    name: user,
+                    email: email,
+                  },
+                  author: {
+                    name: user,
+                    email: email,
+                  },
+                });
+                openPR(domain);
+                getpr();
+              } else {
+                alert("Domain already exists!");
+        }});
+                
 
-    console.log("response.status: ", response.status); // 👉️ 200
-    console.log(response);
-  } catch (err) {
-    console.log(err);
-    const { data } = await octokit.repos.createOrUpdateFileContents({
-      owner: user,
-      repo: repository,
-      path: "domains/" + fileName,
-      message: "feat: Added domain programatically",
-      content: contentEncoded,
-      committer: {
-        name: user,
-        email: email,
-      },
-      author: {
-        name: user,
-        email: email,
-      },
-    });
-    openPR(domain);
-    getpr();
-  }
 }
 
 export default commit;
