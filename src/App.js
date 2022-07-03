@@ -109,7 +109,6 @@ function Dashboard(props) {
             Choose Record Type
           </option>
           <option value="CNAME">CNAME</option>
-          <option value="A">A</option>
           <option value="URL">URL</option>
         </select>
 
