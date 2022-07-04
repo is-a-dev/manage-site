@@ -1,7 +1,7 @@
 import "@octokit/core";
 import vars from "../vars";
 
-//make fork function
+// Fork Function
 async function fork() {
   const { Octokit } = require("@octokit/core");
   const { createTokenAuth } = require("@octokit/auth-token");
@@ -12,10 +12,12 @@ async function fork() {
   const octokit = new Octokit({
     auth: ghtoken,
   });
+
   const forked = await octokit.request("POST /repos/{owner}/{repo}/forks", {
     owner: "is-a-dev",
     repo: repository,
   });
+
   return forked;
 }
 
