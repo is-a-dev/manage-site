@@ -14,18 +14,17 @@ async function commit(domain, FileContents) {
   const repository = token[3].toString();
   const contentEncoded = Base64.encode(FileContents);
 
-  const octokit = new Octokit({
-    auth: ghtoken,
-  });
+  const octokit = new Octokit({ auth: ghtoken });
   let ChosenDomain = domain;
   let type = ".json";
   let fileName = ChosenDomain.concat(type);
+  
   fetch(`https://api.github.com/repos/is-a-dev/register/contents/domains/${domain}.json`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'User-Agent': 'mtgsquad'
+                "User-Agent": "mtgsquad"
             }
-        }).then(async(res) => {
+        }).then(async (res) => {
             if(res.status && res.status == 404) {
                 const { data } = await octokit.repos.createOrUpdateFileContents({
                   owner: user,
@@ -37,18 +36,18 @@ async function commit(domain, FileContents) {
                     name: user,
                     email: email,
                   },
+
                   author: {
                     name: user,
                     email: email,
-                  },
-                });
+                  }
+                })
+
                 openPR(domain);
                 getpr();
               } else {
                 alert("Domain already exists!");
         }});
-                
-
-}
+  }
 
 export default commit;
