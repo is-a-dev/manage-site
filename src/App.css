@@ -76,6 +76,7 @@ input {
   border-radius: 8px;
   border: none;
 }
+
 #dropbtn,
 #subdomain,
 #value {
@@ -90,9 +91,11 @@ button {
   padding: 12px 16px;
   font-size: 16px;
 }
+
 .btn-red {
   background: red;
 }
+
 .btn-green {
   background: green;
 }
