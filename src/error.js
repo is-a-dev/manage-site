@@ -7,7 +7,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
       <header>
         <img alt="banner.png" src={banner}></img>
       </header>
-      <h1>Something Went Wrong</h1>
+
+      <h1>An error occurred!</h1>
       <pre>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
