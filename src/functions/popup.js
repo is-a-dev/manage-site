@@ -5,7 +5,7 @@ import "reactjs-popup/dist/index.css";
 export default function popups() {
   return (
     <Popup
-      trigger={<button className="button"> Open Modal </button>}
+      trigger={<button className="button">Open Modal</button>}
       modal
       nested
     >
@@ -14,13 +14,14 @@ export default function popups() {
           <button className="close" onClick={close}>
             &times;
           </button>
-          <div className="header"> Baked Beans </div>
-          <div className="content"> Mask Duck is cool</div>
+
+          <div className="header">Baked Beans</div>
+          <div className="content">Mask Duck is cool</div>
           <div className="actions">
             <button
               className="button"
               onClick={() => {
-                console.log("modal closed ");
+                console.log("Modal closed!");
                 close();
               }}
             >
