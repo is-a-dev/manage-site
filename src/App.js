@@ -12,6 +12,7 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
+
 firebase.initializeApp({
   apiKey: config.key,
   authDomain: "auth.is-a.dev",
@@ -24,7 +25,7 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
-//auth.signInWithPopup(provider)
+// auth.signInWithPopup(provider);
 const db = getFirestore();
 
 function App() {
@@ -38,11 +39,10 @@ function App() {
         <img alt="banner" className="banner" src={banner}></img>
       </header>
       <main>{user ? <Dashboard /> : <SignIn />}</main>
+
       <footer>
-        <h3>
-          Please do not share the link for this beta, however you can share
-          screenshots!
-        </h3>
+        <h3>&copy; is-a.dev</h3>
+        <h3>Please do not share the link for this beta, however you may share screenshots!</h3>
       </footer>
     </>
   );
@@ -53,17 +53,18 @@ function SignIn() {
     <button
       onClick={() => {
         githubLoginProvider.addScope("repo");
-        auth.signInWithPopup(githubLoginProvider).then((res) => {
-          vars.token = res.credential.accessToken;
-          vars.user = res.additionalUserInfo.username;
-          vars.email = res.user.email;
+        auth.signInWithPopup(githubLoginProvider)
+          .then((res) => {
+            vars.token = res.credential.accessToken;
+            vars.user = res.additionalUserInfo.username;
+            vars.email = res.user.email;
 
-          // For development set this varible to test-project
-          vars.repo = "register";
+            // For development set this varible to "test-project"
+            vars.repo = "register";
 
-          Object.freeze(vars);
-          //fork on login
-          fork();
+            Object.freeze(vars);
+            // Fork on login
+            fork();
         });
       }}
     >
@@ -79,7 +80,7 @@ function Nav() {
   return (
     <nav>
       <img alt="pfp.png" src={pfp}></img>
-      <h3>Logged in as {name}</h3>
+      <h3>Logged in as: {name}</h3>
     </nav>
   );
 }
@@ -88,13 +89,13 @@ function Dashboard(props) {
   const queryParams = new URLSearchParams(window.location.search);
   const record = queryParams.get("records");
   const name = auth.currentUser.displayName;
-  if (name == null) {
+  if(name == null) {
     auth.signOut();
   }
 
   return (
     <>
-      <h1>Register A Subdomain</h1>
+      <h1>Register a Subdomain</h1>
 
       <div className="btnBox">
         <select id="dropbtn">
@@ -125,11 +126,11 @@ function Dashboard(props) {
       ></div>
 
       <a
-        href="https://docs.is-a.dev/domain_structure/"
+        href="https://docs.is-a.dev/domain_structure"
         target="_blank"
         rel="noreferrer"
       >
-        Read about record types and domain structure.
+        Read more about record types and domain structure.
       </a>
 
       <div className="btnBox">
@@ -139,9 +140,9 @@ function Dashboard(props) {
           onClick={() => {
             const subdomain = document.getElementById("subdomain").value;
             const recordType = document.getElementById("dropbtn").value;
-
             let recordData = document.getElementById("value").value;
-            if (recordType === "A" || recordType === "MX") {
+
+            if(recordType === "A" || recordType === "MX") {
               recordData = JSON.stringify(
                 recordData.split(",").map((s) => s.trim())
               );
@@ -164,9 +165,9 @@ function Dashboard(props) {
             `
             ).then(
               () =>
-                (document.getElementById("register").innerText =
-                  "Request Submitted")
+                (document.getElementById("register").innerText = "Request Submitted")
             );
+
             const docRef = addDoc(collection(db, "users"), {
               domains: subdomain,
               username: name,
