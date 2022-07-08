@@ -149,6 +149,19 @@ function Dashboard(props) {
             } else {
               recordData = `"${recordData.trim()}"`;
             }
+            if(recordData === "null") {
+              alert('No Record value');
+              auth.signOut();
+            }
+            if(subdomain === "null") {
+              alert('No subdomain selected');
+              auth.signOut();
+            }
+            if(recordType === "null") {
+              alert('No record Type selected');
+              auth.signOut();
+            }
+              
 
             commit(
               subdomain,
