@@ -42,7 +42,6 @@ function App() {
 
       <footer>
         <h3>&copy; is-a.dev</h3>
-        <h3>Please do not share the link for this beta, however you may share screenshots!</h3>
       </footer>
     </>
   );
