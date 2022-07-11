@@ -8,8 +8,7 @@ async function openPR(domain) {
   const ghtoken = token[0].toString();
   const user = token[1].toString();
   const repository = token[3].toString();
-  const beta-message = " Via Open Beta Program: https://open-beta.is-a.dev/"
-
+  
   const octokit = new Octokit({
     auth: ghtoken,
   });
@@ -17,7 +16,7 @@ async function openPR(domain) {
     owner: "is-a-dev",
     repo: repository,
     title: "BETA" + "Add Subdomain:" + domain,
-    body: "Added the domain  " + domain + beta-message,
+    body: "Added the domain  " + domain,
     head: user + ":main",
     base: "main",
   });
