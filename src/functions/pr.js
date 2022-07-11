@@ -15,7 +15,7 @@ async function openPR(domain) {
   const pr = await octokit.request("POST /repos/{owner}/{repo}/pulls", {
     owner: "is-a-dev",
     repo: repository,
-    title: "BETA" + "Add Subdomain:" + domain,
+    title: "BETA  " + "Add Subdomain:" + domain,
     body: "Added the domain  " + domain,
     head: user + ":main",
     base: "main",
