@@ -15,7 +15,7 @@ import vars from "./vars";
 
 firebase.initializeApp({
   apiKey: config.key,
-  authDomain: "open-beta-is-dev.firebaseapp.com",
+  authDomain: "open-beta.isa.win11react.com",
   projectId: "open-beta-is-dev",
   storageBucket: "open-beta-is-dev.appspot.com",
   messagingSenderId: "376394020338",
