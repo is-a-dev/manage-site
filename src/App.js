@@ -112,9 +112,10 @@ function Dashboard(props) {
           id="subdomain"
           type="text"
           placeholder="Subdomain (without .is-a.dev)"
+          required="required"
         />
 
-        <input id="value" type="text" placeholder="Record Value" />
+        <input id="value" type="text" placeholder="Record Value" required="required" />
       </div>
 
       <div
