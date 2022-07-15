@@ -41,7 +41,8 @@ function App() {
       <main>{user ? <Dashboard /> : <SignIn />}</main>
 
       <footer>
-        <h3>&copy; is-a.dev</h3>
+        <h3>&copy; 2022 is-a.dev</h3>
+        <h3></h3>
         <h3>Please do not share the link for this beta, however you may share screenshots!</h3>
       </footer>
     </>
@@ -89,7 +90,8 @@ function Dashboard(props) {
   const queryParams = new URLSearchParams(window.location.search);
   const record = queryParams.get("records");
   const name = auth.currentUser.displayName;
-  if(name == null) {
+  
+if(name == null) {
     auth.signOut();
   }
 
@@ -131,7 +133,7 @@ function Dashboard(props) {
         target="_blank"
         rel="noreferrer"
       >
-        Read more about record types and domain structure.
+        Read more about record types and domain structure here.
       </a>
 
       <div className="btnBox">
