@@ -104,17 +104,22 @@ if(name == null) {
       <h1>Register a Subdomain</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-      <select {...register("Type", { required: true })}>
-        <option value="A">A</option>
-        <option value="CNAME">CNAME</option>
-        <option value="MX">MX</option>
-        <option value="TXT">TXT</option>
-        <option value="URL">URL</option>
-      </select>
-      <input type="text" placeholder="subdomain" {...register("subdomain", {required: true, max: 12})} />
-      <input type="text" placeholder="Record value" {...register("value", {required: true})} />
+      <div className="btnBox">  
+          <select id="dropbtn" {...register("Type", { required: true })}>  
+          <option value="" selected disabled>
+                Choose Record Type
+              </option>
+            <option value="A">A</option>
+            <option value="CNAME">CNAME</option>
+            <option value="MX">MX</option>
+            <option value="TXT">TXT</option>
+            <option value="URL">URL</option>
+          </select>
+          </div>
+      <input type="text" id="subdomain" placeholder="subdomain" {...register("subdomain", {required: true, max: 12})} />
+      <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
       <div className="btnBox">
-        <input id="register" className="btn-green" type="submit" />
+        <input id="register" className="btn-submit" type="submit" />
       </div>
     </form>
 

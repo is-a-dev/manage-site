@@ -92,6 +92,16 @@ button {
   font-size: 16px;
 }
 
+.btn-submit {
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  background: green;
+}
+
 .btn-red {
   background: red;
 }
