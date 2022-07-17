@@ -16,12 +16,12 @@ import vars from "./vars";
 
 firebase.initializeApp({
   apiKey: config.key,
-  authDomain: "auth.is-a.dev",
-  projectId: "is-a-dev",
-  storageBucket: "is-a-dev.appspot.com",
-  messagingSenderId: "611825040570",
-  appId: "1:611825040570:web:98f70d5aaf5861552e1683",
-  measurementId: "G-K9WXR60DWJ",
+  authDomain: "open-beta.isa.win11react.com",
+  projectId: "open-beta-is-dev",
+  storageBucket: "open-beta-is-dev.appspot.com",
+  messagingSenderId: "376394020338",
+  appId: "1:376394020338:web:ecae3033a961741902276b",
+  measurementId: "G-P2MGDWCFP9",
 });
 
 const auth = firebase.auth();
@@ -42,9 +42,7 @@ function App() {
       <main>{user ? <Dashboard /> : <SignIn />}</main>
 
       <footer>
-        <h3>&copy; 2022 is-a.dev</h3>
-        <h3></h3>
-        <h3>Please do not share the link for this beta, however you may share screenshots!</h3>
+        <h3>&copy; is-a.dev</h3>
       </footer>
     </>
   );
@@ -125,9 +123,6 @@ if(name == null) {
 
       <div className="btnBox">
         <button onClick={() => auth.signOut()}>Sign Out</button>
-        <button className="btn-red" onClick={() => auth.currentUser.delete()}>
-          Delete Account
-        </button>
       </div>
     </>
   );
