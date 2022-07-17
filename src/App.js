@@ -4,6 +4,7 @@ import "firebase/compat/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useForm } from 'react-hook-form';
 import "./App.css";
 import banner from "./assets/banner.png";
 import config from "./config.json";
@@ -90,6 +91,9 @@ function Dashboard(props) {
   const queryParams = new URLSearchParams(window.location.search);
   const record = queryParams.get("records");
   const name = auth.currentUser.displayName;
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => dostuff(data);
+  console.log(errors);
   
 if(name == null) {
     auth.signOut();
@@ -99,100 +103,22 @@ if(name == null) {
     <>
       <h1>Register a Subdomain</h1>
 
+      <form onSubmit={handleSubmit(onSubmit)}>
+      <select {...register("Type", { required: true })}>
+        <option value="A">A</option>
+        <option value="CNAME">CNAME</option>
+        <option value="MX">MX</option>
+        <option value="TXT">TXT</option>
+        <option value="URL">URL</option>
+      </select>
+      <input type="text" placeholder="subdomain" {...register("subdomain", {required: true, max: 12})} />
+      <input type="text" placeholder="Record value" {...register("value", {required: true})} />
       <div className="btnBox">
-        <select id="dropbtn">
-          <option value="" selected disabled>
-            Choose Record Type
-          </option>
-          <option value="A">A</option>
-          <option value="CNAME">CNAME</option>
-          <option value="MX">MX</option>
-          <option value="TXT">TXT</option>
-          <option value="URL">URL</option>
-        </select>
-
-        <input
-          id="subdomain"
-          type="text"
-          placeholder="Subdomain (without .is-a.dev)"
-          required="required"
-        />
-
-        <input id="value" type="text" placeholder="Record Value" required="required" />
+        <input id="register" className="btn-green" type="submit" />
       </div>
-
-      <div
-        className="g-recaptcha"
-        data-sitekey="6Le5KHsgAAAAAFy50r1Jiw1_Uh-Ru3Jl2FWGLUIH"
-        data-callback="verifyRecaptchaCallback"
-        data-expired-callback="expiredRecaptchaCallback"
-      ></div>
-
-      <a
-        href="https://docs.is-a.dev/domain_structure"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Read more about record types and domain structure here.
-      </a>
+    </form>
 
       <div className="btnBox">
-        <button
-          id="register"
-          className="btn-green"
-          onClick={() => {
-            const subdomain = document.getElementById("subdomain").value;
-            const recordType = document.getElementById("dropbtn").value;
-            let recordData = document.getElementById("value").value;
-
-            if(recordType === "A" || recordType === "MX") {
-              recordData = JSON.stringify(
-                recordData.split(",").map((s) => s.trim())
-              );
-            } else {
-              recordData = `"${recordData.trim()}"`;
-            }
-            if(recordData === "null") {
-              alert('No Record value');
-              auth.signOut();
-            }
-            if(subdomain === "null") {
-              alert('No subdomain selected');
-              auth.signOut();
-            }
-            if(recordType === "null") {
-              alert('No record Type selected');
-              auth.signOut();
-            }
-              
-
-            commit(
-              subdomain,
-              `
-              {
-                "owner": {
-                  "username": "${vars.user}",
-                  "email": "${vars.email}"
-                },
-                "record": {
-                  "${recordType}": ${recordData}
-                }
-              }
-            `
-            ).then(
-              () =>
-                (document.getElementById("register").innerText = "Request Submitted")
-            );
-
-            const docRef = addDoc(collection(db, "users"), {
-              domains: subdomain,
-              username: name,
-            });
-          }}
-        >
-          Register
-        </button>
-
         <button onClick={() => auth.signOut()}>Sign Out</button>
         <button className="btn-red" onClick={() => auth.currentUser.delete()}>
           Delete Account
@@ -200,6 +126,39 @@ if(name == null) {
       </div>
     </>
   );
+}
+
+function dostuff(data) {
+  const subdomain = data.subdomain;
+  const recordType = data.Type;
+  let recordData = data.value;
+
+  if(recordType === "A" || recordType === "MX") {
+    recordData = JSON.stringify(
+      recordData.split(",").map((s) => s.trim())
+    );
+  } else {
+    recordData = `"${recordData.trim()}"`;
+  }
+  commit(
+    subdomain,
+    `
+    {
+      "owner": {
+        "username": "${vars.user}",
+        "email": "${vars.email}"
+      },
+      "record": {
+        "${recordType}": ${recordData}
+      }
+    }
+  `
+  ).then(
+    () =>
+      (document.getElementById("register").innerText = "Request Submitted")
+  );
+
+          
 }
 
 export default App;

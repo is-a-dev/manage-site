@@ -1,0 +1,24 @@
+if(recordType === "A" || recordType === "MX") {
+    recordData = JSON.stringify(
+      recordData.split(",").map((s) => s.trim())
+    );
+  } else {
+    recordData = `"${recordData.trim()}"`;
+  }
+  commit(
+    subdomain,
+    `
+    {
+      "owner": {
+        "username": "${vars.user}",
+        "email": "${vars.email}"
+      },
+      "record": {
+        "${recordType}": ${recordData}
+      }
+    }
+  `
+  ).then(
+    () =>
+      (document.getElementById("register").innerText = "Request Submitted")
+  );
