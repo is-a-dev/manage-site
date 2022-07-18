@@ -16,12 +16,12 @@ import vars from "./vars";
 
 firebase.initializeApp({
   apiKey: config.key,
-  authDomain: "open-beta.isa.win11react.com",
-  projectId: "open-beta-is-dev",
-  storageBucket: "open-beta-is-dev.appspot.com",
-  messagingSenderId: "376394020338",
-  appId: "1:376394020338:web:ecae3033a961741902276b",
-  measurementId: "G-P2MGDWCFP9",
+  authDomain: "auth.is-a.dev",
+  projectId: "is-a-dev",
+  storageBucket: "is-a-dev.appspot.com",
+  messagingSenderId: "611825040570",
+  appId: "1:611825040570:web:98f70d5aaf5861552e1683",
+  measurementId: "G-K9WXR60DWJ",
 });
 
 const auth = firebase.auth();
