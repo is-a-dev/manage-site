@@ -52,7 +52,7 @@ function SignIn() {
   return (
     <button
       onClick={() => {
-        githubLoginProvider.addScope("repo");
+        githubLoginProvider.addScope("public_repo");
         auth.signInWithPopup(githubLoginProvider)
           .then((res) => {
             vars.token = res.credential.accessToken;
