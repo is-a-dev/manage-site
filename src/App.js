@@ -135,7 +135,7 @@ function dostuff(data) {
   const subdomain = data.subdomain;
   const recordType = data.Type;
   let recordData = data.value;
-  let user = ${vars.user};
+  let user = vars.user;
 
   if(recordType === "A" || recordType === "MX") {
     recordData = JSON.stringify(
