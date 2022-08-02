@@ -126,9 +126,7 @@ if(name == null) {
 
       <div className="btnBox">
         <button onClick={() => auth.signOut()}>Sign Out</button>
-        <button className="btn-red" onClick={() => auth.currentUser.delete()}>
-                  Delete Account
-        </button>
+
       </div>
     </>
   );
