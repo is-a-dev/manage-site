@@ -160,6 +160,10 @@ function dostuff(data) {
     () =>
       (document.getElementById("register").innerText = "Request Submitted")
   );
+  const docRef = addDoc(collection(db, "users"), {
+              domains: subdomain,
+              username: name,
+            });
 
           
 }
