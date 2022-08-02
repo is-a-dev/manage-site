@@ -13,6 +13,9 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
+import Popup from './components/Popup'
+
+
 
 firebase.initializeApp({
   apiKey: config.key,
@@ -28,6 +31,7 @@ const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 // auth.signInWithPopup(provider);
 const db = getFirestore();
+let registerPopup = false;
 
 function App() {
   window.addEventListener("load", (event) => auth.signOut());
@@ -99,27 +103,26 @@ if(name == null) {
 
   return (
     <>
-      <h1>Register a Subdomain</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="btnBox">  
-          <select id="dropbtn" {...register("Type", { required: true })}>  
-          <option value="" selected disabled>
-                Choose Record Type
-              </option>
-            <option value="A">A</option>
-            <option value="CNAME">CNAME</option>
-            <option value="MX">MX</option>
-            <option value="TXT">TXT</option>
-            <option value="URL">URL</option>
-          </select>
+        <h1>Register A Subdomain</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="btnBox">  
+            <select id="dropbtn" {...register("Type", { required: true })}>  
+            <option value="" selected disabled>
+                  Choose Record Type
+                </option>
+              <option value="A">A</option>
+              <option value="CNAME">CNAME</option>
+              <option value="MX">MX</option>
+              <option value="TXT">TXT</option>
+              <option value="URL">URL</option>
+            </select>
           </div>
-      <input type="text" id="subdomain" placeholder="subdomain" {...register("subdomain", {required: true, max: 12})} />
-      <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
-      <div className="btnBox">
-        <input id="register" className="btn-submit" type="submit" />
-      </div>
-    </form>
+        <input type="text" id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
+        <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
+        <div className="btnBox">
+          <input id="register" className="btn-submit" type="submit" />
+        </div>
+        </form>
 
       <div className="btnBox">
         <button onClick={() => auth.signOut()}>Sign Out</button>
