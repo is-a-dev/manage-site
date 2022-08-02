@@ -135,6 +135,7 @@ function dostuff(data) {
   const subdomain = data.subdomain;
   const recordType = data.Type;
   let recordData = data.value;
+  let user = ${vars.user};
 
   if(recordType === "A" || recordType === "MX") {
     recordData = JSON.stringify(
@@ -162,7 +163,7 @@ function dostuff(data) {
   );
   const docRef = addDoc(collection(db, "users"), {
               domains: subdomain,
-              username: name,
+              username: user,
             });
 
           
