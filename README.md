@@ -1,4 +1,4 @@
-# is-a.dev Registration
+# is-a.dev Registration!
 
 Register your own is-a.dev subdomain!
 
