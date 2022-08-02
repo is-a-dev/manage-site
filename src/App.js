@@ -126,7 +126,6 @@ if(name == null) {
 
       <div className="btnBox">
         <button onClick={() => auth.signOut()}>Sign Out</button>
-
       </div>
     </>
   );
