@@ -14,7 +14,7 @@ jobs:
         with:
           body: ⌛ Deploy Preview - Build in Progress
           issue-number: ${{ github.event.pull_request.number }}
-          token: ${{ secrets.BOT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v3
         with:
@@ -54,7 +54,7 @@ jobs:
             🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
-          token: ${{ secrets.BOT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ failure() }}
         uses: peter-evans/create-or-update-comment@v2
@@ -64,4 +64,4 @@ jobs:
             🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
-          token: ${{ secrets.BOT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
