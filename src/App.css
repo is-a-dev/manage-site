@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
+  overflow-x: hidden;
 }
 
 :root {
@@ -156,6 +157,43 @@ a {
 }
 
 footer {
-  text-align: center;
-  padding: 1rem;
+  width: 100vw;
+  height: 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer > h3 {
+  font-size: 26px;
+  margin-left: 150px;
+}
+
+footer > .donate {
+  justify-self: flex-end;
+  background: blue;
+  color: white;
+  font-size: 18px;
+  width: 350px;
+  height: 90px;
+  padding: 10px;
+  overflow: hidden;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  padding-left: 30px;
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+footer > .donate > .donate-links {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 5px;
+  width: 300px;
 }
