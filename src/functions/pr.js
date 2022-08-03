@@ -11,15 +11,17 @@ async function openPR(domain) {
   
   const octokit = new Octokit({
     auth: ghtoken,
-  });
+  })
+
   const pr = await octokit.request("POST /repos/{owner}/{repo}/pulls", {
     owner: "is-a-dev",
     repo: repository,
-    title: "Add Subdomain: " + domain + " | Beta",
-    body: "Added the domain  " + domain,
+    title: "Register Subdomain: " + domain,
+    body: "Added the domain: " + domain,
     head: user + ":main",
     base: "main",
   });
+
   return pr;
 }
 
