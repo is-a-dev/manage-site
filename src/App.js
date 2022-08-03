@@ -13,9 +13,7 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
-import Popup from './components/Popup'
-
-
+import Popup from "./components/Popup"
 
 firebase.initializeApp({
   apiKey: config.key,
@@ -25,7 +23,7 @@ firebase.initializeApp({
   messagingSenderId: "611825040570",
   appId: "1:611825040570:web:98f70d5aaf5861552e1683",
   measurementId: "G-K9WXR60DWJ",
-});
+})
 
 const auth = firebase.auth();
 const githubLoginProvider = new firebase.auth.GithubAuthProvider();
@@ -99,7 +97,7 @@ function Dashboard(props) {
   
 if(name == null) {
     auth.signOut();
-  }
+}
 
   return (
     <>
@@ -128,7 +126,7 @@ if(name == null) {
         <button onClick={() => auth.signOut()}>Sign Out</button>
       </div>
     </>
-  );
+  )
 }
 
 function dostuff(data) {
@@ -144,6 +142,7 @@ function dostuff(data) {
   } else {
     recordData = `"${recordData.trim()}"`;
   }
+
   commit(
     subdomain,
     `
@@ -152,6 +151,7 @@ function dostuff(data) {
         "username": "${vars.user}",
         "email": "${vars.email}"
       },
+
       "record": {
         "${recordType}": ${recordData}
       }
@@ -160,11 +160,12 @@ function dostuff(data) {
   ).then(
     () =>
       (document.getElementById("register").innerText = "Request Submitted")
-  );
+  )
+
   const docRef = addDoc(collection(db, "users"), {
               domains: subdomain,
               username: user,
-            });
+   });
 
           
 }
