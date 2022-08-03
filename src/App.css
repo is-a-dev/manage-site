@@ -197,3 +197,7 @@ footer > .donate > .donate-links {
   gap: 5px;
   width: 300px;
 }
+
+footer > .donate > .donate-links > img {
+  cursor: pointer;
+}

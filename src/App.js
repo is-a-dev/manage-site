@@ -48,8 +48,8 @@ function App() {
         <div className="donate">
           <p>Consider donating here:</p>
           <div className="donate-links">
-            <img className="kofi" onClick={() => window.location.href="https://www.buymeacoffee.com/phenax"} src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="119"/>
-            <img className="libera" onClick={() => window.location.href="https://liberapay.com/phenax"} src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge" alt="Liberapay recurring donation button"/>
+            <img onClick={() => window.location.href="https://www.buymeacoffee.com/phenax"} src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="119"/>
+            <img onClick={() => window.location.href="https://liberapay.com/phenax"} src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge" alt="Liberapay recurring donation button"/>
           </div>
         </div>
       </footer>
