@@ -13,7 +13,8 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
-import Popup from "./components/Popup"
+import Popup from "./components/Popup";
+import maintainers from './maintainers'
 
 firebase.initializeApp({
   apiKey: config.key,
@@ -86,12 +87,19 @@ function Nav() {
   const pfp = auth.currentUser.photoURL;
   const name = auth.currentUser.displayName;
 
-  return (
-    <nav>
-      <img alt="pfp.png" src={pfp}></img>
-      <h3>Logged in as: {name}</h3>
-    </nav>
-  );
+  if(maintainers.includes(vars.user.toLowerCase())) {
+    return (
+      <nav>
+        <img alt="pfp.png" src={pfp}></img>
+        <h3>Logged in as: {name} (@is-a-dev/maintainer)</h3>
+      </nav>
+    );
+  } else return (
+          <nav>
+            <img alt="pfp.png" src={pfp}></img>
+            <h3>Logged in as: {name}</h3>
+          </nav>
+        );
 }
 
 function Dashboard(props) {
