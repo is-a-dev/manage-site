@@ -15,6 +15,7 @@ import openPR from "./functions/pr";
 import vars from "./vars";
 import Popup from "./components/Popup";
 import maintainers from './maintainers'
+import helpers from './helpers'
 
 firebase.initializeApp({
   apiKey: config.key,
@@ -92,6 +93,13 @@ function Nav() {
       <nav>
         <img alt="pfp.png" src={pfp}></img>
         <h3>Logged in as: {name} (@is-a-dev/maintainers)</h3>
+      </nav>
+    );
+  } else if(helpers.includes(vars.user)){
+    return (
+      <nav>
+        <img alt="pfp.png" src={pfp}></img>
+        <h3>Logged in as: {name} (@is-a-dev/helpers)</h3>
       </nav>
     );
   } else return (
