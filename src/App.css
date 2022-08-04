@@ -5,7 +5,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
-  overflow-x: hidden;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  display: none;  /* Safari and Chrome */
+  overflow: -moz-scrollbars-none; /* Older Versions Of FireFox */
 }
 
 :root {
