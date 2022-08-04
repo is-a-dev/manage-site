@@ -202,6 +202,10 @@ footer > .donate > .donate-links > img {
   cursor: pointer;
 }
 
+select {
+  padding-right: 5px;
+}
+
 option {
   text-align: center;
   display: flex;
