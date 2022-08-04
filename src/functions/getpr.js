@@ -8,7 +8,7 @@ async function getpr() {
   const user = token[1].toString();
   const repository = token[3].toString();
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-  await delay(5000);
+  await delay(1110);
   const octokit = new Octokit({
     auth: ghtoken,
   });
