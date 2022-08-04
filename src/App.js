@@ -91,7 +91,7 @@ function Nav() {
     return (
       <nav>
         <img alt="pfp.png" src={pfp}></img>
-        <h3>Logged in as: {name} (@is-a-dev/maintainer)</h3>
+        <h3>Logged in as: {name} (@is-a-dev/maintainers)</h3>
       </nav>
     );
   } else return (
