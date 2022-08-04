@@ -94,7 +94,7 @@ select {
 }
 
 option {
-  padding-top: 17px;
+  vertical-align: baseline;
 }
 
 input {
@@ -206,13 +206,3 @@ footer > .donate > .donate-links > img {
   cursor: pointer;
 }
 
-select {
-  padding-right: 17px;
-}
-
-option {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
