@@ -150,10 +150,10 @@ function dostuff(data) {
     recordData = `"${recordData.trim()}"`;
   }
 
-  //let validSubdomain = subdomain.includes === ".is-a.dev" ? subdomain.slice(0, -9) : subdomain;
+  let validSubdomain = subdomain.includes === ".is-a.dev" ? subdomain.slice(0, -9) : subdomain;
 
   commit(
-    subdomain,
+    validSubdomain,
     `
     {
       "owner": {
