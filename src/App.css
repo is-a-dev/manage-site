@@ -94,7 +94,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url("./assets/downArrow.svg") no-repeat right #fff;
+  background: url("./assets/downArrow.svg") no-repeat right #000;
 }
 
 option {
