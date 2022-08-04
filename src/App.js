@@ -87,7 +87,7 @@ function Nav() {
   const pfp = auth.currentUser.photoURL;
   const name = auth.currentUser.displayName;
 
-  if(maintainers.includes(vars.user.toLowerCase())) {
+  if(maintainers.includes(vars.user)) {
     return (
       <nav>
         <img alt="pfp.png" src={pfp}></img>
