@@ -201,3 +201,7 @@ footer > .donate > .donate-links {
 footer > .donate > .donate-links > img {
   cursor: pointer;
 }
+
+select {
+  padding: 0 2%;
+}
