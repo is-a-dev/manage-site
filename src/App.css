@@ -204,4 +204,7 @@ footer > .donate > .donate-links > img {
 
 option {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
