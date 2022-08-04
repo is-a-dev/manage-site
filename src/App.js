@@ -158,7 +158,7 @@ function dostuff(data) {
     recordData = `"${recordData.trim()}"`;
   }
 
-  let validSubdomain = subdomain.includes === ".is-a.dev" ? subdomain.slice(0, -9) : subdomain;
+  let validSubdomain = subdomain.replace(/\.is-a\.dev$/, '');
 
   commit(
     validSubdomain,
