@@ -105,6 +105,7 @@ select {
 
 option {
   vertical-align: baseline;
+  height: 25px;
 }
 
 input {
