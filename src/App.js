@@ -62,6 +62,7 @@ function App() {
 function SignIn() {
   return (
     <button
+    className="margin-top-15px"
       onClick={() => {
         githubLoginProvider.addScope("public_repo");
         auth.signInWithPopup(githubLoginProvider)
