@@ -51,7 +51,7 @@ jobs:
         with:
           body: |
             ✔️ Deploy Preview for Ready!
-            😎 Browse the preview: https://preview.beta.is-a.dev/${{ github.event.pull_request.number }} !
+            😎 Browse the preview: https://${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev !
             🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
