@@ -28,20 +28,6 @@ jobs:
         run: gh repo create is-a-dev-bot/${{ github.event.pull_request.number }} --public
         env:
           GITHUB_TOKEN: ${{ secrets.BOT }}
-          
-      - if: ${{ github.event.action == 'opened'}}
-        uses: actions/checkout@v3
-        with: 
-          repository: is-a-dev-bot/temp
-          path: temp
-          
-      - if: ${{ github.event.action == 'opened'}}
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.BOT }}
-          publish_dir: ./temp
-          external_repository: is-a-dev-bot/${{ github.event.pull_request.number }}
-          cname: ${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev    
 
       - name: Install NPM packages
         run: npm ci
@@ -54,7 +40,6 @@ jobs:
           personal_token: ${{ secrets.BOT }}
           publish_dir: ./build
           external_repository: is-a-dev-bot/${{ github.event.pull_request.number }}
-          cname: ${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev
 
       - name: Sleep to make sure page gets updated
         run: sleep 1m
@@ -65,7 +50,7 @@ jobs:
         with:
           body: |
             ✔️ Deploy Preview for Ready!
-            😎 Browse the preview: https://${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev !
+            😎 Browse the preview: https://preview.beta.is-a.dev/${{ github.event.pull_request.number }} !
             🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
