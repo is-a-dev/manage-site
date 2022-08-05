@@ -13,7 +13,9 @@ import fork from "./functions/fork";
 import getpr from "./functions/getpr";
 import openPR from "./functions/pr";
 import vars from "./vars";
-import Popup from "./components/Popup"
+import Popup from "./components/Popup";
+import maintainers from './maintainers'
+import helpers from './helpers'
 
 firebase.initializeApp({
   apiKey: config.key,
@@ -60,6 +62,7 @@ function App() {
 function SignIn() {
   return (
     <button
+    className="margin-top-15px"
       onClick={() => {
         githubLoginProvider.addScope("public_repo");
         auth.signInWithPopup(githubLoginProvider)
@@ -86,12 +89,33 @@ function Nav() {
   const pfp = auth.currentUser.photoURL;
   const name = auth.currentUser.displayName;
 
-  return (
-    <nav>
-      <img alt="pfp.png" src={pfp}></img>
-      <h3>Logged in as: {name}</h3>
-    </nav>
-  );
+  if(maintainers.includes(vars.user)) {
+    return (
+      <nav>
+        <img alt="pfp.png" src={pfp}></img>
+        <h3>Logged in as: {name} (@is-a-dev/maintainers)</h3>
+      </nav>
+    );
+  } else if(helpers.includes(vars.user)){
+    return (
+      <nav>
+        <img alt="pfp.png" src={pfp}></img>
+        <h3>Logged in as: {name} (@is-a-dev/helpers)</h3>
+      </nav>
+    );
+  } else if(vars.user === "phenax"){
+    return (
+      <nav>
+        <img alt="pfp.png" src={pfp}></img>
+        <h3>Logged in as: {name} (@phenax)</h3>
+      </nav>
+    );
+  } else return (
+          <nav>
+            <img alt="pfp.png" src={pfp}></img>
+            <h3>Logged in as: {name}</h3>
+          </nav>
+        );
 }
 
 function Dashboard(props) {
@@ -122,7 +146,7 @@ if(name == null) {
               <option value="URL">URL</option>
             </select>
           </div>
-        <input type="text" id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
+        <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
         <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
         <div className="btnBox">
           <input id="register" className="btn-submit" type="submit" />
@@ -150,10 +174,10 @@ function dostuff(data) {
     recordData = `"${recordData.trim()}"`;
   }
 
-  //let validSubdomain = subdomain.includes === ".is-a.dev" ? subdomain.slice(0, -9) : subdomain;
+  let validSubdomain = subdomain.replace(/\.is-a\.dev$/, '');
 
   commit(
-    subdomain,
+    validSubdomain,
     `
     {
       "owner": {

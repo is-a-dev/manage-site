@@ -5,13 +5,23 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
-  overflow-x: hidden;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  overflow: -moz-scrollbars-none; /* Older Versions Of FireFox */
+}
+
+*::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }
 
 :root {
   --header-bg: #0f0c19;
   --accent: #4e3aa3;
   --body-fg: #2f2c39;
+  --dark-opposite: #fff;
+  --light-text-opposite: #000;
+  --light-opposite: #000;
+  --dark-text-opposite: #fff;
 }
 
 body {
@@ -91,6 +101,15 @@ select {
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
   -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("./assets/downArrow.svg") no-repeat right #fff;
+}
+
+option {
+  vertical-align: baseline;
+  height: 25px;
 }
 
 input {
@@ -114,6 +133,10 @@ input[type=submit] {
   width: 300px;
 }
 
+.margin-top-15px {
+  margin-top: 15px;
+}
+
 button {
   border-radius: 15px;
   cursor: pointer;
@@ -125,6 +148,12 @@ button {
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
   -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+  transition: 450ms ease-in-out;
+}
+
+button:hover {
+  background: var(--dark-opposite);
+  color: var(--light-text-opposite);
 }
 
 .btn-submit {
@@ -134,15 +163,21 @@ button {
   color: white;
   padding: 12px 16px;
   font-size: 16px;
-  background: green;
+  background: #008000;
+  transition: 450ms ease-in-out;
+}
+
+.btn-submit:hover{
+  background: var(--dark-opposite);
+  color: var(--light-text-opposite);
 }
 
 .btn-red {
-  background: red;
+  background: #ff0000;
 }
 
 .btn-green {
-  background: green;
+  background: #008000;
 }
 
 .btnBox {
@@ -172,7 +207,7 @@ footer > h3 {
 
 footer > .donate {
   justify-self: flex-end;
-  background: blue;
+  background: #4e3aa3;
   color: white;
   font-size: 18px;
   width: 350px;
@@ -200,4 +235,56 @@ footer > .donate > .donate-links {
 
 footer > .donate > .donate-links > img {
   cursor: pointer;
+}
+
+@media (max-width: 660px) {
+  footer > h3 {
+    margin-left: 50px;
+  }
+
+  footer > .donate {
+    margin-bottom: 20px;
+    height: 120px;
+    width: 250px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+  }
+
+  footer > .donate > .donate-links {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 430px) {
+  footer > h3 {
+    margin-left: 30px;
+    font-size: 22px;
+  }
+
+  footer > .donate {
+    margin-bottom: 40px;
+    height: 120px;
+    width: 205px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+  }
+
+  footer > .donate > p {
+   text-align: center;
+   font-size: 18px;
+  }
+
+  footer > .donate > .donate-links {
+    flex-direction: column;
+  }
+
+  footer > .donate > .donate-links > img {
+    width: 100px;
+    height: 20px;
+    
+  }
+
+  h1 {
+    text-align: center;
+  }
 }
