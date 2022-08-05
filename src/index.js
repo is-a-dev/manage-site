@@ -8,7 +8,7 @@ import ErrorFallback from "./error";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -27,12 +27,12 @@ root.render(
   <React.StrictMode>
     <Suspense fallback={<h1>Loading...</h1>}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="helpers" element={<Helpers />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
       </ErrorBoundary>
     </Suspense>
   </React.StrictMode>
