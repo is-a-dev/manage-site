@@ -9,7 +9,7 @@ function Helpers() {
         <img alt="banner.png" src={banner}></img>
       </header>
 
-      <h1>Page awaiting setup</h1>
+      <h1>Page awaiting setup!</h1>
     </div>
   );
 }
