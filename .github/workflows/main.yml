@@ -40,6 +40,7 @@ jobs:
           personal_token: ${{ secrets.BOT }}
           publish_dir: ./build
           external_repository: is-a-dev-bot/${{ github.event.pull_request.number }}
+          cname: ${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev
 
       - name: Sleep to make sure page gets updated
         run: sleep 1m
