@@ -1,11 +1,17 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import Helpers from "./routes/helpers";
 import reportWebVitals from "./reportWebVitals";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./error";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 Sentry.init({
   dsn: "https://962651c0d4b74c5fbbeeb1c5e3553476@o1276241.ingest.sentry.io/6471661",
@@ -21,7 +27,12 @@ root.render(
   <React.StrictMode>
     <Suspense fallback={<h1>Loading...</h1>}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="helpers" element={<Helpers />} />
+        </Routes>
+      </BrowserRouter>
       </ErrorBoundary>
     </Suspense>
   </React.StrictMode>
