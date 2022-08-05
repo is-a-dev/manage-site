@@ -47,7 +47,7 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run PUBLIC_URL=${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev ghbuild
+        run: PUBLIC_URL=${{ github.event.pull_request.number }}.preview.isdev.localplayer.dev npm run ghbuild
 
       - uses: peaceiris/actions-gh-pages@v3
         with:
