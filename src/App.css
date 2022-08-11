@@ -131,6 +131,16 @@ input[type=submit] {
 #subdomain,
 #value {
   width: 300px;
+  border: none;
+  outline:none;
+}
+
+#dropbtn:active,
+#subdomain:active,
+#value:active {
+  border: none;
+  outline:none;
+  width: 450px;
 }
 
 .margin-top-15px {
