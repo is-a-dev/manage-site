@@ -32,31 +32,41 @@ const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 // auth.signInWithPopup(provider);
 const db = getFirestore();
 let registerPopup = false;
+let maintainerMode = false;
 
 function App() {
   window.addEventListener("load", (event) => auth.signOut());
   const [user] = useAuthState(auth);
 
-  return (
-    <>
-      <header>
-        {user ? <Nav /> : ""}
-        <img alt="banner" className="banner" src={banner}></img>
-      </header>
-      <main>{user ? <Dashboard /> : <SignIn />}</main>
-
-      <footer>
-        <h3>&copy; is-a.dev</h3>
-        <div className="donate">
-          <p>Consider donating here:</p>
-          <div className="donate-links">
-            <img onClick={() => window.location.href="https://www.buymeacoffee.com/phenax"} src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="119"/>
-            <img onClick={() => window.location.href="https://liberapay.com/phenax"} src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge" alt="Liberapay recurring donation button"/>
+    return (
+      <>
+        <header>
+          {user ? <Nav /> : ""}
+          <img alt="banner" className="banner" src={banner}></img>
+        </header>
+        {maintainerMode ? <Maintainer/> : <UserMode/>}
+        <footer>
+          <h3>&copy; is-a.dev</h3>
+          <div className="donate">
+            <p>Consider donating here:</p>
+            <div className="donate-links">
+              <img onClick={() => window.location.href="https://www.buymeacoffee.com/phenax"} src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="119"/>
+              <img onClick={() => window.location.href="https://liberapay.com/phenax"} src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge" alt="Liberapay recurring donation button"/>
+            </div>
           </div>
-        </div>
-      </footer>
-    </>
-  );
+        </footer>
+      </>
+    );
+}
+
+function UserMode() {
+  return (
+    <main>{user ? <Dashboard /> : <SignIn />}</main>
+  )
+}
+
+function Maintainer(props) {
+  <main>Logged in as {props.maintainer} (@is-a-dev/maintainers)</main>
 }
 
 function SignIn() {
