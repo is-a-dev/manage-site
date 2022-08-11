@@ -86,6 +86,7 @@ function App() {
 }
 
 function UserMode() {
+  const [user] = useAuthState(auth);
   return (
     <main>{user ? <Dashboard /> : <SignIn />}</main>
   )
