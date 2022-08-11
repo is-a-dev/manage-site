@@ -103,13 +103,6 @@ function Nav() {
         <h3>Logged in as: {name} (@is-a-dev/helpers)</h3>
       </nav>
     );
-  } else if(vars.user === "phenax"){
-    return (
-      <nav>
-        <img alt="pfp.png" src={pfp}></img>
-        <h3>Logged in as: {name} (@phenax)</h3>
-      </nav>
-    );
   } else return (
           <nav>
             <img alt="pfp.png" src={pfp}></img>

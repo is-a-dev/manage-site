@@ -131,6 +131,22 @@ input[type=submit] {
 #subdomain,
 #value {
   width: 300px;
+  border: none;
+  outline:none;
+  transition: width 0.4s ease-in-out;
+}
+
+#dropbtn:active,
+#subdomain:active,
+#value:active {
+  border: none;
+  outline:none;
+}
+
+#dropbtn:focus,
+#subdomain:focus,
+#value:focus{
+  width: 450px;
 }
 
 .margin-top-15px {
