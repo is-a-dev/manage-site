@@ -101,6 +101,8 @@ function Nav() {
   const name = auth.currentUser.displayName;
 
   if(maintainers.includes(vars.user)) {
+    maintainerMode = true;
+
     return (
       <nav>
         <img alt="pfp.png" src={pfp}></img>
