@@ -142,7 +142,7 @@ if(name == null) {
         <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
         <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
         <div className="btnBox">
-          <input id="register" className="btn-submit" type="submit" />
+          <button id="register" className="btn-submit" type="submit" />
         </div>
         </form>
 
