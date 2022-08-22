@@ -139,7 +139,7 @@ if(name == null) {
               <option value="URL">URL</option>
             </select>
           </div>
-        <label class="input-group" id="parentSub">
+        <label className="input-group" id="parentSub">
           <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
           <span>.is-a.dev</span>
         </label>
