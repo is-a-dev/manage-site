@@ -76,7 +76,7 @@ function SignIn() {
 
             Object.freeze(vars);
             // Fork on login
-            //fork();
+            fork();
         });
       }}
     >
@@ -139,7 +139,10 @@ if(name == null) {
               <option value="URL">URL</option>
             </select>
           </div>
-        <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
+        <label class="input-group" id="parentSub">
+          <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
+          <span>.is-a.dev</span>
+        </label>
         <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
         <div className="btnBox">
           <button id="register" className="btn-submit" type="submit" >Register</button>
