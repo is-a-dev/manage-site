@@ -304,3 +304,27 @@ footer > .donate > .donate-links > img {
     text-align: center;
   }
 }
+
+.subdomainfield {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  min-width: 350px;
+}
+
+.subdomainfield > input {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.subdomainfield > span {
+  display: flex;
+  background-color: #f9d5d5;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  font-size: 20px;
+}
