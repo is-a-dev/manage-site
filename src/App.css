@@ -310,8 +310,12 @@ footer > .donate > .donate-links > img {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  max-width: 500px;
+  max-width: 700px;
   min-width: 350px;
+}
+
+.subdomainfield:focus > span {
+  width: 100px;
 }
 
 .subdomainfield > input {
