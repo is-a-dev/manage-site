@@ -332,4 +332,8 @@ footer > .donate > .donate-links > img {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 15px;
   border-top-right-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: center;
 }
