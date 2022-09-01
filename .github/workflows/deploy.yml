@@ -1,4 +1,8 @@
-on: [push]
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
 
 jobs:
   deploy:
