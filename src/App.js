@@ -76,7 +76,7 @@ function SignIn() {
 
             Object.freeze(vars);
             // Fork on login
-            fork();
+            fork(vars.token);
         });
       }}
     >

@@ -2,23 +2,16 @@ import "@octokit/core";
 import vars from "../vars";
 
 // Fork Function
-async function fork() {
-  const { Octokit } = require("@octokit/core");
-  const { createTokenAuth } = require("@octokit/auth-token");
-  const token = Object.values(vars);
-  const ghtoken = token[0].toString();
-  const repository = token[3].toString();
-
-  const octokit = new Octokit({
-    auth: ghtoken,
-  });
-
-  const forked = await octokit.request("POST /repos/{owner}/{repo}/forks", {
-    owner: "is-a-dev",
-    repo: repository,
-  });
-
-  return forked;
+async function fork(token) {
+  const headers = { 'x-gh-auth': token };
+  fetch('https://register-api.is-a.dev/api/fork', { headers })
+    .then(async (res) => {
+      if(res.responce && res.responce == "authorized") {
+        console.log("Forked!");
+      } else {
+        alert("Error: " + res.responce);
+      }
+    });
 }
 
 export default fork;
