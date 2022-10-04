@@ -9,7 +9,7 @@ async function fork(token) {
       if(res.status && res.status == "200") {
         console.log("Forked!");
       } else {
-        alert("Error: " + "not a 200 status code");
+        alert("Error: " + res.status);
       }
     });
 }
