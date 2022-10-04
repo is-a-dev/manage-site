@@ -6,7 +6,7 @@ async function fork(token) {
   const headers = { 'x-gh-auth': token };
   fetch('https://register-api.is-a.dev/api/fork', { headers })
     .then(async (res) => {
-      if(res.status && res.status == "200") {
+      if(res.status && res.status == "202") {
         console.log("Forked!");
       } else {
         alert("Error: " + res.status);
