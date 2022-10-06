@@ -116,8 +116,18 @@ function Dashboard(props) {
   const record = queryParams.get("records");
   const name = auth.currentUser.displayName;
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => dostuff(data);
-  console.log(errors);
+  const onSubmit = async (data) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    };
+
+    const response = await fetch('https://register.is-a.dev/api/commit', requestOptions);
+    const jsonData = await response.json();
+
+    console.log(jsonData);
+}
   
 if(name == null) {
     auth.signOut();
