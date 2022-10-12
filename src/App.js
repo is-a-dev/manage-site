@@ -93,14 +93,14 @@ function Nav() {
     return (
       <nav>
         <img alt="pfp.png" src={pfp}></img>
-        <h3>Logged in as: {name} (@is-a-dev/maintainers)</h3>
+        <h3>Logged in as: [Maintainer] {name}</h3>
       </nav>
     );
   } else if(helpers.includes(vars.user)){
     return (
       <nav>
         <img alt="pfp.png" src={pfp}></img>
-        <h3>Logged in as: {name} (@is-a-dev/helpers)</h3>
+        <h3>Logged in as: [Helper] {name}</h3>
       </nav>
     );
   } else return (
@@ -108,7 +108,7 @@ function Nav() {
             <img alt="pfp.png" src={pfp}></img>
             <h3>Logged in as: {name}</h3>
           </nav>
-        );
+        )
 }
 
 function Dashboard(props) {
@@ -153,9 +153,9 @@ if(name == null) {
           <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
           <span>.is-a.dev</span>
         </div>
-        <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
+        <input type="text" id="value" placeholder="Record Value" {...register("value", {required: true})} />
         <div className="btnBox">
-          <button id="register" className="btn-submit" type="submit" >Register</button>
+          <button id="register" className="btn-submit" type="submit">Register</button>
         </div>
         </form>
 
@@ -185,16 +185,16 @@ function dostuff(data) {
   commit(
     validSubdomain,
     `
-    {
-      "owner": {
-        "username": "${vars.user}",
-        "email": "${vars.email}"
-      },
+{
+  "owner": {
+    "username": "${vars.user}",
+    "email": "${vars.email}"
+  },
 
-      "record": {
-        "${recordType}": ${recordData}
-      }
-    }
+  "record": {
+    "${recordType}": ${recordData}
+  }
+}
   `
   ).then(
     () =>
@@ -202,11 +202,9 @@ function dostuff(data) {
   )
 
   const docRef = addDoc(collection(db, "users"), {
-              domains: subdomain,
-              username: user,
-   });
-
-          
+    domains: subdomain,
+    username: user,
+  })          
 }
 
 export default App;
