@@ -6,3 +6,5 @@ Register your own is-a.dev subdomain!
 
 ### Contribution
 Even if you have permission to commit changes directly to the repository, please submit a pull request so we can deploy the changes to a test instance and review the changes first.
+
+Test PR
