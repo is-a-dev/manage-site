@@ -25,7 +25,7 @@ jobs:
           node-version: 16
 
       - if: ${{ github.event.action == "opened"}}
-        run: gh repo create is-a-dev-bot/${{ github.event.pull_request.number }} --public
+        run: gh repo create is-a-dev-bot/register.is-a.dev-pr-${{ github.event.pull_request.number }} --public
         env:
           GITHUB_TOKEN: ${{ secrets.BOT }}
 
@@ -39,7 +39,7 @@ jobs:
         with:
           personal_token: ${{ secrets.BOT }}
           publish_dir: ./build
-          external_repository: is-a-dev-bot/${{ github.event.pull_request.number }}
+          external_repository: is-a-dev-bot/register.is-a.dev-pr-${{ github.event.pull_request.number }}
 
       - name: Sleep to make sure page gets updated
         run: sleep 1m
@@ -50,7 +50,7 @@ jobs:
         with:
           body: |
             ✔️ Deploy Preview Ready
-            😎 Preview: https://preview.beta.is-a.dev/${{ github.event.pull_request.number }}
+            🖱️ Preview: https://preview.beta.is-a.dev/register.is-a.dev-pr-${{ github.event.pull_request.number }}
             🔍 Deploy Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
