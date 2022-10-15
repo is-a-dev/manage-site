@@ -19,6 +19,7 @@ If your domain points to a server you own, add your-domain.is-a.dev to your doma
 **Made a mistake in the record?** Don't worry, you can create a new pull request with the corrections.
 
 ---
+
 👍 Like the service? Please consider [donating](https://www.buymeacoffee.com/phenax) to support the service!
 👎Dislike the service? Please tell us why by opening an issue [here](https://github.com/is-a-dev/register/issues/new/choose), so we can improve.
 
