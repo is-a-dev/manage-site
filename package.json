@@ -6,7 +6,7 @@
     "@octokit/auth-token": "^2.5.0",
     "@octokit/core": "^3.6.0",
     "@octokit/rest": "^18.12.0",
-    "@sentry/react": "^7.4.1",
+    "@sentry/react": "^7.17.2",
     "@sentry/tracing": "^7.12.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
