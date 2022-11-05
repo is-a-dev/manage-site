@@ -25,6 +25,10 @@ function isValidURL(string) {
     return (res !== null)
 };
 
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  };
+
 function ValidateIPaddress(ipaddress) {  
     if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {  
       return (true)  
@@ -51,7 +55,7 @@ app.get('/api/fork', function(req,res,next){
 
 });
 
-app.post('/api/commit', function(req, res){
+app.post('/api/commit', async function(req, res){
     var auth = req.header("x-gh-auth");
     var domain = req.header("domain");
     var type = req.header("type");
@@ -113,6 +117,7 @@ app.post('/api/commit', function(req, res){
         throw new Error("Can't commit!");
     }
     );
+    await delay(1000);
     octokit.request("POST /repos/{owner}/{repo}/pulls", {
         owner: "is-a-dev",
         repo: "register",
