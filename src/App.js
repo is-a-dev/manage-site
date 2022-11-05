@@ -162,7 +162,7 @@ if(name == null) {
 
 
 async function Commits(requestOptions) {
-  fetch('https://register.is-a.dev/api/fork', { requestOptions})
+  fetch('https://register.is-a.dev/api/commit', { requestOptions})
     .then(async (res) => {
       if(res.status && res.status == "202") {
         console.log("PR!");
