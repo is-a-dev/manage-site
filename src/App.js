@@ -156,13 +156,9 @@ if(name == null) {
 
 
 async function Commits(data) {
-  const requestOptions = {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
-  };
   fetch('https://register.is-a.dev/api/commit', { method: 'post', headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },})
     .then(async (res) => {
-      if(res.status && res.status === "202") {
+      if(res.status && res.status == "202") {
         console.log("PR!");
         getpr();
       } else {
