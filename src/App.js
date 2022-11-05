@@ -112,8 +112,6 @@ function Nav() {
 }
 
 function Dashboard(props) {
-  const queryParams = new URLSearchParams(window.location.search);
-  const record = queryParams.get("records");
   const name = auth.currentUser.displayName;
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
@@ -138,7 +136,7 @@ if(name == null) {
         <h1>Register A Subdomain</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btnBox">  
-            <select id="dropbtn" {...register("Type", { required: true })}>  
+            <select id="dropbtn" {...register("type", { required: true })}>  
             <option value="" selected disabled>
                   Choose Record Type
                 </option>

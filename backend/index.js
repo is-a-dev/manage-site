@@ -19,6 +19,19 @@ app.use(express.static("public"));
 
 app.use(bodyParser.json());
 
+function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+};
+
+function ValidateIPaddress(ipaddress) {  
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {  
+      return (true)  
+    } 
+    return (false)  
+  }  
+
+
 app.get('/api/fork', function(req,res,next){
     var auth = req.header("x-gh-auth");
     var octokit = new Octokit({
@@ -40,35 +53,43 @@ app.get('/api/fork', function(req,res,next){
 app.post('/api/commit', function(req, res){
     var auth = req.header("x-gh-auth");
     var domain = req.header("domain");
-    console.log(req.body);
+    var type = req.header("type");
+    var content = req.header("content");
     var octokit = new Octokit({
         auth: auth
     })
-    fetch(`https://api.github.com/repos/is-a-dev/register/contents/domains/${domain}.json`, {
-            method: "GET",
-            headers: {
-                "User-Agent": "mtgsquad"
-            }
-        }).then(async (res) => {
-            if(res.status && res.status == 404) {
-                octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-                    owner: 'is-a-dev',
-                    repo: 'register',
-                    path: 'domains/' + domain + '.json',
-                    message: 'Add ' + domain,
-                    content: Buffer.from(JSON.stringify(req.body)).toString('base64')
-                }).then((response) => {
-                    res.send(response.status);
-                }).catch((error) => {
-                    res.send(error.status);
-                }
-                );
-            } else {
-                res.send(response.status);
-            }
 
-        }).catch((error) => {
-            res.send(error.status);
+    var lowcaseDomain = domain.toLowerCase();
+    var LowcaseContent = content.toLowerCase();
+
+    if(type === "CNAME") {
+        if (isValidURL(content) === false) {
+            res.status(335);
+            throw new Error("Invalid Url!");
         }
-        );
+    }
+    if(type === "A") {
+        if (ValidateIPaddress(content) === false) {
+            res.status(335);
+            throw new Error("Invalid IP!");
+        }
+    }
+
+
+
+
+    octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+        owner: 'is-a-dev',
+        repo: 'register',
+        path: 'domains/' + lowcaseDomain + '.json',
+        message: 'Added ' + lowcaseDomain,
+        content: Buffer.from(JSON.stringify(req.body)).toString('base64')
+    }).then((response) => {
+        res.send(response.status);
+    }
+    ).catch((error) => {
+        res.send(error.status);
+    }
+    );
+
 });
