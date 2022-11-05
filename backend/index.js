@@ -51,7 +51,7 @@ app.get('/api/fork', function(req,res,next){
 
 });
 
-app.get('/api/commit', function(req, res){
+app.post('/api/commit', function(req, res){
     var auth = req.header("x-gh-auth");
     var domain = req.header("domain");
     var type = req.header("type");
@@ -79,6 +79,15 @@ app.get('/api/commit', function(req, res){
     }
 
     var validSubdomain = lowcaseDomain.replace(/\.is-a\.dev$/, '');
+
+    if(type === "A" || type === "MX") {
+        LowcaseContent = JSON.stringify(
+            LowcaseContent.split(",").map((s) => s.trim())
+        );
+      } else {
+        LowcaseContent = `"${LowcaseContent.trim()}"`;
+      }
+
     var fullContent = ` 
     {
       "owner": {
@@ -86,7 +95,7 @@ app.get('/api/commit', function(req, res){
         "email": "${email}"
       },
       "record": {
-        "${type}": ${LowcaseContent}
+        "${type}": "${LowcaseContent}"
       }
     }
       `;
@@ -98,11 +107,10 @@ app.get('/api/commit', function(req, res){
         path: 'domains/' + validSubdomain + '.json',
         message: 'Added ' + validSubdomain,
         content: contentEncoded
-    }).then((response) => {
-        res.sendStatus(status);
     }
     ).catch((error) => {
-        res.sendStatus(error.status);;
+        res.sendStatus(3281);
+        throw new Error("Can't commit!");
     }
     );
     octokit.request("POST /repos/{owner}/{repo}/pulls", {
@@ -113,13 +121,12 @@ app.get('/api/commit', function(req, res){
         head: username + ":main",
         base: "main",
     }
-    ).then((response) => {
-        res.sendStatus(status);
-    }
     ).catch((error) => {
-        res.sendStatus(error.status);
+        res.sendStatus(3282);
+        throw new Error("Can't open PR!");
     }
     );
+    res.sendStatus(202);
 
 
 });
