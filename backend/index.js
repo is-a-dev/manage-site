@@ -55,6 +55,8 @@ app.post('/api/commit', function(req, res){
     var domain = req.header("domain");
     var type = req.header("type");
     var content = req.header("content");
+    var username = req.header("username");
+    var email = req.header("email");
     var octokit = new Octokit({
         auth: auth
     })
@@ -63,27 +65,37 @@ app.post('/api/commit', function(req, res){
     var LowcaseContent = content.toLowerCase();
 
     if(type === "CNAME") {
-        if (isValidURL(content) === false) {
+        if (isValidURL(LowcaseContent) === false) {
             res.status(335);
             throw new Error("Invalid Url!");
         }
     }
     if(type === "A") {
-        if (ValidateIPaddress(content) === false) {
+        if (ValidateIPaddress(LowcaseContent) === false) {
             res.status(335);
             throw new Error("Invalid IP!");
         }
     }
 
-
-
+    var validSubdomain = lowcaseDomain.replace(/\.is-a\.dev$/, '');
+    var fullContent = ` 
+    {
+      "owner": {
+        "username": "${username}",
+        "email": "${email}"
+      },
+      "record": {
+        "${type}": ${LowcaseContent}
+      }
+    }
+      `;
 
     octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-        owner: 'is-a-dev',
+        owner: username,
         repo: 'register',
-        path: 'domains/' + lowcaseDomain + '.json',
-        message: 'Added ' + lowcaseDomain,
-        content: Buffer.from(JSON.stringify(req.body)).toString('base64')
+        path: 'domains/' + validSubdomain + '.json',
+        message: 'Added ' + validSubdomain,
+        content: Buffer.from(JSON.stringify(fullContent)).toString('base64')
     }).then((response) => {
         res.send(response.status);
     }
