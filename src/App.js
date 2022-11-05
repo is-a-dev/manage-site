@@ -114,13 +114,7 @@ function Nav() {
 function Dashboard(props) {
   const name = auth.currentUser.displayName;
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = async (data) => {
-    const requestOptions = {
-        method: 'post',
-        headers: { "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
-    };
-    Commits(requestOptions)
-  };
+  const onSubmit = data => Commits(data);
     
 
 if(name == null) {
@@ -161,10 +155,14 @@ if(name == null) {
 }
 
 
-async function Commits(requestOptions) {
+async function Commits(data) {
+  const requestOptions = {
+    method: 'post',
+    headers: { "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
+  };
   fetch('https://register.is-a.dev/api/commit', { requestOptions})
     .then(async (res) => {
-      if(res.status && res.status == "202") {
+      if(res.status && res.status === "202") {
         console.log("PR!");
         getpr();
       } else {
