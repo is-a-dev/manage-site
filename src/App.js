@@ -116,8 +116,8 @@ function Dashboard(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
+        method: 'GET',
+        headers: { "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
     };
 
     const response = await fetch('https://register.is-a.dev/api/commit', requestOptions);
@@ -162,48 +162,5 @@ if(name == null) {
     </>
   )
 }
-
-function dostuff(data) {
-  const subdomain = data.subdomain;
-  const recordType = data.Type;
-  let recordData = data.value;
-  let user = vars.user;
-
-  if(recordType === "A" || recordType === "MX") {
-    recordData = JSON.stringify(
-      recordData.split(",").map((s) => s.trim())
-    );
-  } else {
-    recordData = `"${recordData.trim()}"`;
-  }
-
-  let validSubdomain = subdomain.replace(/\.is-a\.dev$/, '');
-
-  commit(
-    validSubdomain,
-    `
-    {
-      "owner": {
-        "username": "${vars.user}",
-        "email": "${vars.email}"
-      },
-
-      "record": {
-        "${recordType}": ${recordData}
-      }
-    }
-  `
-  ).then(
-    () =>
-      (document.getElementById("register").innerText = "Request Submitted")
-  )
-
-  const docRef = addDoc(collection(db, "users"), {
-              domains: subdomain,
-              username: user,
-   });
-
           
-}
-
 export default App;

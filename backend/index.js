@@ -1,6 +1,7 @@
 const express = require('express'); //Line 1
 const app = express(); //Line 2
 const { Octokit } = require("@octokit/core");
+const { Base64 } = require("js-base64");
 const { createTokenAuth } = require("@octokit/auth-token");
 const path = require("path");
 const isDomainValid = require('is-domain-valid');
@@ -50,7 +51,7 @@ app.get('/api/fork', function(req,res,next){
 
 });
 
-app.post('/api/commit', function(req, res){
+app.get('/api/commit', function(req, res){
     var auth = req.header("x-gh-auth");
     var domain = req.header("domain");
     var type = req.header("type");
@@ -89,19 +90,36 @@ app.post('/api/commit', function(req, res){
       }
     }
       `;
+    var contentEncoded = Base64.encode(fullContent);
 
     octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
         owner: username,
         repo: 'register',
         path: 'domains/' + validSubdomain + '.json',
         message: 'Added ' + validSubdomain,
-        content: Buffer.from(JSON.stringify(fullContent)).toString('base64')
+        content: contentEncoded
     }).then((response) => {
-        res.send(response.status);
+        res.sendStatus(status);
     }
     ).catch((error) => {
-        res.send(error.status);
+        res.sendStatus(error.status);;
     }
     );
+    octokit.request("POST /repos/{owner}/{repo}/pulls", {
+        owner: "is-a-dev",
+        repo: "register",
+        title: "Register Subdomain: " + validSubdomain,
+        body: "Added the domain: " + validSubdomain,
+        head: username + ":main",
+        base: "main",
+    }
+    ).then((response) => {
+        res.sendStatus(status);
+    }
+    ).catch((error) => {
+        res.sendStatus(error.status);
+    }
+    );
+
 
 });
