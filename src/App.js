@@ -117,8 +117,7 @@ function Dashboard(props) {
   const onSubmit = async (data) => {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain },
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },
     };
 
     const response = await fetch('https://register.is-a.dev/api/commit', requestOptions);
