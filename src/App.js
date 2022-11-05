@@ -154,12 +154,17 @@ if(name == null) {
   )
 }
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 
 async function Commits(data) {
   fetch('https://register.is-a.dev/api/commit', { method: 'post', headers: { 'Content-Type': 'application/json', "x-gh-auth": vars.token, "domain": data.subdomain, "email": vars.email, "username": vars.user, "type": data.type, "content": data.value },})
     .then(async (res) => {
       if(res.status && res.status == "202") {
         console.log("PR!");
+        await delay(1000);
         getpr();
       } else {
         alert("Error: " + res.status);
