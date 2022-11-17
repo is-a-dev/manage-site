@@ -6,19 +6,22 @@ const { createTokenAuth } = require("@octokit/auth-token");
 const path = require("path");
 const isDomainValid = require('is-domain-valid');
 const { response } = require('express');
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
+
+const multer  = require('multer');
+
+var maintainers = [ "andrew@win11react.com", "bob@bo.com"]
+
+const upload = multer();
 const port = process.env.PORT || 5000; 
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(bodyParser.json());
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.use(express.static("public"));
 
-app.use(bodyParser.json());
 
 function isValidURL(string) {
     var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -99,7 +102,7 @@ app.post('/api/commit', async function(req, res){
         "email": "${email}"
       },
       "record": {
-        "${type}": "${LowcaseContent}"
+        "${type}": ${LowcaseContent}
       }
     }
       `;
@@ -135,3 +138,43 @@ app.post('/api/commit', async function(req, res){
 
 
 });
+
+app.post('/api/privacy', upload.none(), (req, res) => {
+    const body = req.body;
+  
+    console.log(`From: ${body.from}`);
+    var text = body.from
+    var re = /[^< ]+(?=>)/g;
+
+    text.match(re).forEach(function(email) {
+    console.log(`Email From: ${email}`);
+    });
+    console.log(`To: ${body.to}`);
+    console.log(`Subject: ${body.subject}`);
+    console.log(`Text: ${body.text}`);
+
+    // if email is in the maintainers list, send the email
+    if (!maintainers.includes(email)) {
+        sgMail.send({
+            to: email,
+            from: 'service@privacy.is-a.dev',
+            subject: 'Not Authorized',
+            text: 'Sorry your not authorized to use this service.',
+            html: '<strong>Sorry your not authorized to use this service</strong>',
+        });
+        `Email not sent to ${email}`;
+    } else {
+        sgMail.send({
+            to: email,
+            from: 'service@privacy.is-a.dev',
+            subject: 'Email Sent',
+            text: 'Your email has been sent.',
+            html: '<strong>Your email has been sent</strong>',
+        });
+
+  
+    return res.status(200).send();
+  });
+  
+
+// post body
