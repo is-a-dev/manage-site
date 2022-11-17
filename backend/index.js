@@ -144,11 +144,12 @@ app.post('/api/privacy', upload.none(), (req, res) => {
   
     console.log(`From: ${body.from}`);
     var text = body.from
-    var re = /[^< ]+(?=>)/g;
 
-    text.match(re).forEach(function(email) {
-    console.log(`Email From: ${email}`);
-    });
+
+
+    var regex = /<(.*)>/g; // The actual regex
+    var matches = regex.exec(text);
+    var email = matches[1];
     console.log(`To: ${body.to}`);
     console.log(`Subject: ${body.subject}`);
     console.log(`Text: ${body.text}`);
@@ -162,7 +163,7 @@ app.post('/api/privacy', upload.none(), (req, res) => {
             text: 'Sorry your not authorized to use this service.',
             html: '<strong>Sorry your not authorized to use this service</strong>',
         });
-        `Email not sent to ${email}`;
+        console.log(`Email sent to ${email}`);
     } else {
         sgMail.send({
             to: email,
@@ -171,9 +172,11 @@ app.post('/api/privacy', upload.none(), (req, res) => {
             text: 'Your email has been sent.',
             html: '<strong>Your email has been sent</strong>',
         });
+        console.log(`Email sent to ${email}`);
 
   
     return res.status(200).send();
+    }
   });
   
 
