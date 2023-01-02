@@ -1,8 +1,9 @@
 export default [
     "andrewstech",
-    "mtgsquad",
-    "thebotlynoob",
     "hackermondev",
+    "maskduck",
+    "mtgsquad",
     "phenax",
-    "maskduck"
+    "thebotlynoob",
+    "williamdavidharrison"
 ];
