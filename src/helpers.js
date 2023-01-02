@@ -1,4 +1,4 @@
 export default [
-    "TerraPlayz",
-    "VaibhavSys"
+    "terraplayz",
+    "vaibhavsys"
 ];
