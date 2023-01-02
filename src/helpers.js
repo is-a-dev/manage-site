@@ -1,5 +1,4 @@
 export default [
     "TerraPlayz",
-    "VaibhavSys",
-    "WilliamDavidHarrison"
+    "VaibhavSys"
 ];
