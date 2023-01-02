@@ -5,5 +5,5 @@ export default [
     "mtgsquad",
     "phenax",
     "thebotlynoob",
-    "williamdavidharrison"
+    "williamdavidharrison",
 ];

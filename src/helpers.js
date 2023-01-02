@@ -1,4 +1,1 @@
-export default [
-    "terraplayz",
-    "vaibhavsys"
-];
+export default ["terraplayz", "vaibhavsys"];

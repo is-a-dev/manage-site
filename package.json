@@ -1,57 +1,57 @@
 {
-  "name": "is-a-dev-registration-site",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@octokit/auth-token": "^2.5.0",
-    "@octokit/core": "^3.6.0",
-    "@octokit/rest": "^18.12.0",
-    "@sendgrid/mail": "^7.7.0",
-    "@sentry/react": "^7.18.0",
-    "@sentry/tracing": "^7.12.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "dotenv": "^16.0.3",
-    "eslint-config-react-app": "^7.0.1",
-    "firebase": "^9.9.3",
-    "js-base64": "^3.7.2",
-    "nth-check": "^2.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-error-boundary": "^3.1.4",
-    "react-firebase-hooks": "^5.0.3",
-    "react-hook-form": "^7.33.1",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "reactjs-popup": "^2.0.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "ghbuild": "CI=false react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "terser": "^5.14.2"
-  }
+    "name": "is-a-dev-registration-site",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@octokit/auth-token": "^2.5.0",
+        "@octokit/core": "^3.6.0",
+        "@octokit/rest": "^18.12.0",
+        "@sendgrid/mail": "^7.7.0",
+        "@sentry/react": "^7.18.0",
+        "@sentry/tracing": "^7.12.0",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.3.0",
+        "dotenv": "^16.0.3",
+        "eslint-config-react-app": "^7.0.1",
+        "firebase": "^9.9.3",
+        "js-base64": "^3.7.2",
+        "nth-check": "^2.1.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-error-boundary": "^3.1.4",
+        "react-firebase-hooks": "^5.0.3",
+        "react-hook-form": "^7.33.1",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "5.0.1",
+        "reactjs-popup": "^2.0.5",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "ghbuild": "CI=false react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "terser": "^5.14.2"
+    }
 }
