@@ -2,12 +2,15 @@ const express = require("express"); //Line 1
 const app = express(); //Line 2
 const { Octokit } = require("@octokit/core");
 const { Base64 } = require("js-base64");
+const bodyParser = require('body-parser')
 const { createTokenAuth } = require("@octokit/auth-token");
 const path = require("path");
 const isDomainValid = require("is-domain-valid");
 const { response } = require("express");
 const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
+const {HttpClient} = require('@actions/http-client')
+const {ErrorHandler, BadRequestError} = require('express-json-api-error-handler')
 
 const multer = require("multer");
 
@@ -17,8 +20,55 @@ const upload = multer();
 const port = process.env.PORT || 5000;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const createComment = async (http, params) => {
+    const {repoToken, owner, repo, issueNumber, body} = params
+  
+    return http.postJson(
+      `https://api.github.com/repos/${owner}/${repo}/issues/${issueNumber}/comments`,
+      {body},
+      {
+        accept: 'application/vnd.github.v3+json',
+        authorization: `token ${repoToken}`,
+      }
+    )
+}
+
+const checkToken = async (http, token) => {
+    if (!token) {
+      return false
+    }
+  
+    if (token === process.env.GITHUB_TOKEN) {
+      // Assume the use of this token is intentional
+      return true
+    }
+  
+    try {
+      await http.getJson(`https://api.github.com/user/repos`, {
+        accept: 'application/vnd.github.v3+json',
+        authorization: `token ${token}`,
+      })
+      return false
+    } catch (err) {
+      // Far from perfect, temporary tokens are difficult to identify
+      // A bad token returns 401, and a personal token returns 200
+      return (
+        err.statusCode === 403 &&
+        err.result.message &&
+        err.result.message.startsWith('Resource not accessible by integration')
+      )
+    }
+}
+
+
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+app.use((req, res, next) => {
+    req.httpClient = new HttpClient('http-client-add-pr-comment-bot')
+    next()
+})
+app.use(bodyParser.json())
 
 app.use(express.static("public"));
 
@@ -178,4 +228,25 @@ app.post("/api/privacy", upload.none(), (req, res) => {
     }
 });
 
-// post body
+app.post('/repos/:owner/:repo/issues/:issueNumber/comments', async (req, res, next) => {
+    try {
+      const isTokenValid = await checkToken(req.httpClient, req.header('temporary-github-token'))
+      if (!isTokenValid) {
+        throw new BadRequestError('must provide a valid temporary github token')
+      }
+  
+      const response = await createComment(req.httpClient, {
+        ...req.params,
+        ...req.body,
+        repoToken: process.env.GITHUB_TOKEN,
+      })
+  
+      res.status(200).send(response).end()
+    } catch (err) {
+      next(err)
+    }
+})
+
+const errorHandler = new ErrorHandler()
+errorHandler.setErrorEventHandler(err => console.log(JSON.stringify(err)))
+app.use(errorHandler.handle)
