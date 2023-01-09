@@ -8,9 +8,12 @@ const path = require("path");
 const isDomainValid = require("is-domain-valid");
 const { response } = require("express");
 const sgMail = require("@sendgrid/mail");
+const simpleParser = require("mailparser").simpleParser;
 require("dotenv").config();
 const {HttpClient} = require('@actions/http-client')
 const {ErrorHandler, BadRequestError} = require('express-json-api-error-handler')
+const JSONdb = require("simple-json-db");
+const db = new JSONdb("/is-a-dev/privacy.json");
 
 const multer = require("multer");
 
@@ -71,6 +74,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 
 app.use(express.static("public"));
+
+
 
 function isValidURL(string) {
     var res = string.match(
@@ -191,42 +196,7 @@ app.post("/api/commit", async function (req, res) {
     res.sendStatus(202);
 });
 
-app.post("/api/privacy", upload.none(), (req, res) => {
-    const body = req.body;
 
-    console.log(`From: ${body.from}`);
-    var text = body.from;
-
-    var regex = /<(.*)>/g; // The actual regex
-    var matches = regex.exec(text);
-    var email = matches[1];
-    console.log(`To: ${body.to}`);
-    console.log(`Subject: ${body.subject}`);
-    console.log(`Text: ${body.text}`);
-
-    // if email is in the maintainers list, send the email
-    if (!maintainers.includes(email)) {
-        sgMail.send({
-            to: email,
-            from: "service@privacy.is-a.dev",
-            subject: "Not Authorized",
-            text: "Sorry your not authorized to use this service.",
-            html: "<strong>Sorry your not authorized to use this service</strong>",
-        });
-        console.log(`Email sent to ${email}`);
-    } else {
-        sgMail.send({
-            to: email,
-            from: "service@privacy.is-a.dev",
-            subject: "Email Sent",
-            text: "Your email has been sent.",
-            html: "<strong>Your email has been sent</strong>",
-        });
-        console.log(`Email sent to ${email}`);
-
-        return res.status(200).send();
-    }
-});
 
 app.post('/repos/:owner/:repo/issues/:issueNumber/comments', async (req, res, next) => {
     try {
@@ -246,6 +216,75 @@ app.post('/repos/:owner/:repo/issues/:issueNumber/comments', async (req, res, ne
       next(err)
     }
 })
+
+app.post("/api/privacy", upload.any(), (req, res) => {
+    var emailMapper = db.json();
+  
+    simpleParser(req.body.email).then((parsedEmail) => {
+      const toEmail = [];
+  
+      parsedEmail.to.value.forEach((value) => {
+        if (emailMapper[value.address] !== undefined) {
+          toEmail.push(emailMapper[value.address]);
+        }
+      });
+  
+      if (toEmail.length > 0) {
+        let attachments = [];
+  
+        if (parsedEmail.attachments.length > 0) {
+          parsedEmail.attachments.forEach((file) => {
+            attachment = {
+              content: file.content.toString("base64"),
+              filename: file.filename,
+              type: file.type,
+              disposition: file.contentDisposition,
+              content_id: file.contentId,
+            };
+  
+            attachments.push(attachment);
+          });
+        }
+  
+        const msg = {
+          to: toEmail,
+          from: "service@privacy.is-a.dev",
+          replyto: parsedEmail.from.value[0].address,
+          subject: parsedEmail.subject,
+          text: parsedEmail.text,
+          html: parsedEmail.html,
+          attachments: attachments,
+        };
+  
+        sgMail.send(msg).then(
+          () => {},
+          (error) => {
+            console.error(error);
+  
+            if (error.response) {
+              console.error(error.response.body);
+            }
+          }
+        );
+      }
+    });
+    res.sendStatus(200);
+});
+
+
+app.get("/privacy/add", (req, res) => {
+    var email = req.query.email;
+    //generate a random string of nubers between 3212 and 9999
+    var random = Math.floor(Math.random() * 6788) + 3212;
+    // if random exsit in the database, generate another random number
+    while (db.has(random)) {
+        random = Math.floor(Math.random() * 6788) + 3212;
+    }
+    // add the random number and email to the database
+    db.set(random, email);
+    // send the random number to the user
+    res.send(random.toString() + "@privacy.is-a.dev is your privacy email");
+});
 
 const errorHandler = new ErrorHandler()
 errorHandler.setErrorEventHandler(err => console.log(JSON.stringify(err)))
