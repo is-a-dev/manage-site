@@ -43,7 +43,7 @@ function App() {
                 {user ? <Nav /> : ""}
                 <img alt="banner" className="banner" src={banner}></img>
             </header>
-            <main><Down></main>
+            <main><Down></Down></main>
 
             <footer>
                 <h3>&copy; is-a.dev</h3>
