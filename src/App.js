@@ -43,7 +43,7 @@ function App() {
                 {user ? <Nav /> : ""}
                 <img alt="banner" className="banner" src={banner}></img>
             </header>
-            <main>{user ? <Dashboard /> : <SignIn />}</main>
+            <main><Down></main>
 
             <footer>
                 <h3>&copy; is-a.dev</h3>
@@ -191,6 +191,12 @@ function Dashboard(props) {
 
 function delay(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function Down() {
+    return (
+        <h1>down for maintenance</h1>
+        );
 }
 
 async function Commits(data) {
