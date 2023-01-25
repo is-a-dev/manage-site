@@ -23,4 +23,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build --project-name=register --commit-dirty=true
+          command: pages publish build --project-name=isaregister --commit-dirty=true
