@@ -1,12 +1,8 @@
 # is-a.dev Registration
-
 Register your own is-a.dev subdomain!
 
--   https://register.is-a.dev
--   https://github.com/is-a-dev/register
-
-## V2
+## Registration Repo
+https://github.com/is-a-dev/register
 
 ## Contribution
-
-Even if you have permission to commit changes directly to the repository, please submit a pull request so we can deploy the changes to a test instance and review the changes first.
+For contributing, please make a pull request, even if you have permissions to directly push to the repo, this allows us to deploy those changes to a test instance so that we can first take a look at your changes.

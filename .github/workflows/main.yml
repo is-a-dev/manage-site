@@ -24,15 +24,15 @@ jobs:
         with:
           node-version: 16
 
-      - if: ${{ github.event.action == "opened"}}
+      - if: ${{ github.event.action == 'opened'}}
         run: gh repo create is-a-dev-bot/${{ github.event.pull_request.number }} --public
         env:
           GITHUB_TOKEN: ${{ secrets.BOT }}
 
-      - name: Install Dependencies
+      - name: Install NPM packages
         run: npm ci
 
-      - name: Build Project
+      - name: Build project
         run: npm run ghbuild
 
       - uses: peaceiris/actions-gh-pages@v3
@@ -45,13 +45,13 @@ jobs:
         run: sleep 1m
         shell: bash
 
-      - name: Comment Result
+      - name: comment Preview Ready
         uses: peter-evans/create-or-update-comment@v2
         with:
           body: |
-            ✔️ Deploy Preview Ready
-            😎 Preview: https://preview.beta.is-a.dev/${{ github.event.pull_request.number }}
-            🔍 Deploy Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ✔️ Deploy Preview for Ready!
+            😎 Browse the preview: https://preview.beta.is-a.dev/${{ github.event.pull_request.number }} !
+            🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
           token: ${{ secrets.BOT }}
@@ -60,8 +60,8 @@ jobs:
         uses: peter-evans/create-or-update-comment@v2
         with:
           body: |
-            ❌ Deploy Preview Failed
-            🔍 Deploy Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ❌ Deploy Preview failed
+            🔍 Inspect the deploy log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           comment-id: ${{ steps.couc.outputs.comment-id }}
           edit-mode: replace
           token: ${{ secrets.BOT }}
