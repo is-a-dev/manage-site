@@ -34,47 +34,7 @@ const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 const db = getFirestore();
 let registerPopup = false;
 
-function sApp() {
-    window.addEventListener("load", (event) => auth.signOut());
-    const [user] = useAuthState(auth);
 
-    return (
-        <>
-            <header>{user ? <Nav /> : ""}</header>
-            <div class="login-box">
-                <h2>is-a.dev</h2>
-                <main>{user ? <Dashboard /> : <SignIn />}</main>
-            </div>
-            <SquaresBG count={20} speed={0.7} />
-            <footer>
-                <h3></h3>
-                <div className="donate">
-                    <p>Please consider donating here:</p>
-                    <div className="donate-links">
-                        <img
-                            onClick={() =>
-                                (window.location.href =
-                                    "https://www.buymeacoffee.com/phenax")
-                            }
-                            src="https://cdn.buymeacoffee.com/buttons/default-orange.png"
-                            alt="Buy Me A Coffee"
-                            height="28"
-                            width="119"
-                        />
-                        <img
-                            onClick={() =>
-                                (window.location.href =
-                                    "https://liberapay.com/phenax")
-                            }
-                            src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge"
-                            alt="Liberapay recurring donation button"
-                        />
-                    </div>
-                </div>
-            </footer>
-        </>
-    );
-}
 
 function SignIn() {
     return (
@@ -105,7 +65,7 @@ function App() {
     return (
         <p1>We apologize for the inconvenience, but our website is currently down for maintenance. We are working diligently to improve the site and make it even better for our users. Please check back soon. Thank you for your patience and understanding.</p1>
         
-      );
+    );
 }
 
 function Nav() {
