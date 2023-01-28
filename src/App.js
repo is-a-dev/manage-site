@@ -34,7 +34,7 @@ const githubLoginProvider = new firebase.auth.GithubAuthProvider();
 const db = getFirestore();
 let registerPopup = false;
 
-function App() {
+function sApp() {
     window.addEventListener("load", (event) => auth.signOut());
     const [user] = useAuthState(auth);
 
@@ -99,6 +99,13 @@ function SignIn() {
             Sign in with GitHub
         </button>
     );
+}
+
+function App() {
+    return (
+        <p1>We apologize for the inconvenience, but our website is currently down for maintenance. We are working diligently to improve the site and make it even better for our users. Please check back soon. Thank you for your patience and understanding.</p1>
+        
+      );
 }
 
 function Nav() {
