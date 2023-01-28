@@ -6,7 +6,7 @@
     "@octokit/auth-token": "^2.5.0",
     "@octokit/core": "^4.2.0",
     "@octokit/rest": "^19.0.7",
-    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "eslint-config-react-app": "^7.0.1",
     "firebase": "^9.16.0",
