@@ -51,7 +51,7 @@ function App() {
       <footer>
         <h3></h3>
         <div className="donate">
-          <p>Consider donating here:</p>
+          <p>Please consider donating here:</p>
           <div className="donate-links">
             <img onClick={() => window.location.href="https://www.buymeacoffee.com/phenax"} src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="119"/>
             <img onClick={() => window.location.href="https://liberapay.com/phenax"} src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge" alt="Liberapay recurring donation button"/>
@@ -96,7 +96,7 @@ function Nav() {
   return (
           <nav>
             <img alt="pfp.png" src={pfp}></img>
-            <h3>Logged in as: {name}</h3>
+            <h3>{name}</h3>
           </nav>
         );
 }
@@ -109,19 +109,15 @@ function Dashboard(props) {
   const onSubmit = data => dostuff(data);
   console.log(errors);
   
-if(name == null) {
-    auth.signOut();
-}
+if(name == null) auth.signOut();
 
   return (
     <>
-        <h1>Register A Subdomain</h1>
+        <h1>Register a Subdomain</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btnBox">  
             <select id="dropbtn" {...register("Type", { required: true })}>  
-            <option value="" selected disabled>
-                  Choose Record Type
-                </option>
+            <option value="" selected disabled>Choose Record Type</option>
               <option value="A">A</option>
               <option value="CNAME">CNAME</option>
               <option value="MX">MX</option>
@@ -133,7 +129,7 @@ if(name == null) {
           <input type="text" minLength={3} id="subdomain" placeholder="Subdomain" {...register("subdomain", {required: true, max: 12})} />
           <span>.is-a.dev</span>
         </div>
-        <input type="text" id="value" placeholder="Record value" {...register("value", {required: true})} />
+        <input type="text" id="value" placeholder="Record Value" {...register("value", {required: true})} />
         <div className="btnBox">
           <button id="register" className="btn-submit" type="submit" >Register</button>
         </div>
@@ -164,17 +160,16 @@ function dostuff(data) {
 
   commit(
     validSubdomain,
-    `
-    {
-      "owner": {
-        "username": "${vars.user}",
-        "email": "${vars.email}"
-      },
-
-      "record": {
-        "${recordType}": ${recordData}
-      }
-    }
+`
+{
+  "owner": {
+    "username": "${vars.user}",
+    "email": "${vars.email}"
+  },
+  "record": {
+    "${recordType}": ${recordData.toLowerCase()}
+  }
+}
   `
   ).then(
     () =>
@@ -182,11 +177,9 @@ function dostuff(data) {
   )
 
   const docRef = addDoc(collection(db, "users"), {
-              domains: subdomain,
-              username: user,
+      domains: subdomain,
+      username: user,
    });
-
-          
 }
 
 export default App;
