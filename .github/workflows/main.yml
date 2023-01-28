@@ -41,7 +41,7 @@ jobs:
           publish_dir: ./build
           external_repository: is-a-dev-bot/${{ github.event.pull_request.number }}
 
-      - name: Sleep to make sure page gets updated
+      - name: Sleep
         run: sleep 1m
         shell: bash
 
