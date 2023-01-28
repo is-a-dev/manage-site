@@ -1,4 +1,4 @@
 export default [
-    "omxpro",
+    "TerraPlayz",
     "VaibhavSys"
 ];
