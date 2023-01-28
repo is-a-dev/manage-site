@@ -3,22 +3,20 @@ import vars from "../vars";
 
 // Fork Function
 async function fork() {
-  const { Octokit } = require("@octokit/core");
-  const { createTokenAuth } = require("@octokit/auth-token");
-  const token = Object.values(vars);
-  const ghtoken = token[0].toString();
-  const repository = token[3].toString();
+    const { Octokit } = require("@octokit/core");
+    const { createTokenAuth } = require("@octokit/auth-token");
+    const token = Object.values(vars);
+    const ghtoken = token[0].toString();
+    const repository = token[3].toString();
 
-  const octokit = new Octokit({
-    auth: ghtoken,
-  });
+    const octokit = new Octokit({ auth: ghtoken });
 
-  const forked = await octokit.request("POST /repos/{owner}/{repo}/forks", {
-    owner: "is-a-dev",
-    repo: repository,
-  });
+    const forked = await octokit.request("POST /repos/{owner}/{repo}/forks", {
+        owner: "is-a-dev",
+        repo: repository,
+    });
 
-  return forked;
+    return forked;
 }
 
 export default fork;
