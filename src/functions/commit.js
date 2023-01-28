@@ -29,7 +29,7 @@ async function commit(domain, FileContents) {
                 const { data } = await octokit.repos.createOrUpdateFileContents({
                   owner: user,
                   repo: repository,
-                  path: "domains/" + fileName,
+                  path: "domains/" + fileName.toLowerCase(),
                   message: "feat: Added domain programatically",
                   content: contentEncoded,
                   committer: {
