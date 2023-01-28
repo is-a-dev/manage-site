@@ -17,7 +17,7 @@ async function openPR(domain) {
     owner: "is-a-dev",
     repo: repository,
     title: "Register Subdomain: " + domain,
-    body: "Added the domain: " + domain,
+    body: `Added domain \`${domain}\` via the register site.`,
     head: user + ":main",
     base: "main",
   });
