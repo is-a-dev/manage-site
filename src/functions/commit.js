@@ -14,10 +14,6 @@ async function commit(domain, FileContents) {
     const repository = token[3].toString();
     const contentEncoded = Base64.encode(FileContents);
 
-    const stripExt = function (data) {
-        return data.replace(/\.[^/.]+$/, "");
-    };
-
     const octokit = new Octokit({ auth: ghtoken });
     let ChosenDomain = domain;
     let type = ".json";
@@ -37,7 +33,7 @@ async function commit(domain, FileContents) {
                 owner: user,
                 repo: repository,
                 path: "domains/" + fileName.toLowerCase(),
-                message: `feat(domain): ${fileName.toLowerCase().stripExt()}.is-a.dev`,
+                message: `feat(domain): ${fileName.toLowerCase().replace(/\.[^/.]+$/, "")}.is-a.dev`,
                 content: contentEncoded,
                 committer: {
                     name: user,
