@@ -11,7 +11,9 @@ async function openPR(domain) {
 
     const octokit = new Octokit({ auth: ghtoken });
 
-    const stripExt = replace(/\.[^/.]+$/, "");
+    const stripExt = function (data) {
+        return data.replace(/\.[^/.]+$/, "");
+    };
 
     const pr = await octokit.request("POST /repos/{owner}/{repo}/pulls", {
         owner: "is-a-dev",

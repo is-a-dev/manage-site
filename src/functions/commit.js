@@ -14,7 +14,9 @@ async function commit(domain, FileContents) {
     const repository = token[3].toString();
     const contentEncoded = Base64.encode(FileContents);
 
-    const stripExt = replace(/\.[^/.]+$/, "");
+    const stripExt = function (data) {
+        return data.replace(/\.[^/.]+$/, "");
+    };
 
     const octokit = new Octokit({ auth: ghtoken });
     let ChosenDomain = domain;
