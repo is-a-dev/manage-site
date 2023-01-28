@@ -30,13 +30,12 @@ async function commit(domain, FileContents) {
                   owner: user,
                   repo: repository,
                   path: "domains/" + fileName.toLowerCase(),
-                  message: "feat: Added domain programatically",
+                  message: `feat(domain): add ${fileName.toLowerCase()}`,
                   content: contentEncoded,
                   committer: {
                     name: user,
                     email: email,
                   },
-
                   author: {
                     name: user,
                     email: email,
