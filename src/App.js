@@ -162,7 +162,6 @@ function Dashboard(props) {
                     placeholder="Record Value"
                     {...register("value", { required: true })}
                 />
-                <input type="checkbox" placeholder="Completed website" {...register("Completed website", {required: true})} />
                 <div className="btnBox">
                     <button id="register" className="btn-submit" type="submit">
                         Register
