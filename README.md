@@ -1,4 +1,4 @@
-# is-a.dev Registration
+# register.is-a.dev
 Register website for is-a.dev
 
 ## Register Repo
