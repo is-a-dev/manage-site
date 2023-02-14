@@ -1,7 +1,7 @@
 # is-a.dev Registration
-Register your own is-a.dev subdomain!
+Register website for is-a.dev
 
-## Registration Repo
+## Register Repo
 https://github.com/is-a-dev/register
 
 ## Contribution
