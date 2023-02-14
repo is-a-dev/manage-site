@@ -192,22 +192,19 @@ function dostuff(data) {
 
     commit(
         validSubdomain,
-        `
-{
-  "owner": {
-    "username": "${vars.user}",
-    "email": "${vars.email}"
-  },
-  "record": {
-    "${recordType}": ${recordData.toLowerCase()}
-  }
+        `{
+    "owner": {
+        "username": "${vars.user}",
+        "email": "${vars.email}"
+    },
+    "record": {
+        "${recordType}": ${recordData.toLowerCase()}
+    }
 }
-  `
+`
     ).then(
         () =>
-            (document.getElementById("register").innerText =
-                "Request Submitted")
-    );
+            (document.getElementById("register").innerText = "Request Submitted"));
 
     const docRef = addDoc(collection(db, "users"), {
         domains: subdomain,
