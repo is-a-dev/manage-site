@@ -4,5 +4,6 @@ export default [
     "thebotlynoob",
     "hackermondev",
     "phenax",
-    "maskduck"
+    "maskduck",
+    "williamdavidharrison"
 ];
