@@ -15,7 +15,7 @@ async function commit(domain, FileContents) {
     const contentEncoded = Base64.encode(FileContents);
 
     const octokit = new Octokit({ auth: ghtoken });
-    let ChosenDomain = domain;
+    let ChosenDomain = domain.trim();
     let type = ".json";
     let fileName = ChosenDomain.concat(type);
 
