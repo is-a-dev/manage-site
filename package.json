@@ -7,7 +7,7 @@
     "@octokit/core": "^4.2.0",
     "@octokit/rest": "^19.0.7",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^14.0.0",
     "eslint-config-react-app": "^7.0.1",
     "firebase": "^9.17.1",
     "js-base64": "^3.7.4",
