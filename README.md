@@ -1,22 +1,23 @@
-# create-svelte
+<p align="center">
+   <img alt="is-a-dev Banner" src="https://raw.githubusercontent.com/is-a-dev/register/main/media/banner.png">
+</p>
+<h1 align="center">register.is-a.dev</h1>
+<p align="center">This is the register website for is-a.dev, a service that allows developers to get a sweet-looking ".is-a.dev" domain for their personal websites.</p>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# Issues
 
-## Creating a project
+If you have any problems then feel free to open a issue on github.
+If you have an issue that contains confidental infomation then email hello@maintainers.is-a.dev any other emails will be ignored.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Running locally
+
+Clone the repo with git and install the dependencies with npm. (make sure you have node.js installed)
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Then run the dev server with npm.
 
 ```bash
 npm run dev
@@ -27,12 +28,10 @@ npm run dev -- --open
 
 ## Building
 
-To create a production version of your app:
+To create a production version of the app, run
 
 ```bash
 npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
