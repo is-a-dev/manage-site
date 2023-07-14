@@ -20,10 +20,6 @@
 			allowMultiple: false
 		},
 		{
-			type: 'AAAA',
-			allowMultiple: false
-		},
-		{
 			type: 'URL',
 			allowMultiple: false
 		},
@@ -90,7 +86,7 @@
 				on:click={async () => {
 					saving = true;
 					let toFetch = 'https://register.is-a.dev/api/edit?';
-					let emailToUse = data.emails.find((email) => email.primary);
+					let emailToUse = data.emails.find((email) => email.primary).email;
 
 					let toAdd = {
 						username: data.user.login,
