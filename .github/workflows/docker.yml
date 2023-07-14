@@ -44,3 +44,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Upload
+        run: curl -X POST -d 'param1=value1&param2=value2' ${{ secrets.WEBHOOK }}    
