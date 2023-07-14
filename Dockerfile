@@ -16,6 +16,7 @@ ENV GITHUB_CLIENT_ID $GITHUB_CLIENT_ID
 ENV CI=false
 
 RUN npm install
+COPY . /usr/src/site
 RUN npm run build
 
 
@@ -26,9 +27,6 @@ RUN npm run build
 #    curl \
 #    git \
 #    && rm -rf /var/lib/apt/lists/*
-
-
-COPY . /usr/src/site
 
 # Start me!
 CMD ["npm", "run", "start"]
