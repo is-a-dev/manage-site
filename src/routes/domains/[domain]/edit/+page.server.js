@@ -13,6 +13,8 @@ export async function load({cookies, params}){
         domain: {
             name: params.domain,
             ...domain
-        }
+        },
+        emails: user.emails,
+        token: user.token
     };
 }
