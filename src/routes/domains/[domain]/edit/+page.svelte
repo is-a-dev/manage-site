@@ -86,7 +86,6 @@
 				on:click={async () => {
 					saving = true;
 					let toFetch = `/api/domains/${data.domain.name}/edit?`;
-					let emailToUse = data.emails.find((email) => email.primary).email;
 
 					let toAdd = {
 						records: JSON.stringify(records)
