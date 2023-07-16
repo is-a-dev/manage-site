@@ -1,10 +1,11 @@
 import { getJWT } from '$lib/jwt.js'
-import { redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit'
+import {ListDomains} from '$lib/api.js'
 export async function load({cookies}){
     let jwt = cookies.get('jwt');
     let user = getJWT(jwt);
     if(!user) throw redirect(303, '/login');
-    let domains = await fetch(`https://register-bot.is-a.dev/api/domains?username=${user.user.login}`).then(res => res.json());
+    let domains = await ListDomains(user.user.login);
 
 
     return {

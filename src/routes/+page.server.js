@@ -1,11 +1,12 @@
 import { redirect } from '@sveltejs/kit';
 import { getJWT } from '$lib/jwt.js'
+import { CountDomains } from '$lib/api.js';
 
 export async function load({cookies}){
     let user = await getJWT(cookies.get('jwt'));
     if(!user) throw redirect(303, '/login');
 
-    let stats = fetch("https://register.is-a.dev/api/count-domains").then(res => res.json());
+    let stats = await CountDomains();
     
 
 

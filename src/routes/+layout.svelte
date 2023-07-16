@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 
-	import { AppRail, AppRailTile, AppRailAnchor, Avatar } from '@skeletonlabs/skeleton';
+	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import {
@@ -28,11 +28,6 @@
 		{
 			name: 'Register',
 			path: '/register',
-			icon: faKeyboard
-		},
-		{
-			name: '?',
-			path: '/404',
 			icon: faKeyboard
 		}
 	];
