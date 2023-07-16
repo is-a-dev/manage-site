@@ -85,21 +85,18 @@
 				class="btn variant-filled-success mt-5"
 				on:click={async () => {
 					saving = true;
-					let toFetch = 'https://register.is-a.dev/api/edit?';
-					let emailToUse = data.emails.find((email) => email.primary).email;
+					let toFetch = `/api/domains/${data.domain.name}/edit?`;
 
 					let toAdd = {
-						username: data.user.login,
-						apikey: data.token,
-						records: JSON.stringify(records),
-						subdomain: data.domain.name,
-						email: emailToUse
+						records: JSON.stringify(records)
 					};
 					for (const [key, value] of Object.entries(toAdd)) {
 						toFetch += `${key}=${value}&`;
 					}
 
-					let response = await fetch(toFetch)
+					let response = await fetch(toFetch, {
+						method: 'PATCH'
+					})
 						.then((res) => res.json())
 						.catch((err) => {
 							console.error(err);

@@ -13,16 +13,14 @@
 	let prURL;
 	let page = 1;
 	let error;
+	let toFetch;
+
 	let loaded = false;
 
 	async function register(domain, recordType, recordValue) {
 		let emailToUse = data.emails.find((email) => email.primary);
-		let toFetch = 'https://register.is-a.dev/api/register?';
+		let toFetch = `/api/domains/${domain}/register?`;
 		let toAdd = {
-			username: data.user.login,
-			apikey: data.token,
-			email: emailToUse.email,
-			subdomain: domain,
 			type: recordType,
 			content: recordValue
 		};
@@ -45,7 +43,7 @@
 		}
 	}
 	onMount(async () => {
-		await fetch('https://register.is-a.dev/api/fork?apikey=' + data.token).then((res) => {
+		await fetch('/api/fork').then((res) => {
 			if (res.status === 200) {
 				page = 1;
 				loaded = true;
@@ -87,16 +85,30 @@
 							type="text"
 							placeholder="johndoe"
 							autofocus
-							on:input={(e) => {
+							on:input={async (e) => {
 								if (!e.target.value || e.target.value === '') {
 									availableStatus = 'Start typing';
 									availableStatusClasses = '';
 									available = false;
 									return;
 								}
+								//remove spaces
+								e.target.value = e.target.value.replace(/\s/g, '');
 								available = false;
+								if (
+									!toFetch &&
+									(
+										await fetch(
+											`https://raw.githubusercontent.com/${data.user.login}/register/main/README.md`
+										)
+									).status === 200
+								)
+									toFetch = 'user';
+								else if (!toFetch) toFetch = 'main';
 								fetch(
-									`https://raw.githubusercontent.com/is-a-dev/register/main/domains/${e.target.value}.json`
+									toFetch === 'user'
+										? `https://raw.githubusercontent.com/${data.user.login}/register/main/domains/${e.target.value}.json`
+										: `https://raw.githubusercontent.com/is-a-dev/register/main/domains/${e.target.value}.json`
 								).then((res) => {
 									if (res.status === 404) {
 										availableStatus = 'Available!';
