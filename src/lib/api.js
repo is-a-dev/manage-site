@@ -346,7 +346,7 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
         await octokit.repos.createOrUpdateFileContents({
             owner: username,
             repo: "register",
-            path: "domains/" + subdomain + ".json",
+            path: "domains%252F" + subdomain + ".json",
             message: `feat(domain): ${subdomain}.is-a.dev`,
             content: record,
             committer: {
