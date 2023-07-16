@@ -176,7 +176,7 @@ async function EditDomain(subdomain, username, email, apikey, records) {
         await octokit.repos.createOrUpdateFileContents({
             owner: username,
             repo: "register",
-            path: encodedFilePath",
+            path: encodedFilePath,
             message: `feat(domain): ${subdomain}.is-a.dev`,
             content: record,
             sha: sha,
@@ -346,10 +346,12 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
     let record = Buffer.from(content).toString("base64");
     
     try {
+        const filePath = `domains/${subdomain}.json`;
+        const encodedFilePath = encodeURIComponent(filePath);
         await octokit.repos.createOrUpdateFileContents({
             owner: username,
             repo: "register",
-            path: "domains%252F" + subdomain + ".json",
+            path: filePath,
             message: `feat(domain): ${subdomain}.is-a.dev`,
             content: record,
             committer: {
