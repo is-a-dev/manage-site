@@ -44,6 +44,9 @@ function countDomainsAndOwners(jsonData) {
 async function DeleteDomain(apikey, username, email, domain) {
     let sha;
     let file;
+    let octokit = new Octokit({
+        auth: apikey,
+    });
     try {
         file = await fetch(`https://api.github.com/repos/${username}/register/contents/domains/${domain}.json`)
         .then((res) => res.json())
@@ -51,15 +54,6 @@ async function DeleteDomain(apikey, username, email, domain) {
             console.log(err);
         });
         sha = file.sha;
-    }
-    catch (e) {
-        console.log(e);
-        return { "error": "Can't locate file." };
-    }
-    let octokit = new Octokit({
-        auth: apikey,
-    });
-    try {
         await octokit.repos.deleteFile({
             owner: username,
             repo: "register",

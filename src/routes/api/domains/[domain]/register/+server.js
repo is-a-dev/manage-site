@@ -27,6 +27,7 @@ export async function GET({url, cookies, params}){
     if(session?.emails) email = session.emails.find((email) => email.primary)
     else email = await getEmail(apiKey);
 
+    
     if(!email) return json({error: 'No primary email found.'}, 400);
     email = email.email;
 

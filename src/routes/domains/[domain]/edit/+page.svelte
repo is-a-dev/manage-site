@@ -1,7 +1,9 @@
 <script>
 	export let data;
 	import { goto } from '$app/navigation';
-	import Fa from 'svelte-fa';
+	import Fa from 'svelte-fa';	
+	import { toastStore } from '@skeletonlabs/skeleton';
+
 	//close icon
 	import { faXmark } from '@fortawesome/free-solid-svg-icons';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
@@ -103,12 +105,21 @@
 							return { error: true };
 						});
 					if (response.error) {
-						alert('An error occured while saving your records. Please try again later.');
+						toastStore.trigger({
+		background: 'variant-filled-error',
+		message: `${response.error}`,
+		timeout: 3000
+	});
 						saving = false;
 						return;
 					}
-					alert('Your records have been saved!');
 					saving = false;
+					toastStore.trigger({
+		background: 'variant-filled-success',
+		message: `Signed in as ${data.user.name || data.user.login}!`,
+		timeout: 3000
+	});
+					goto('/domains/' + data.domain.name)
 				}}>Save</button
 			>
 		{:else}

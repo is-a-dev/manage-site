@@ -54,6 +54,11 @@ export async function GET({ url, cookies }) {
         maxAge: 60 * 60 * 8,
         
     });
+    cookies.set('welcome', true, {
+        httpOnly: false,
+        path: '/',
+        maxAge: 60 * 60 * 8,
+    });
 
 
     throw redirect(303, '/');
