@@ -421,4 +421,5 @@ async function getEmail(token){
 
 }
 
+
 export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail };
