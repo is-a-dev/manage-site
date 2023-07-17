@@ -41,6 +41,9 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             GITHUB_CLIENT_ID=${{ secrets.CLIENT_ID }}
             GITHUB_CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}
+            PLAUSIBLE_API_PATH=${{ secrets.PLAUSIBLE_API_PATH }}
+            PUBLIC_ANALYTICS_URL=${{ secrets.PUBLIC_ANALYTICS_URL }}
+            PLAUSIBLE_API_KEY=${{ secrets.PLAUSIBLE_API_KEY }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
