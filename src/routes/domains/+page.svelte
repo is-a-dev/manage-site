@@ -20,7 +20,7 @@
 <br />
 
 {#if data.count === 0}
-	<p class="text-center">You have no domains yet. <a href="/register">let's change that!</a></p>
+	<p class="text-center">You have no domains yet. <a href="/register">Let's change that!</a></p>
 {:else}
 	<Table {source} />
 {/if}

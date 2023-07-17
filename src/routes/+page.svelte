@@ -12,9 +12,8 @@
 </script>
 
 <h2 class="h2">
-	Welcome {data.user.name || data.user.login}!
+	Welcome, {data.user.name || data.user.login}!
 </h2>
 <p class="text-lg text-center">
-	{data.stats.individualOwners}
-	people have already registered {data.stats.subdomains} subdomains!
+	{data.stats.subdomains} domains have been registered by {data.stats.individualOwners} people!
 </p>

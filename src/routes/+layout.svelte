@@ -56,7 +56,7 @@
 				}}
 			>
 				<div
-					class={`flex flex-col items-center mb-4 rounded-lg p-4`}
+					class={`flex flex-col items-center mb-4 rounded-md p-4`}
 					style={`background-color: ${page.path === pathname ? '#6050A6' : 'transparent'}`}
 				>
 					<p class="text-2xl font-bold text-center flex justify-center items-center">
