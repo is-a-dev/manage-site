@@ -26,6 +26,8 @@ export async function PATCH({url, cookies, params}){
     let email;
     if(session?.emails) email = session.emails.find((email) => email.primary)
     else email = await getEmail(apiKey);
+    email = email.email;
+
 
     if(!email) return json({error: 'No primary email found.'}, 400);
 

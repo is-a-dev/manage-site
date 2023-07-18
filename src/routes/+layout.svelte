@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-
-	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
+	import {goto} from '$app/navigation';
+	import { AppRail, AppRailAnchor, Modal, Toast, modalStore} from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import {
@@ -32,7 +32,8 @@
 		}
 	];
 </script>
-
+<Modal />
+<Toast/>
 <div class="grid grid-cols-[auto_1fr] w-full h-full">
 	<AppRail class="overflow-hidden">
 		<svelte:fragment slot="lead">
@@ -55,7 +56,7 @@
 				}}
 			>
 				<div
-					class={`flex flex-col items-center mb-4 rounded-lg p-4`}
+					class={`flex flex-col items-center mb-4 rounded-md p-4`}
 					style={`background-color: ${page.path === pathname ? '#6050A6' : 'transparent'}`}
 				>
 					<p class="text-2xl font-bold text-center flex justify-center items-center">
@@ -88,7 +89,21 @@
 		<!-- --- -->
 		<svelte:fragment slot="trail">
 			{#if data.user}
-				<AppRailAnchor href="/login/out" title="Sign out">
+				<AppRailAnchor title="Sign out" href="#" on:click={(e) => {
+					e.preventDefault()
+					modalStore.trigger({
+						type: 'confirm',
+	// Data
+	title: 'Logging out',
+	body: 'Are you sure you want to log out?',
+	// TRUE if confirm pressed, FALSE if cancel pressed
+	response: (r) => {
+		if(r) goto('/login/out')
+	},
+})
+					
+
+				}}>
 					<svelte:fragment slot="lead">
 						<Fa icon={faRightFromBracket} size="lg" />
 					</svelte:fragment>

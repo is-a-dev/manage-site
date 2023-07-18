@@ -5,6 +5,13 @@ import { CountDomains } from '$lib/api.js';
 export async function load({cookies}){
     let user = await getJWT(cookies.get('jwt'));
     if(!user) throw redirect(303, '/login');
+    let welcome = false;
+    if(cookies.get('welcome')){
+        welcome = true;
+        cookies.set('welcome', false, {
+            maxAge: 0,
+        });
+    }
 
     let stats = await CountDomains();
     
@@ -12,5 +19,6 @@ export async function load({cookies}){
 
     return {
         user: user.user,
-    stats    };
+    stats,
+    welcome,    };
 }

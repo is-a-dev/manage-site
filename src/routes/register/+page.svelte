@@ -66,7 +66,7 @@
 				>
 					<ProgressRadial />
 					<br />
-					<h1 class={`h1`}>Forking the repo...</h1>
+					<h1 class={`h1`}>Forking is-a-dev/register...</h1>
 				</div>
 			{/if}
 			{#if page === 1 && loaded}
@@ -185,7 +185,7 @@
 							class="terminal-font text-center textnexttext h3"
 							in:fade|local={{ duration: 2000, delay: 3000 }}
 						>
-							let's set it up!
+							Let's set it up!
 						</p>
 					</div>
 				</div>
@@ -264,7 +264,7 @@
 						class="terminal-font text-center textnexttext h3"
 						in:fade|local={{ duration: 2000, delay: 1500 }}
 					>
-						Click the big button to set up your domain!
+						Click the button below to set up your domain!
 					</p>
 					<div class="flex justify-center">
 						<button
@@ -275,7 +275,7 @@
 								register(domain, recordType, recordValue);
 							}}
 						>
-							set up domain
+							Set up domain
 						</button>
 					</div>
 				</div>
@@ -317,7 +317,7 @@
 									window.open(prURL, '_blank');
 								}}
 							>
-								visit site
+								Visit site
 							</button>
 						</div>
 					</div>
