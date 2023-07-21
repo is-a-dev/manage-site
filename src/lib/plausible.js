@@ -1,4 +1,24 @@
 import { env } from '$env/dynamic/private'; 
+
+function isRegistered(subdomain){
+    return fetch(`${env.PLAUSIBLE_API_PATH}/sites/${subdomain}.is-a.dev`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${env.PLAUSIBLE_API_KEY}`
+        }
+    }).then(response => {
+        if(response.status === 200){
+            return true;
+        } else {
+            return false;
+        }
+    }).catch(error => {
+        console.log(error);
+        return false;
+    });
+}
+
 async function registerSite(subdomain){
     let response = await fetch(`${env.PLAUSIBLE_API_PATH}/sites`, {
         method: 'POST',
@@ -31,5 +51,6 @@ async function registerSite(subdomain){
 
 export {
     registerSite,
-    generateLink
+    generateLink,
+    isRegistered
 }
