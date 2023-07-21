@@ -3,7 +3,9 @@
 
 	import { goto } from '$app/navigation';
 	import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { Modal } from '@skeletonlabs/skeleton';
+	import { modalStore } from '@skeletonlabs/skeleton';
+
 	import { fade } from 'svelte/transition';
 	import Fa from 'svelte-fa';
 	export let data;
@@ -37,6 +39,99 @@
 <br />
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
 	Edit Record(s)
+</button>
+<button
+	class="btn variant-filled mb-2"
+	on:click={async () => {
+		let response = await fetch(
+			`https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
+		);
+		response = await response.json();
+		if (response.error && response.error !== 'Domain already exists') {
+			modalStore.trigger({
+				type: 'alert',
+				title: 'Error',
+				body: response.error
+			});
+		} else {
+			modalStore.trigger({
+				type: 'confirm',
+				title: 'Success',
+				body: 'Your domain has been registered successfully. Do you want to automatically update your DNS records? Note: this will overwrite <b>all</b> your DNS records.',
+				response: async (r) => {
+					if (r) {
+						console.log('confirm');
+						let records = [
+							{
+								type: 'CNAME',
+								value: 'hosts.is-a.dev'
+							}
+						];
+
+						let toFetch = `/api/domains/${data.domain.name}/edit?`;
+
+						let toAdd = {
+							records: JSON.stringify(records)
+						};
+						for (const [key, value] of Object.entries(toAdd)) {
+							toFetch += `${key}=${value}&`;
+						}
+
+						let response = await fetch(toFetch, {
+							method: 'PATCH'
+						})
+							.then((res) => res.json())
+							.catch((err) => {
+								console.error(err);
+								return { error: true };
+							});
+						if (response.error) {
+							modalStore.trigger({
+								type: 'alert',
+								title: 'Failed to automatically update DNS records',
+								body: response.error
+							});
+							return;
+						} else {
+							modalStore.trigger({
+								type: 'alert',
+								title: 'Successfully updated DNS records',
+								body: 'A PR for updating your DNS records has been created!'
+							});
+							window.open(response.prurl, '_blank');
+						}
+					} else {
+						modalStore.trigger({
+							type: 'alert',
+							title: 'Failed to automatically update DNS records',
+							body: 'You can manually update your DNS records by adding a CNAME record with the value <code>hosts.is-a.dev</code>.'
+						});
+					}
+				}
+			});
+		}
+	}}
+>
+	Create webserver
+</button>
+<button
+	class="text-sm text-gray-500 mt-1 mb-2"
+	on:click={() => {
+		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
+		modalStore.trigger({
+			type: 'alert',
+			title: 'How to manage files',
+			body: `To manage files, you need to connect using FTP (you can use an online FTP client) using the following credentials:
+			<br /><br />
+			<code>Host: hosts.is-a.dev</code><br />
+			<code>Port: 21</code><br />
+			<code>Username: ${data.domain.name}</code><br />
+			<code>Password: 12345</code><br />
+`
+		});
+	}}
+>
+	how to manage files
 </button>
 <button
 	class="btn variant-filled"

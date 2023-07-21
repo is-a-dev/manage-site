@@ -1,7 +1,7 @@
 <script>
 	export let data;
 	import { goto } from '$app/navigation';
-	import Fa from 'svelte-fa';	
+	import Fa from 'svelte-fa';
 	import { toastStore } from '@skeletonlabs/skeleton';
 
 	//close icon
@@ -106,20 +106,20 @@
 						});
 					if (response.error) {
 						toastStore.trigger({
-		background: 'variant-filled-error',
-		message: `${response.error}`,
-		timeout: 3000
-	});
+							background: 'variant-filled-error',
+							message: `${response.error}`,
+							timeout: 3000
+						});
 						saving = false;
 						return;
 					}
 					saving = false;
 					toastStore.trigger({
-		background: 'variant-filled-success',
-		message: `Signed in as ${data.user.name || data.user.login}!`,
-		timeout: 3000
-	});
-					goto('/domains/' + data.domain.name)
+						background: 'variant-filled-success',
+						message: `Successfully updated records.`,
+						timeout: 3000
+					});
+					goto('/domains/' + data.domain.name);
 				}}>Save</button
 			>
 		{:else}
