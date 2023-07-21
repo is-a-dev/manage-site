@@ -13,6 +13,7 @@ export async function load({cookies, params}){
         domain: {
             name: params.domain,
             ...domain
-        }
+        },
+        jwt: jwt
     };
 }
