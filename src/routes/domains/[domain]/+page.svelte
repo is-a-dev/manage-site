@@ -4,12 +4,34 @@
 	import { goto } from '$app/navigation';
 	import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { fade } from 'svelte/transition';
 	import Fa from 'svelte-fa';
 	export let data;
 	console.log(data.domain.record);
-	let loading = false;
+	let analyticsOpen = false;
+	let analyticsURL;
 </script>
 
+{#if analyticsOpen}
+	<div
+		class="fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-50 flex items-center justify-center"
+		out:fade={{ duration: 150 }}
+		in:fade={{ duration: 150 }}
+	>
+		<button
+			class="absolute top-0 right-2 p-3 text-white text-2xl"
+			on:click={() => {
+				analyticsOpen = false;
+			}}>✕</button
+		>
+		<iframe
+			class="w-screen h-screen aspect-video rounded-container-token overflow-hidden"
+			src={analyticsURL}
+			title="Analytics"
+			frameborder="0"
+		/>
+	</div>
+{/if}
 <Modal />
 <h2 class="h2">{data.domain.name}.is-a.dev</h2>
 <br />
@@ -18,17 +40,22 @@
 </button>
 <button
 	class="btn variant-filled"
-	on:click={() => {
-		if (loading) return;
-		loading = true;
-		goto(`/api/domains/${data.domain.name}/analytics`);
+	on:click={async () => {
+		let analyticsResponse = await fetch(`/api/domains/${data.domain.name}/analytics`).then((r) =>
+			r.json()
+		);
+		if (analyticsResponse.url) {
+			analyticsURL = analyticsResponse.url;
+			analyticsOpen = true;
+		} else
+			modalStore.trigger({
+				type: 'alert',
+				title: 'Analytics not available',
+				body: analyticsResponse.error
+			});
 	}}
 >
-	{#if loading}
-		<Fa icon={faSpinner} spin size="lg" />
-	{:else}
-		Analytics
-	{/if}
+	Analytics
 </button>
 <button
 	class="text-sm text-gray-500 mt-2"
