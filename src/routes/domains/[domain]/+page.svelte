@@ -42,6 +42,7 @@
 </button>
 <button
 	class="btn variant-filled mb-2"
+        hidden
 	on:click={async () => {
 		let response = await fetch(
 			`https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
