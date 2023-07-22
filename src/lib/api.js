@@ -1,4 +1,4 @@
-import {Octokit} from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 import { env } from '$env/dynamic/private'
 
 async function CheckDomain(subdomain) {
@@ -8,39 +8,39 @@ async function CheckDomain(subdomain) {
         if (res.status === 404) return true
         else return false
     });
-     return data;
+    return data;
 }
 async function CountDomains() {
     try {
-      const response = await fetch("https://raw-api.is-a.dev");
-      const data = await response.json();
-      const results = countDomainsAndOwners(data);
-      return results;
+        const response = await fetch("https://raw-api.is-a.dev");
+        const data = await response.json();
+        const results = countDomainsAndOwners(data);
+        return results;
     } catch (error) {
-      console.error("Error:", error);
-      return null;
+        console.error("Error:", error);
+        return null;
     }
 }
-  
+
 function countDomainsAndOwners(jsonData) {
     const parsedData = jsonData;
     const subdomains = parsedData.length;
     const owners = new Set();
-  
+
     parsedData.forEach((entry) => {
-      if (entry.owner) {
-        owners.add(JSON.stringify(entry.owner));
-      }
+        if (entry.owner) {
+            owners.add(JSON.stringify(entry.owner));
+        }
     });
-  
+
     const individualOwners = owners.size;
-  
+
     return {
-      subdomains,
-      individualOwners,
+        subdomains,
+        individualOwners,
     };
 }
-  
+
 async function DeleteDomain(apikey, username, email, domain) {
     let sha;
     let file;
@@ -49,10 +49,10 @@ async function DeleteDomain(apikey, username, email, domain) {
     });
     try {
         file = await fetch(`https://api.github.com/repos/${username}/register/contents/domains/${domain}.json`)
-        .then((res) => res.json())
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((res) => res.json())
+            .catch((err) => {
+                console.log(err);
+            });
         sha = file.sha;
         await octokit.repos.deleteFile({
             owner: username,
@@ -78,7 +78,7 @@ async function DeleteDomain(apikey, username, email, domain) {
             head: `${username}:main`,
             base: "main",
         });
-    
+
         if (existingPullRequests.data.length > 0) {
             // Pull request already exists, return an error or handle it accordingly
             return { "error": "A pull request already exists." };
@@ -100,7 +100,7 @@ async function DeleteDomain(apikey, username, email, domain) {
     }
 
 }
-async function DomainInfo(domain){
+async function DomainInfo(domain) {
     const domains = domain;
     const response = await fetch(`https://raw.githubusercontent.com/is-a-dev/register/main/domains/${domains}.json`, {
         headers: {
@@ -130,10 +130,10 @@ async function EditDomain(subdomain, username, email, apikey, records) {
         .catch((err) => {
             console.log(err);
         });
-    let sha = file.sha;    
-    let octokit = new Octokit({
-        auth: apikey,
-    });
+
+    let sha = file.sha;
+    let octokit = new Octokit({ auth: apikey });
+
     let data = records;
     const parsedArray = JSON.parse(data);
     let content;
@@ -142,28 +142,26 @@ async function EditDomain(subdomain, username, email, apikey, records) {
 
     for (let i = 0; i < parsedArray.length; i++) {
         const obj = parsedArray[i];
-         type = obj.type;
-         value = obj.value;
+        type = obj.type;
+        value = obj.value;
 
         console.log("Type:", type);
         console.log("Value:", value);
     }
-    
-    
-    
+
     content = `{
-        "owner": {
-           "username": "${username}",
-           "email": "${email}"
-        },
-        "record": {
-              "${type}": "${value}"
-        }
+    "owner": {
+        "username": "${username}",
+        "email": "${email}"
+    },
+    "record": {
+            "${type}": "${value}"
     }
-    `;
-    
+}
+`;
+
     let record = Buffer.from(content).toString("base64");
-    
+
     try {
         await octokit.repos.createOrUpdateFileContents({
             owner: username,
@@ -182,43 +180,40 @@ async function EditDomain(subdomain, username, email, apikey, records) {
             },
         });
 
-}
-catch (e) {
+    }
+    catch (e) {
         console.log(e);
         return { "error": "Error creating domain file." };
-}
-    
-try {
-    let existingPullRequests = await octokit.pulls.list({
-        owner: "is-a-dev",
-        repo: "register",
-        state: "open",
-        head: `${username}:main`,
-        base: "main",
-    });
-
-    if (existingPullRequests.data.length > 0) {
-        // Pull request already exists, return an error or handle it accordingly
-        return { "error": "A pull request for this domain already exists." };
     }
-    let pr = await octokit.pulls.create({
-        owner: "is-a-dev",
-        repo: "register",
-        title: `BETA: Update ${subdomain.toLowerCase().replace(/\.[^/.]+$/, "")}.is-a.dev`,
-        head: `${username}:main`,
-        base: "main",
-        body: `Updated \`${subdomain.toLowerCase().replace(/\.[^/.]+$/, "")}.is-a.dev\` using the site.`,
-    });
-    let PrUrl = pr.data.html_url;
-    return { "prurl": PrUrl };
-}
-catch (e) {
-    console.log(e);
-    return { "error": "Error creating pull request." };
-}
-    
-    
-  
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `BETA: Update ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Updated \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
+    }
 }
 
 async function forkRepo(token) {
@@ -238,10 +233,13 @@ async function forkRepo(token) {
                 "X-GitHub-Api-Version": "2022-11-28",
             },
         });
+
         const cloneResponse = forked.data.html_url;
+
         if (env.DEBUG) {
             console.log("FORKED REPO: " + cloneResponse);
         }
+
         return {
             forked: cloneResponse,
             error: null,
@@ -269,27 +267,27 @@ async function ListDomains(username) {
 
             for (let i = 0; i < data.length; i++) {
                 // Iterates over each element in the data array
-                
+
                 if (data[i].owner.username === username) {
                     // Checks if the username (case-insensitive) matches the current data record's owner
-                    
+
                     const record = data[i].record;
                     const arr = Object.entries(record).map(([type, value]) => ({ type, value }));
                     // Extracts the record property from the current data record
                     // Converts the record object to an array of objects with 'type' and 'value' keys
-                    
-                    results.push({ "domain": data[i].domain,  "record": arr });
+
+                    results.push({ "domain": data[i].domain, "record": arr });
                     // Adds a new object to the results array
                     // The object contains the domain and the converted record array
-                    
+
                     // Sets a variable 'found' to true
                 }
             }
         });
 
     return results;
-
 }
+
 async function RegisterDomain(subdomain, type, username, email, apikey, recordString) {
     let regexPattern;
     let content;
@@ -311,12 +309,12 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
             break;
         default:
             return { "error": "Invalid record type." };
-        
     }
+
     if (!regexPattern.test(recordString)) return { "error": "Invalid record string." };
-    let octokit = new Octokit({
-        auth: apikey,
-    });
+
+    let octokit = new Octokit({ auth: apikey });
+
     let data = recordString;
     if (type === "A" || type === "MX") {
         data = JSON.stringify(data.split(",").map((s) => s.trim()));
@@ -324,18 +322,18 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
         data = `"${data.trim()}"`;
     }
     content = `{
-        "owner": {
-           "username": "${username}",
-           "email": "${email}"
-        },
-        "record": {
-            "${type}": ${data.toLowerCase()}
-        }
+    "owner": {
+        "username": "${username}",
+        "email": "${email}"
+    },
+    "record": {
+        "${type}": ${data.toLowerCase()}
     }
-    `;
-    
+}
+`;
+
     let record = Buffer.from(content).toString("base64");
-    
+
     try {
         await octokit.repos.createOrUpdateFileContents({
             owner: username,
@@ -353,43 +351,43 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
             },
         });
 
-}
-catch (e) {
+    }
+    catch (e) {
         console.log(e);
         return { "error": "Error creating domain file." };
-}
-    
-try {
-    let existingPullRequests = await octokit.pulls.list({
-        owner: "is-a-dev",
-        repo: "register",
-        state: "open",
-        head: `${username}:main`,
-        base: "main",
-    });
-
-    if (existingPullRequests.data.length > 0) {
-        // Pull request already exists, return an error or handle it accordingly
-        return { "error": "A pull request for this domain already exists." };
     }
-    let pr = await octokit.pulls.create({
-        owner: "is-a-dev",
-        repo: "register",
-        title: `BETA: Register ${subdomain.toLowerCase().replace(/\.[^/.]+$/, "")}.is-a.dev`,
-        head: `${username}:main`,
-        base: "main",
-        body: `Added \`${subdomain.toLowerCase().replace(/\.[^/.]+$/, "")}.is-a.dev\` using the site.`,
-    });
-    let PrUrl = pr.data.html_url;
-    return { "prurl": PrUrl };
-}
-catch (e) {
-    console.log(e);
-    return { "error": "Error creating pull request." };
-}
-    
-    
-  
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `BETA: Register ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Added \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
+    }
+
+
+
 }
 
 async function getUser(token) {
@@ -399,7 +397,7 @@ async function getUser(token) {
     let user = await octokit.users.getAuthenticated();
     return user.data;
 }
-async function getEmail(token){
+async function getEmail(token) {
     let octokit = new Octokit({
         auth: token,
     });
@@ -409,9 +407,9 @@ async function getEmail(token){
         },
     })).data
     console.log(emails)
-   let email = emails.find((email) => email.primary) || null;
-   console.log(email.email)
-   return email.email;
+    let email = emails.find((email) => email.primary) || null;
+    console.log(email.email)
+    return email.email;
 
 }
 
