@@ -42,6 +42,7 @@
 </button>
 <button
 	class="btn variant-filled mb-2"
+        hidden
 	on:click={async () => {
 		let response = await fetch(
 			`https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
@@ -54,6 +55,8 @@
 				body: response.error
 			});
 		} else {
+			let ftppassword = data.domain.name + ' FTPPASSWORD';
+			localStorage.setItem(ftppassword, response.pass);
 			modalStore.trigger({
 				type: 'confirm',
 				title: 'Success',
@@ -117,6 +120,8 @@
 <button
 	class="text-sm text-gray-500 mt-1 mb-2"
 	on:click={() => {
+		let ftppassword = data.domain.name + ' FTPPASSWORD';
+		let pass = localStorage.getItem(ftppassword);
 		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
 		modalStore.trigger({
 			type: 'alert',
@@ -126,7 +131,7 @@
 			<code>Host: hosts.is-a.dev</code><br />
 			<code>Port: 21</code><br />
 			<code>Username: ${data.domain.name}</code><br />
-			<code>Password: 12345</code><br />
+			<code>Password: ${pass}</code><br />
 `
 		});
 	}}
