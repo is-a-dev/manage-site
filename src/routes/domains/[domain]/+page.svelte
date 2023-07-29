@@ -55,6 +55,8 @@
 				body: response.error
 			});
 		} else {
+			let ftppassword = data.domain.name + ' FTPPASSWORD';
+			localStorage.setItem(ftppassword, response.pass);
 			modalStore.trigger({
 				type: 'confirm',
 				title: 'Success',
