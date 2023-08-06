@@ -40,7 +40,7 @@
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
 	Edit Record(s)
 </button>
-<!--  <button
+<button
 	class="btn variant-filled mb-2"
         hidden
 	on:click={async () => {
@@ -137,7 +137,7 @@
 	}}
 >
 	how to manage files
-</button> -->
+</button>
 <button
 	class="btn variant-filled"
 	on:click={async () => {
