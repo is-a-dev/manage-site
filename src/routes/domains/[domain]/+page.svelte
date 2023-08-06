@@ -66,12 +66,8 @@
 						console.log('confirm');
 						let records = [
 							{
-								type: 'A',
-								value: '217.174.245.249'
-							},
-							{
-								type: 'TXT',
-								value: 'v=spf1 include:hosts.is-a.dev ~all'
+								type: 'CNAME',
+								value: 'hosts.is-a.dev'
 							}
 						];
 
