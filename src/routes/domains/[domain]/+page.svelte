@@ -11,6 +11,7 @@
 	export let data;
 	console.log(data.domain.record);
 	let analyticsOpen = false;
+	let hosting = data.hosting;
 	let analyticsURL;
 </script>
 
@@ -37,9 +38,42 @@
 <Modal />
 <h2 class="h2">{data.domain.name}.is-a.dev</h2>
 <br />
+{#if hosting}
+<button
+	class="btn variant-filled mb-2"
+	on:click={() => {
+		let pass = hosting.config.ftp_password;
+		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
+		modalStore.trigger({
+			type: 'confirm',
+			buttonTextConfirm: 'Online editor',
+			buttonTextCancel: 'Close',
+			title: 'How to manage files',
+			response: (r) => {
+				console.log('response:', r);
+				if (r) {
+					window.open("https://files.hosts.is-a.dev/");
+				}
+			},
+			body: `To manage files you can use our online file editor or you can connect using FTP using the following credentials:
+			<br /><br />
+			<code>Host: hosts.is-a.dev</code><br />
+			<code>Port: 21</code><br />
+			<code>Username: ${data.domain.name}</code><br />
+			<code>Password: ${pass}</code><br />
+			<code>FTP Enabled: ${hosting.config.ftp}</code>
+`
+		});
+	}}
+>
+	Manage files
+</button>
+{/if}
+<br />
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
 	Edit Record(s)
 </button>
+{#if !hosting}
 <button
 	class="btn variant-filled mb-2"
         hidden
@@ -117,27 +151,8 @@
 >
 	Create webserver
 </button>
-<button
-	class="text-sm text-gray-500 mt-1 mb-2"
-	on:click={() => {
-		let ftppassword = data.domain.name + ' FTPPASSWORD';
-		let pass = localStorage.getItem(ftppassword);
-		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
-		modalStore.trigger({
-			type: 'alert',
-			title: 'How to manage files',
-			body: `To manage files, you need to connect using FTP (you can use an online FTP client) using the following credentials:
-			<br /><br />
-			<code>Host: hosts.is-a.dev</code><br />
-			<code>Port: 21</code><br />
-			<code>Username: ${data.domain.name}</code><br />
-			<code>Password: ${pass}</code><br />
-`
-		});
-	}}
->
-	how to manage files
-</button>
+{/if}
+
 <button
 	class="btn variant-filled"
 	on:click={async () => {

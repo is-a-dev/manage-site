@@ -413,5 +413,20 @@ async function getEmail(token) {
 
 }
 
+async function getHosting(jwt, domain) {
+    try {
+        let response = await fetch(`https://hosts.is-a.dev/api/domain?jwt=${jwt}&domain=${domain}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch hosting data');
+        }
+        let hostingData = await response.json(); // Assuming the response contains JSON data
+        return hostingData; // Return the processed JSON data
+    } catch (error) {
+        console.error(error);
+        return null; // Handle the error case appropriately
+    }
+}
 
-export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail };
+
+
+export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting };
