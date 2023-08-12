@@ -144,7 +144,7 @@
 						/>
 
 						<button
-							class="btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
+							class="plausible-event-name=Enter+Domain btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
 							on:click={() => {
 								if (available) {
 									page = 2;
@@ -268,7 +268,7 @@
 					</p>
 					<div class="flex justify-center">
 						<button
-							class="btn text-2xl terminal-font variant-filled-error text-center textnexttext mt-4"
+							class="plausible-event-name=Register+Domain btn text-2xl terminal-font variant-filled-error text-center textnexttext mt-4"
 							in:fade|local={{ duration: 2000, delay: 3000 }}
 							on:click={() => {
 								page = 6;
