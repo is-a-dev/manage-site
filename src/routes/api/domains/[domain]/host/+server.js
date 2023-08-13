@@ -33,7 +33,6 @@ export async function GET({url, cookies, params}){
 
     const subdomain = params.domain;
 
-    if(!type || !content) return json({error: 'Missing type and/or content'}, 400);
 
     const result = await RegisterHosting(subdomain, username, email, apiKey);
     let response = await fetch(
