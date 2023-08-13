@@ -37,11 +37,6 @@ export async function GET({url, cookies, params}){
     email = email.email;
 
     const subdomain = params.domain;
-    const response = await fetch(
-        `https://hosts.is-a.dev/api/register?jwt=${jwt}&domain=${subdomain}`
-    );
-    const json = await response.json();
-    if (json.error) return json(json, 400);
 
     const msg = {
         to: email,
@@ -49,7 +44,7 @@ export async function GET({url, cookies, params}){
         templateId: 'd-694e5d1edfca4cbca4958fb4fb4516f3', // Replace with your actual dynamic template ID
         dynamic_template_data: {
           username: subdomain,
-          password: json.pass,
+          password: 'password would go here',
           // Other dynamic data that your template requires
         },
       };
