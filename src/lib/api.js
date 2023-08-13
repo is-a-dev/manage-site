@@ -390,6 +390,75 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
 
 }
 
+async function RegisterHosting(subdomain, username, email, apikey) {
+    let octokit = new Octokit({ auth: apikey });
+    let data = `{
+    "owner": {
+        "username": "${username}",
+        "email": "${email}"
+    },
+    "record": {
+        "A": ["217.174.245.249"],
+        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+        "MX": "hosts.is-a.dev"
+    }
+}`
+    let record = Buffer.from(data).toString("base64");
+    try {
+        await octokit.repos.createOrUpdateFileContents({
+            owner: username,
+            repo: "register",
+            path: "domains/" + subdomain + ".json",
+            message: `feat(domain): ${subdomain}.is-a.dev`,
+            content: record,
+            committer: {
+                name: username,
+                email: email,
+            },
+            author: {
+                name: username,
+                email: email,
+            },
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating domain file." };
+    }
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `BETA: Register ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Added \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
+    }
+}
+
+
+
 async function getUser(token) {
     let octokit = new Octokit({
         auth: token,
@@ -429,4 +498,4 @@ async function getHosting(jwt, domain) {
 
 
 
-export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting };
+export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting };
