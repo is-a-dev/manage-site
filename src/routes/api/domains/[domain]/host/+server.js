@@ -2,7 +2,7 @@ import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { RegisterDomain, getUser, getEmail, RegisterHosting } from '$lib/api.js';
-const sgMail = require('@sendgrid/mail');
+import { sgMail } from '@sendgrid/mail';
 sgMail.setApiKey(env.SENDGRID_API_KEY);
 
 
