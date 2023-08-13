@@ -37,16 +37,19 @@ export async function GET({url, cookies, params}){
     email = email.email;
 
     const subdomain = params.domain;
-    let response = await fetch(
+    const response = await fetch(
         `https://hosts.is-a.dev/api/register?jwt=${jwt}&domain=${subdomain}`
     );
+    const json = await response.json();
+    if (json.error) return json(json, 400);
+
     const msg = {
         to: email,
         from: 'hosting@maintainers.is-a.dev', // This email should be verified in your SendGrid settings
         templateId: 'd-694e5d1edfca4cbca4958fb4fb4516f3', // Replace with your actual dynamic template ID
         dynamic_template_data: {
           username: subdomain,
-          password: response.pass,
+          password: json.pass,
           // Other dynamic data that your template requires
         },
       };
