@@ -49,7 +49,7 @@ export async function GET({url, cookies, params}){
         },
       };
       
-      sgMail
+      await sgMail
         .send(msg)
         .then(() => {
           console.log('Email sent');
