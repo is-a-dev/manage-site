@@ -13,6 +13,7 @@ export async function GET({url, cookies, params}){
     else if(!session) return json({error: 'No session or api key provided'}, 400);
     else apiKey = session.token;
 
+
     let user;
     if(session?.user) user = session.user;
     else user = await getUser(apiKey);
@@ -36,7 +37,7 @@ export async function GET({url, cookies, params}){
 
     const result = await RegisterHosting(subdomain, username, email, apiKey);
     let response = await fetch(
-        `https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
+        `https://hosts.is-a.dev/api/register?jwt=${jwt}&domain=${subdomain}`
     );
     // if result json contains ERROR, send error
     if (result.error) return json(result, 400);
