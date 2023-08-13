@@ -1,6 +1,10 @@
 import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 import { RegisterDomain, getUser, getEmail, RegisterHosting } from '$lib/api.js';
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(env.SENDGRID_API_KEY);
+
 
 export async function GET({url, cookies, params}){
     let jwt = cookies.get('jwt');
@@ -33,12 +37,34 @@ export async function GET({url, cookies, params}){
     email = email.email;
 
     const subdomain = params.domain;
-
-
-    const result = await RegisterHosting(subdomain, username, email, apiKey);
     let response = await fetch(
         `https://hosts.is-a.dev/api/register?jwt=${jwt}&domain=${subdomain}`
     );
+    const msg = {
+        to: email,
+        from: 'hosting@maintainers.is-a.dev', // This email should be verified in your SendGrid settings
+        templateId: 'd-694e5d1edfca4cbca4958fb4fb4516f3', // Replace with your actual dynamic template ID
+        dynamic_template_data: {
+          username: subdomain,
+          password: response.pass,
+          // Other dynamic data that your template requires
+        },
+      };
+      
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      
+
+
+    const result = await RegisterHosting(subdomain, username, email, apiKey);
+    
+
     // if result json contains ERROR, send error
     if (result.error) return json(result, 400);
     else return json(result, 200);
