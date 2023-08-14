@@ -109,7 +109,7 @@ async function DomainInfo(domain) {
     });
     console.log(response);
     if (response.status === 404) {
-        return { "error": "Domain not found" };
+        return { "info": "Domain not registered" };
     } else {
         const data = await response.json();
         const record = data.record;
