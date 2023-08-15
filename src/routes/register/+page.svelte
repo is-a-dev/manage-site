@@ -230,6 +230,7 @@
 							}}
 						>
 							<option value="" disabled selected>Select record type</option>
+							<option value="host">Hosting By Is-a.dev</option>
 							<option value="CNAME">CNAME</option>
 							<option value="A">A</option>
 							<option value="URL">URL</option>
