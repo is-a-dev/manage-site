@@ -98,21 +98,8 @@
 				response: async (r) => {
 					if (r) {
 						console.log('confirm');
-						let records = [
-							{
-								type: 'CNAME',
-								value: 'hosts.is-a.dev'
-							}
-						];
 
-						let toFetch = `/api/domains/${data.domain.name}/edit?`;
-
-						let toAdd = {
-							records: JSON.stringify(records)
-						};
-						for (const [key, value] of Object.entries(toAdd)) {
-							toFetch += `${key}=${value}&`;
-						}
+						let toFetch = `/api/domains/${data.domain.name}/hosting?`;
 
 						let response = await fetch(toFetch, {
 							method: 'PATCH'

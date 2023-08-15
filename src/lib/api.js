@@ -124,6 +124,85 @@ async function DomainInfo(domain) {
     }
 }
 
+async function EditHosting(subdomain, username, email, apikey) {
+    let file = await fetch(`https://api.github.com/repos/${username}/register/contents/domains/${subdomain}.json`)
+        .then((res) => res.json())
+        .catch((err) => {
+            console.log(err);
+        });
+
+    let sha = file.sha;
+    let octokit = new Octokit({ auth: apikey });
+
+
+    content = `{
+        "owner": {
+            "username": "${username}",
+            "email": "${email}"
+        },
+        "record": {
+            "A": ["217.174.245.249"],
+            "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+            "MX": "hosts.is-a.dev"
+        }
+    }`;
+
+    let record = Buffer.from(content).toString("base64");
+
+    try {
+        await octokit.repos.createOrUpdateFileContents({
+            owner: username,
+            repo: "register",
+            path: "domains/" + subdomain + ".json",
+            message: `feat(domain): ${subdomain}.is-a.dev`,
+            content: record,
+            sha: sha,
+            committer: {
+                name: username,
+                email: email,
+            },
+            author: {
+                name: username,
+                email: email,
+            },
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating domain file." };
+    }
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `Update ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Updated \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
+    }
+}
+
 async function EditDomain(subdomain, username, email, apikey, records) {
     let file = await fetch(`https://api.github.com/repos/${username}/register/contents/domains/${subdomain}.json`)
         .then((res) => res.json())
@@ -498,4 +577,4 @@ async function getHosting(jwt, domain) {
 
 
 
-export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting };
+export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting, EditHosting };
