@@ -132,6 +132,7 @@ async function EditHosting(subdomain, username, email, apikey) {
         });
 
     let sha = file.sha;
+    let content;
     let octokit = new Octokit({ auth: apikey });
 
 
