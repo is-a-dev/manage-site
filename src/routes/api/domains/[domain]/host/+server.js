@@ -2,8 +2,7 @@ import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { RegisterDomain, getUser, getEmail, RegisterHosting } from '$lib/api.js';
-import sgMail from "@sendgrid/mail";
-sgMail.setApiKey(env.SENDGRID_API_KEY);
+
 
 
 export async function GET({url, cookies, params}){
@@ -38,29 +37,14 @@ export async function GET({url, cookies, params}){
 
     const subdomain = params.domain;
 
-    const msg = {
-        to: email,
-        from: 'hosting@maintainers.is-a.dev', // This email should be verified in your SendGrid settings
-        templateId: 'd-694e5d1edfca4cbca4958fb4fb4516f3', // Replace with your actual dynamic template ID
-        dynamic_template_data: {
-          username: subdomain,
-          password: 'password would go here',
-          // Other dynamic data that your template requires
-        },
-      };
-      
-      await sgMail
-        .send(msg)
-        .then(() => {
-          console.log('Email sent');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      
-
+    
 
     const result = await RegisterHosting(subdomain, username, email, apiKey);
+    let prurl = result.prurl;
+    let prnumber = result.prnumber;
+    let prereg = await fetch(`https://hosts.is-a.dev/api/preregister?jwt=${jwt}&pr=${prnumber}&domain=${subdomain}`);
+    if(prereg.status != 200) return json({error: 'Error while preregistering domain.'}, 400);
+
     
 
     // if result json contains ERROR, send error

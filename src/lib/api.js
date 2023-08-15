@@ -449,7 +449,7 @@ async function RegisterHosting(subdomain, username, email, apikey) {
             body: `Added \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
         });
         let PrUrl = pr.data.html_url;
-        return { "prurl": PrUrl };
+        return { "prurl": PrUrl, "prnumber": pr.data.number };
     }
     catch (e) {
         console.log(e);
