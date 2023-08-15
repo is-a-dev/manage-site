@@ -1,6 +1,6 @@
 import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
-import { EditDomain, getUser, getEmail } from '$lib/api.js';
+import { EditHosting, getUser, getEmail } from '$lib/api.js';
 
 export async function PATCH({url, cookies, params}){
     let jwt = cookies.get('jwt');
