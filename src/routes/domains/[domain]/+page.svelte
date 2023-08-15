@@ -102,7 +102,7 @@
 						let toFetch = `/api/domains/${data.domain.name}/hosting?`;
 
 						let response = await fetch(toFetch, {
-							method: 'PATCH'
+							method: 'GET'
 						})
 							.then((res) => res.json())
 							.catch((err) => {

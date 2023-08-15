@@ -2,7 +2,7 @@ import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
 import { EditHosting, getUser, getEmail } from '$lib/api.js';
 
-export async function PATCH({url, cookies, params}){
+export async function GET({url, cookies, params}){
     let jwt = cookies.get('jwt');
     let session = await getJWT(jwt);
     let apiKey;
