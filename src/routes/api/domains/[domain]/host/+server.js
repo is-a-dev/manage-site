@@ -35,7 +35,9 @@ export async function GET({url, cookies, params}){
     if(!email) return json({error: 'No primary email found.'}, 400);
     email = email.email;
 
-    const subdomain = params.domain;
+    let subdomain = params.domain;
+    //make subdomain lowercase
+    subdomain = subdomain.toLowerCase();
 
     
 

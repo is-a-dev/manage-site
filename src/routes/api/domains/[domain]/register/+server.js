@@ -33,7 +33,9 @@ export async function GET({url, cookies, params}){
 
     const type = query.get("type");
     const content = query.get("content");
-    const subdomain = params.domain;
+    let subdomain = params.domain;
+    //make subdomain lowercase
+    subdomain = subdomain.toLowerCase();
 
     if(!type || !content) return json({error: 'Missing type and/or content'}, 400);
 
