@@ -219,11 +219,17 @@ async function EditDomain(subdomain, username, email, apikey, records) {
     let content;
     let value;
     let type;
+    
 
     for (let i = 0; i < parsedArray.length; i++) {
         const obj = parsedArray[i];
         type = obj.type;
         value = obj.value;
+        if (type === "A" || type === "MX") {
+            value = JSON.stringify(value.split(",").map((s) => s.trim()));
+        } else {
+            value = `"${data.trim()}"`;
+        }
 
         console.log("Type:", type);
         console.log("Value:", value);
