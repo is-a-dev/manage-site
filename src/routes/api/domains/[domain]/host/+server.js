@@ -1,6 +1,9 @@
 import { getJWT } from '$lib/jwt.js';
 import { json } from '@sveltejs/kit';
-import { RegisterDomain, getUser, getEmail } from '$lib/api.js';
+import { env } from '$env/dynamic/private';
+import { RegisterDomain, getUser, getEmail, RegisterHosting } from '$lib/api.js';
+
+
 
 export async function GET({url, cookies, params}){
     let jwt = cookies.get('jwt');
@@ -12,6 +15,7 @@ export async function GET({url, cookies, params}){
     if(!session && query.get("key")) apiKey = query.get("key");  
     else if(!session) return json({error: 'No session or api key provided'}, 400);
     else apiKey = session.token;
+
 
     let user;
     if(session?.user) user = session.user;
@@ -31,15 +35,20 @@ export async function GET({url, cookies, params}){
     if(!email) return json({error: 'No primary email found.'}, 400);
     email = email.email;
 
-    const type = query.get("type");
-    const content = query.get("content");
     let subdomain = params.domain;
     //make subdomain lowercase
     subdomain = subdomain.toLowerCase();
 
-    if(!type || !content) return json({error: 'Missing type and/or content'}, 400);
+    
 
-    const result = await RegisterDomain(subdomain, type, username, email, apiKey, content);
+    const result = await RegisterHosting(subdomain, username, email, apiKey);
+    let prurl = result.prurl;
+    let prnumber = result.prnumber;
+    let prereg = await fetch(`https://hosts.is-a.dev/api/preregister?jwt=${jwt}&pr=${prnumber}&domain=${subdomain}`);
+    if(prereg.status != 200) return json({error: 'Error while preregistering domain.'}, 400);
+
+    
+
     // if result json contains ERROR, send error
     if (result.error) return json(result, 400);
     else return json(result, 200);

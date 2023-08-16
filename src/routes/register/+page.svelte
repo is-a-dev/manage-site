@@ -17,6 +17,25 @@
 
 	let loaded = false;
 
+	async function registerHosting(domain){
+		let emailToUse = data.emails.find((email) => email.primary);
+		let toFetch = `/api/domains/${domain}/host`;
+
+		let response = await fetch(toFetch)
+			.then((res) => res.json())
+			.catch((err) => {
+				page = 8;
+			});
+		console.log(response);
+		if (response.prurl) {
+			prURL = response.prurl;
+			page = 7;
+		} else {
+			page = 8;
+			error = response.error;
+		}
+	}
+
 	async function register(domain, recordType, recordValue) {
 		let emailToUse = data.emails.find((email) => email.primary);
 		let toFetch = `/api/domains/${domain}/register?`;
@@ -144,7 +163,7 @@
 						/>
 
 						<button
-							class="btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
+							class="plausible-event-name=Enter+Domain btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
 							on:click={() => {
 								if (available) {
 									page = 2;
@@ -203,10 +222,15 @@
 							bind:value={recordType}
 							in:fade|local={{ duration: 2000, delay: 1500 }}
 							on:change={() => {
-								page = 4;
+								//if the user selects the hosting option, skip to page 5
+								if (recordType === 'host') {
+									page = 5;
+								}
+								else if (recordType) page = 4;
 							}}
 						>
 							<option value="" disabled selected>Select record type</option>
+							<option value="host">Hosting By Is-a.dev</option>
 							<option value="CNAME">CNAME</option>
 							<option value="A">A</option>
 							<option value="URL">URL</option>
@@ -268,11 +292,18 @@
 					</p>
 					<div class="flex justify-center">
 						<button
-							class="btn text-2xl terminal-font variant-filled-error text-center textnexttext mt-4"
+							class="plausible-event-name=Register+Domain btn text-2xl terminal-font variant-filled-error text-center textnexttext mt-4"
 							in:fade|local={{ duration: 2000, delay: 3000 }}
 							on:click={() => {
 								page = 6;
-								register(domain, recordType, recordValue);
+								// if recordType is host, set recordValue to the hosting URL
+								if (recordType === 'host') {
+									registerHosting(domain);
+								}
+								else {
+									register(domain, recordType, recordValue);
+								}
+								
 							}}
 						>
 							Set up domain

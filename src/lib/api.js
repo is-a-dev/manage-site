@@ -109,7 +109,7 @@ async function DomainInfo(domain) {
     });
     console.log(response);
     if (response.status === 404) {
-        return { "error": "Domain not found" };
+        return { "info": "Domain not registered" };
     } else {
         const data = await response.json();
         const record = data.record;
@@ -121,6 +121,86 @@ async function DomainInfo(domain) {
             "owner": owner
         }
         return json;
+    }
+}
+
+async function EditHosting(subdomain, username, email, apikey) {
+    let file = await fetch(`https://api.github.com/repos/${username}/register/contents/domains/${subdomain}.json`)
+        .then((res) => res.json())
+        .catch((err) => {
+            console.log(err);
+        });
+
+    let sha = file.sha;
+    let content;
+    let octokit = new Octokit({ auth: apikey });
+
+
+    content = `{
+        "owner": {
+            "username": "${username}",
+            "email": "${email}"
+        },
+        "record": {
+            "A": ["217.174.245.249"],
+            "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+            "MX": "hosts.is-a.dev"
+        }
+    }`;
+
+    let record = Buffer.from(content).toString("base64");
+
+    try {
+        await octokit.repos.createOrUpdateFileContents({
+            owner: username,
+            repo: "register",
+            path: "domains/" + subdomain + ".json",
+            message: `feat(domain): ${subdomain}.is-a.dev`,
+            content: record,
+            sha: sha,
+            committer: {
+                name: username,
+                email: email,
+            },
+            author: {
+                name: username,
+                email: email,
+            },
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating domain file." };
+    }
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `Update ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Updated \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
     }
 }
 
@@ -139,11 +219,17 @@ async function EditDomain(subdomain, username, email, apikey, records) {
     let content;
     let value;
     let type;
+    
 
     for (let i = 0; i < parsedArray.length; i++) {
         const obj = parsedArray[i];
         type = obj.type;
         value = obj.value;
+        if (type === "A" || type === "MX") {
+            value = JSON.stringify(value.split(",").map((s) => s.trim()));
+        } else {
+            value = `"${data.trim()}"`;
+        }
 
         console.log("Type:", type);
         console.log("Value:", value);
@@ -390,6 +476,75 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
 
 }
 
+async function RegisterHosting(subdomain, username, email, apikey) {
+    let octokit = new Octokit({ auth: apikey });
+    let data = `{
+    "owner": {
+        "username": "${username}",
+        "email": "${email}"
+    },
+    "record": {
+        "A": ["217.174.245.249"],
+        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+        "MX": "hosts.is-a.dev"
+    }
+}`
+    let record = Buffer.from(data).toString("base64");
+    try {
+        await octokit.repos.createOrUpdateFileContents({
+            owner: username,
+            repo: "register",
+            path: "domains/" + subdomain + ".json",
+            message: `feat(domain): ${subdomain}.is-a.dev`,
+            content: record,
+            committer: {
+                name: username,
+                email: email,
+            },
+            author: {
+                name: username,
+                email: email,
+            },
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating domain file." };
+    }
+
+    try {
+        let existingPullRequests = await octokit.pulls.list({
+            owner: "is-a-dev",
+            repo: "register",
+            state: "open",
+            head: `${username}:main`,
+            base: "main",
+        });
+
+        if (existingPullRequests.data.length > 0) {
+            // Pull request already exists, return an error or handle it accordingly
+            return { "error": "A pull request for this domain already exists." };
+        }
+        let pr = await octokit.pulls.create({
+            owner: "is-a-dev",
+            repo: "register",
+            title: `BETA: Register ${subdomain.toLowerCase()}.is-a.dev`,
+            head: `${username}:main`,
+            base: "main",
+            body: `Added \`${subdomain.toLowerCase()}.is-a.dev\` using the [dashboard](https://manage.is-a.dev).`,
+        });
+        let PrUrl = pr.data.html_url;
+        return { "prurl": PrUrl, "prnumber": pr.data.number };
+    }
+    catch (e) {
+        console.log(e);
+        return { "error": "Error creating pull request." };
+    }
+}
+
+
+
 async function getUser(token) {
     let octokit = new Octokit({
         auth: token,
@@ -413,5 +568,20 @@ async function getEmail(token) {
 
 }
 
+async function getHosting(jwt, domain) {
+    try {
+        let response = await fetch(`https://hosts.is-a.dev/api/domain?jwt=${jwt}&domain=${domain}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch hosting data');
+        }
+        let hostingData = await response.json(); // Assuming the response contains JSON data
+        return hostingData; // Return the processed JSON data
+    } catch (error) {
+        console.error(error);
+        return null; // Handle the error case appropriately
+    }
+}
 
-export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail };
+
+
+export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting, EditHosting };
