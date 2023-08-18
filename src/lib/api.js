@@ -137,16 +137,16 @@ async function EditHosting(subdomain, username, email, apikey) {
 
 
     content = `{
-        "owner": {
-            "username": "${username}",
-            "email": "${email}"
-        },
-        "record": {
-            "A": ["217.174.245.249"],
-            "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
-            "MX": "hosts.is-a.dev"
-        }
-    }`;
+    "owner": {
+        "username": "${username}",
+        "email": "${email}"
+    },
+    "record": {
+        "A": ["217.174.245.249"],
+        "MX": ["hosts.is-a.dev"],
+        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+    }
+}`;
 
     let record = Buffer.from(content).toString("base64");
 
@@ -241,7 +241,7 @@ async function EditDomain(subdomain, username, email, apikey, records) {
         "email": "${email}"
     },
     "record": {
-            "${type}": "${value}"
+        "${type}": "${value}"
     }
 }
 `;
