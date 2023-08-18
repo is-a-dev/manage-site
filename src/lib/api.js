@@ -144,7 +144,7 @@ async function EditHosting(subdomain, username, email, apikey) {
     "record": {
         "A": ["217.174.245.249"],
         "MX": ["hosts.is-a.dev"],
-        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
+        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all"
     }
 }`;
 
