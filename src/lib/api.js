@@ -485,8 +485,8 @@ async function RegisterHosting(subdomain, username, email, apikey) {
     },
     "record": {
         "A": ["217.174.245.249"],
-        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all",
-        "MX": "hosts.is-a.dev"
+        "MX": ["hosts.is-a.dev"],
+        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all"
     }
 }`
     let record = Buffer.from(data).toString("base64");
