@@ -18,8 +18,9 @@
 	import '../app.postcss';
 
 	export let data;
+	let Maintainers = data.Maintainers;
 	let pathname = $page.url.pathname;
-	const pages = [
+	let pages = [
 		{
 			name: 'Domains',
 			path: '/domains',
@@ -29,6 +30,12 @@
 			name: 'Register',
 			path: '/register',
 			icon: faKeyboard
+		},
+		{
+			name: 'Maintainers',
+			path: '/manintainers',
+			icon: faLock,
+			hidden: Maintainers
 		}
 	];
 </script>
@@ -54,6 +61,7 @@
 				on:click={() => {
 					pathname = page.path;
 				}}
+				hidden={page.hidden}
 			>
 				<div
 					class={`flex flex-col items-center mb-4 rounded-md p-4`}

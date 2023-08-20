@@ -582,6 +582,20 @@ async function getHosting(jwt, domain) {
     }
 }
 
+async function Maintainer(username) {
+    switch (username) {
+        case "is-a-dev":
+            return true;
+        case "is-a-bot":
+            return true;
+        case "is-a-dev-bot":
+            return true;
+        case "andrewstech":
+            return true;
+    }
+    return false;
+}
 
 
-export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting, EditHosting };
+
+export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting, EditHosting, Maintainer };
