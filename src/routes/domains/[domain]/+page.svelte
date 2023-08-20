@@ -68,9 +68,9 @@
 >
 	Manage files
 </button>
-<button class="btn variant-filled" on:click={() => {
-	window.open("https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}");
-}}>Export Data</button>
+<button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}`)}>
+	export Data
+</button>
 {/if}
 <br />
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
