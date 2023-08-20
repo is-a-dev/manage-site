@@ -6,7 +6,6 @@ export async function load({cookies}){
     let user = getJWT(jwt);
     let Maintainers = await Maintainer(user.login);
     if(!user) throw redirect(303, '/login');
-    if(!Maintainers) throw redirect(303, '/login');
     let domains = await ListDomains("is-a-dev");
 
 
