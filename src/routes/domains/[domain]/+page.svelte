@@ -62,6 +62,9 @@
 			<code>Username: ${data.domain.name}</code><br />
 			<code>Password: ${pass}</code><br />
 			<code>FTP Enabled: ${hosting.config.ftp}</code>
+			<button class="btn variant-filled" on:click={() => {
+				window.open("https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}");
+			}}>Export Data</button>
 `
 		});
 	}}
