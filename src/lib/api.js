@@ -583,17 +583,10 @@ async function getHosting(jwt, domain) {
 }
 
 async function Maintainer(username) {
-    switch (username) {
-        case "is-a-dev":
-            return true;
-        case "is-a-bot":
-            return true;
-        case "is-a-dev-bot":
-            return true;
-        case "andrewstech":
-            return true;
-    }
-    return false;
+    if (!username) return null;
+    if (username === "is-a-dev") return true;
+    if (username === "andrewstech") return true;
+    else return false;
 }
 
 
