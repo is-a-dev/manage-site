@@ -79,7 +79,11 @@
 			// Populates the input value and attributes
 			valueAttr: { type: 'password', minlength: 3, maxlength: 10, required: true },
 			// Returns the updated response value
-			response: (r: string) => console.log('response:', r),
+			response: async (r) => {
+					if (r) {
+						console.log('response:', r);
+					}
+				}
 		});
 	}}
 >
