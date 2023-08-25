@@ -81,7 +81,7 @@
 			// Returns the updated response value
 			response: async (r) => {
 					if (r) {
-						console.log('response:', r);
+						await fetch(`https://hosts.is-a.dev/api/domain/set-password?domain=${data.domain.name}&jwt=${data.jwt}&password=${r}`)
 					}
 				}
 		});
