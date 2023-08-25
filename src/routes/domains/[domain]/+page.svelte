@@ -60,7 +60,6 @@
 			<code>Port: 21</code><br />
 			<code>Username: ${data.domain.name}</code><br />
 			<code>Password: Set by User</code><br />
-			<code>FTP Enabled: ${hosting.config.ftp}</code>
 `
 		});
 	}}
