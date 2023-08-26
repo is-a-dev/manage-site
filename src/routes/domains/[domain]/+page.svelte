@@ -51,7 +51,7 @@
 			response: (r) => {
 				console.log('response:', r);
 				if (r) {
-					window.open("https://files.hosts.is-a.dev/");
+					window.open(`https://www.net2ftp.com/index.php?protocol=FTP&ftpserver=hosts.is-a.dev&ftpserverport=21&sshfingerprint=&username=${data.domain.name}&language=en&skin=shinra&ftpmode=automatic&passivemode=no&viewmode=list&sort=&sortorder=&state=login_small&state2=bookmark&go_to_state=browse&go_to_state2=main&directory=&entry=/`);
 				}
 			},
 			body: `To manage files you can use our online file editor or you can connect using FTP using the following credentials:
