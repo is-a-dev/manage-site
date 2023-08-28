@@ -89,7 +89,7 @@
 	Set FTP Password
 </button>
 <button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}`)}>
-	export Data
+	Export Data
 </button>
 {/if}
 <br />
