@@ -355,9 +355,8 @@ async function ListDomains(username) {
                 // Iterates over each element in the data array
 
                 
-                // Checks if the username (case-sensitive) matches the owner of the current data record
-                if (data[i].owner && data[i].owner.username.toLowerCase === username.toLowerCase) {
-
+                // Checks if the username (case-insensitive) matches the owner of the current data record
+                if (data[i].owner && data[i].owner.username.toLowerCase() === username.toLowerCase()) {
 
                     const record = data[i].record;
                     const arr = Object.entries(record).map(([type, value]) => ({ type, value }));
