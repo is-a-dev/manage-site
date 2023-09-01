@@ -82,7 +82,7 @@
 <button
 	class="btn variant-filled"
 	on:click={async () => {
-		let analyticsResponse = await fetch(`/api/domains/${data.domain.name}/analytics`).then((r) =>
+		let analyticsResponse = await fetch(`/api/maintainers/${data.domain.name}/analytics`).then((r) =>
 			r.json()
 		);
 		if (analyticsResponse.url) {
