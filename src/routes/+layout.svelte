@@ -18,7 +18,7 @@
 	import '../app.postcss';
 
 	export let data;
-	let Maintainers = data.Maintainers;
+	let Maintainers = data.maintainer;
 	let pathname = $page.url.pathname;
 	let pages = [
 		{

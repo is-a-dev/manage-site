@@ -584,7 +584,7 @@ async function getHosting(jwt, domain) {
 }
 
 async function Maintainer(username) {
-    if (!username) return null;
+    if (!username) return false;
     if (username === "is-a-dev") return true;
     if (username === "andrewstech") return true;
     else return false;
