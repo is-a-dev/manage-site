@@ -33,7 +33,7 @@
 		},
 		{
 			name: 'Maintainers',
-			path: '/manintainers',
+			path: '/maintainers',
 			icon: faLock,
 			hidden: Maintainers
 		}
