@@ -4,9 +4,9 @@ import {ListDomains, Maintainer} from '$lib/api.js'
 export async function load({cookies}){
     let jwt = cookies.get('jwt');
     let user = getJWT(jwt);
+    if(!user) throw redirect(303, '/login');
     let Maintainers = await Maintainer(user.user.login);
     if(!Maintainers) throw redirect(303, '/');
-    if(!user) throw redirect(303, '/login');
     let domains = await ListDomains("is-a-dev");
 
 

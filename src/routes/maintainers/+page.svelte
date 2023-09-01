@@ -10,7 +10,7 @@
 			return [
 				domain.domain,
 				domain.record.map((record) => `${record.type} ${record.value}`).join(', '),
-				`<a href="/domains/${domain.domain.split('.is-a.dev')[0]}">Edit</a>`
+				`<a href="/maintainers/${domain.domain.split('.is-a.dev')[0]}">Edit</a>`
 			];
 		})
 	};
