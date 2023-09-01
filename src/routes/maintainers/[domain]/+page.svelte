@@ -74,70 +74,9 @@
 	Edit Record(s)
 </button>
 {#if !hosting}
-<button
-	class="btn variant-filled mb-2"
-        hidden
-	on:click={async () => {
-		let response = await fetch(
-			`https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
-		);
-		response = await response.json();
-		if (response.error && response.error !== 'Domain already exists') {
-			modalStore.trigger({
-				type: 'alert',
-				title: 'Error',
-				body: response.error
-			});
-		} else {
-			let ftppassword = data.domain.name + ' FTPPASSWORD';
-			localStorage.setItem(ftppassword, response.pass);
-			modalStore.trigger({
-				type: 'confirm',
-				title: 'Success',
-				body: 'Your domain has been registered successfully. Do you want to automatically update your DNS records? Note: this will overwrite <b>all</b> your DNS records.',
-				response: async (r) => {
-					if (r) {
-						console.log('confirm');
-
-						let toFetch = `/api/domains/${data.domain.name}/hosting?`;
-
-						let response = await fetch(toFetch, {
-							method: 'GET'
-						})
-							.then((res) => res.json())
-							.catch((err) => {
-								console.error(err);
-								return { error: true };
-							});
-						if (response.error) {
-							modalStore.trigger({
-								type: 'alert',
-								title: 'Failed to automatically update DNS records',
-								body: response.error
-							});
-							return;
-						} else {
-							modalStore.trigger({
-								type: 'alert',
-								title: 'Successfully updated DNS records',
-								body: 'A PR for updating your DNS records has been created!'
-							});
-							window.open(response.prurl, '_blank');
-						}
-					} else {
-						modalStore.trigger({
-							type: 'alert',
-							title: 'Failed to automatically update DNS records',
-							body: 'You can manually update your DNS records by adding a CNAME record with the value <code>hosts.is-a.dev</code>.'
-						});
-					}
-				}
-			});
-		}
-	}}
->
-	Create webserver
-</button>
+<br />
+<p>HOSTING IS DISABLED ON STAFF DOMAINS</p>
+<br />
 {/if}
 
 <button
