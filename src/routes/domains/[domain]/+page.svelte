@@ -93,9 +93,17 @@
 </button>
 {/if}
 <br />
+<!--
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
 	Edit Record(s)
 </button>
+-->
+<p>Edit domain function has been disabled!</p>
+<br />
+<button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/delete`)}>
+	Delete domain
+</button>
+
 {#if !hosting}
 <button
 	class="btn variant-filled mb-2"

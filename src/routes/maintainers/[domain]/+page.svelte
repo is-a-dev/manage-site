@@ -77,6 +77,9 @@
 <br />
 <p>HOSTING IS DISABLED ON STAFF DOMAINS</p>
 <br />
+<button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/delete`)}>
+	Delete domain
+</button>
 {/if}
 
 <button

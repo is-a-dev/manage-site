@@ -19,7 +19,7 @@
 		},
 		{
 			type: 'A',
-			allowMultiple: false
+			allowMultiple: true
 		},
 		{
 			type: 'URL',
