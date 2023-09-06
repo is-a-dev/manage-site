@@ -66,27 +66,8 @@
 >
 	Manage files
 </button>
-<button
-	class="btn variant-filled mb-2"
-	on:click={() => {
-		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
-		modalStore.trigger({
-			type: 'prompt',
-			// Data
-			title: 'Set FTP Password',
-			body: 'Set your ftp password.',
-			// Populates the input value and attributes
-			valueAttr: { type: 'password', minlength: 3, maxlength: 10, required: true },
-			// Returns the updated response value
-			response: async (r) => {
-					if (r) {
-						await fetch(`https://hosts.is-a.dev/api/domain/set-password?domain=${data.domain.name}&jwt=${data.jwt}&password=${r}`)
-					}
-				}
-		});
-	}}
->
-	Set FTP Password
+<button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/pannel?domain=${data.domain.name}&jwt=${data.jwt}`)}>
+	Hosting Settings
 </button>
 <button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}`)}>
 	Export Data
@@ -98,11 +79,12 @@
 	Edit Record(s)
 </button>
 -->
-<p>Edit domain function has been disabled!</p>
-<br />
+
+<!--
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/delete`)}>
 	Delete domain
 </button>
+-->
 
 {#if !hosting}
 <button
