@@ -14,7 +14,7 @@ export async function GET({params, cookies}){
     if(!domainInfo) return json({error: 'No domain found'}, 400);
     if(domainInfo.error) return json({error: domainInfo.error}, 400);
     console.log(domainInfo)
-    if(domainInfo.owner.username !== session.user.login) return json({error: 'You do not own this domain'}, 400);
+    if(domainInfo.owner.username.toLowerCase() !== session.user.login.toLowerCase()) return json({error: 'You do not own this domain'}, 400);
 
     await registerSite(domain);
     let result2 = await generateLink(domain);
