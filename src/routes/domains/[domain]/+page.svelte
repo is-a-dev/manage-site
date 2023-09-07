@@ -66,7 +66,7 @@
 >
 	Manage files
 </button>
-<button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/pannel?domain=${data.domain.name}&jwt=${data.jwt}`)}>
+<button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/panel?domain=${data.domain.name}&jwt=${data.jwt}`)}>
 	Hosting Settings
 </button>
 <button class="btn variant-filled mb-2" on:click={() => window.open(`https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}`)}>
