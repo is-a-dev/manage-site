@@ -102,11 +102,10 @@
 							bind:value={domain}
 							class={`terminal-font bg-transparent border-none border-0 text-2xl ${availableStatusClasses} hideborder transition-colors duration-300 focus:ring-transparent`}
 							type="text"
-							minlength="2"
 							placeholder="johndoe"
 							autofocus
 							on:input={async (e) => {
-								if (!e.target.value || e.target.value === '' || e.target.value.length < 2 ) {
+								if (!e.target.value || e.target.value === '') {
 									availableStatus = 'Start typing';
 									availableStatusClasses = '';
 									available = false;
@@ -166,10 +165,6 @@
 						<button
 							class="plausible-event-name=Enter+Domain btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
 							on:click={() => {
-								if ( domain.length < 2) {
-									alert("The domain name must be atleast two characters.");
-									return;
-								}
 								if (available) {
 									page = 2;
 									setTimeout(() => {
