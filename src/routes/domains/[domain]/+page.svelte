@@ -107,7 +107,7 @@
 			modalStore.trigger({
 				type: 'confirm',
 				title: 'Success',
-				body: 'Your domain has been registered successfully. Do you want to automatically update your DNS records? Note: this will overwrite <b>all</b> your DNS records.',
+				body: 'Your domain has been registered successfully. Do you want to automatically update your DNS records? Note: this will overwrite <b>all</b> of your existing DNS records.',
 				response: async (r) => {
 					if (r) {
 						console.log('confirm');
