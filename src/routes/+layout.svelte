@@ -8,7 +8,8 @@
 		faGlobe,
 		faKeyboard,
 		faLock,
-		faRightFromBracket
+		faEnvelope,
+		faRightFromBracket,
 	} from '@fortawesome/free-solid-svg-icons';
 	// The ordering of these imports is critical to your app working properly
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
@@ -32,10 +33,9 @@
 			icon: faKeyboard
 		},
 		{
-			name: 'Maintainers',
-			path: '/maintainers',
-			icon: faLock,
-			hidden: Maintainers
+			name: 'SMTP',
+			path: '/smtp',
+			icon: faEnvelope
 		}
 	];
 </script>
