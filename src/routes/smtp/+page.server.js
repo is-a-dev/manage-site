@@ -10,7 +10,8 @@ export async function load({cookies}){
 
     return {
         user: user.user,
-        subdomains: domains,
+        domains: domains,
+        JWT: jwt,
         count: domains.length || 0
     };
 }
