@@ -31,11 +31,6 @@
 			name: 'Register',
 			path: '/register',
 			icon: faKeyboard
-		},
-		{
-			name: 'SMTP',
-			path: '/smtp',
-			icon: faEnvelope
 		}
 	];
 </script>
