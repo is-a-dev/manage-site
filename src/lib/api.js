@@ -142,10 +142,12 @@ async function EditHosting(subdomain, username, email, apikey) {
         "email": "${email}"
     },
     "record": {
-        "A": ["217.174.245.249"],
-        "AAAA": ["2a00:da00:1800:83a4::1"],
-        "MX": ["hosts.is-a.dev"],
-        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all"
+        "A": [
+            "217.174.245.249",
+            "51.161.54.161"
+            ],
+        "MX": ["mail.is-a.dev"],
+        "TXT": "v=spf1 mx a:mail.is-a.dev ~all"
     }
 }`;
 
@@ -486,10 +488,12 @@ async function RegisterHosting(subdomain, username, email, apikey) {
         "email": "${email}"
     },
     "record": {
-        "A": ["217.174.245.249"],
-        "AAAA": ["2a00:da00:1800:83a4::1"],
-        "MX": ["hosts.is-a.dev"],
-        "TXT": "v=spf1 a mx ip4:217.174.245.249 ~all"
+        "A": [
+            "217.174.245.249",
+            "51.161.54.161"
+            ],
+        "MX": ["mail.is-a.dev"],
+        "TXT": "v=spf1 mx a:mail.is-a.dev ~all"
     }
 }`
     let record = Buffer.from(data).toString("base64");
