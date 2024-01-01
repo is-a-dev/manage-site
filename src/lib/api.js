@@ -590,17 +590,17 @@ async function getHosting(jwt, domain) {
 }
 
 async function Maintainer(username) {
-    if (!username) return false;
-    if (username === "andrewstech") return true;
-    if (username === "hackermondev") return true;
-    if (username === "mtgsquad") return true;
-    if (username === "phenax") return true;
-    if (username === "VaibhavSys") return true;
-    if (username === "wdhdev") return true;
-    if (username === "DEV-DIBSTER") return true;
-    else return false;
+    const validUsernames = [
+        "andrewstech",
+        "hackermondev",
+        "mtgsquad",
+        "phenax",
+        "VaibhavSys",
+        "wdhdev",
+        "DEV-DIBSTER"
+    ];
+
+    return Boolean(username && validUsernames.includes(username));
 }
-
-
 
 export { CheckDomain, CountDomains, countDomainsAndOwners, DeleteDomain, DomainInfo, EditDomain, forkRepo, ListDomains, RegisterDomain, getUser, getEmail, getHosting, RegisterHosting, EditHosting, Maintainer };
