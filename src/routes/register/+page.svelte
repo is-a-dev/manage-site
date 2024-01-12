@@ -106,7 +106,7 @@
 							placeholder="johndoe"
 							autofocus
 							on:input={async (e) => {
-                                                                e.target.value = e.target.value.toLowerCase();
+                                e.target.value = e.target.value.toLowerCase();
 								if (!e.target.value || e.target.value === '' || e.target.value.length < 2 ) {
 									availableStatus = 'Start typing';
 									availableStatusClasses = '';
