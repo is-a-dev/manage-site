@@ -39,23 +39,23 @@
 <h2 class="h2">{data.domain.name}.is-a.dev</h2>
 <br />
 {#if hosting}
-<button
-	class="btn variant-filled mb-2"
-	on:click={() => {
-		let pass = hosting.config.ftp_password;
-		//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
-		modalStore.trigger({
-			type: 'confirm',
-			buttonTextConfirm: 'Online editor',
-			buttonTextCancel: 'Close',
-			title: 'How to manage files',
-			response: (r) => {
-				console.log('response:', r);
-				if (r) {
-					window.open("https://files.hosts.is-a.dev/");
-				}
-			},
-			body: `To manage files you can use our online file editor or you can connect using FTP using the following credentials:
+	<button
+		class="btn variant-filled mb-2"
+		on:click={() => {
+			let pass = hosting.config.ftp_password;
+			//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
+			modalStore.trigger({
+				type: 'confirm',
+				buttonTextConfirm: 'Online editor',
+				buttonTextCancel: 'Close',
+				title: 'How to manage files',
+				response: (r) => {
+					console.log('response:', r);
+					if (r) {
+						window.open('https://files.hosts.is-a.dev/');
+					}
+				},
+				body: `To manage files you can use our online file editor or you can connect using FTP using the following credentials:
 			<br /><br />
 			<code>Host: hosts.is-a.dev</code><br />
 			<code>Port: 21</code><br />
@@ -63,30 +63,33 @@
 			<code>Password: ${pass}</code><br />
 			<code>FTP Enabled: ${hosting.config.ftp}</code>
 `
-		});
-	}}
->
-	Manage files
-</button>
+			});
+		}}
+	>
+		Manage files
+	</button>
 {/if}
 <br />
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
 	Edit Record(s)
 </button>
 {#if !hosting}
-<br />
-<p>HOSTING IS DISABLED ON STAFF DOMAINS</p>
-<br />
-<button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/delete`)}>
-	Delete domain
-</button>
+	<br />
+	<p>HOSTING IS DISABLED ON STAFF DOMAINS</p>
+	<br />
+	<button
+		class="btn variant-filled mb-2"
+		on:click={() => goto(`/domains/${data.domain.name}/delete`)}
+	>
+		Delete domain
+	</button>
 {/if}
 
 <button
 	class="btn variant-filled"
 	on:click={async () => {
-		let analyticsResponse = await fetch(`/api/maintainers/${data.domain.name}/analytics`).then((r) =>
-			r.json()
+		let analyticsResponse = await fetch(`/api/maintainers/${data.domain.name}/analytics`).then(
+			(r) => r.json()
 		);
 		if (analyticsResponse.url) {
 			analyticsURL = analyticsResponse.url;

@@ -12,9 +12,8 @@
 	let saving = false;
 	let records = data.domain.record || [];
 
-	l
+	l;
 </script>
 
 <h2 class="h2">Are you sure you want to delete {data.domain.name}.is-a.dev?</h2>
 <br />
-

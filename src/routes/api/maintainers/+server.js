@@ -2,8 +2,8 @@ import { DomainInfo, ListDomains } from '$lib/api.js';
 import { json } from '@sveltejs/kit';
 export async function GET({ url }) {
 	let query = url.searchParams;
-	const domain = query.get('domain')
-	const username = query.get('username')
+	const domain = query.get('domain');
+	const username = query.get('username');
 	if (domain) {
 		let domains = await DomainInfo(domain);
 		if (domains.error) return json(domains, 404);

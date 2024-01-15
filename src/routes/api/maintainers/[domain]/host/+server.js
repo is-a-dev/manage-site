@@ -3,55 +3,47 @@ import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { RegisterDomain, getUser, getEmail, RegisterHosting } from '$lib/api.js';
 
+export async function GET({ url, cookies, params }) {
+	let jwt = cookies.get('jwt');
+	let session = await getJWT(jwt);
+	let apiKey;
 
+	let query = url.searchParams;
 
-export async function GET({url, cookies, params}){
-    let jwt = cookies.get('jwt');
-    let session = await getJWT(jwt);
-    let apiKey;
+	if (!session && query.get('key')) apiKey = query.get('key');
+	else if (!session) return json({ error: 'No session or api key provided' }, 400);
+	else apiKey = session.token;
 
-    let query = url.searchParams;
+	let user;
+	if (session?.user) user = session.user;
+	else user = await getUser(apiKey);
 
-    if(!session && query.get("key")) apiKey = query.get("key");  
-    else if(!session) return json({error: 'No session or api key provided'}, 400);
-    else apiKey = session.token;
+	let username;
+	if (session?.user?.login) username = session.user.login;
+	else username = user.login;
 
+	if (!username) return json({ error: 'Invalid API key.' }, 400);
 
-    let user;
-    if(session?.user) user = session.user;
-    else user = await getUser(apiKey);
+	let email;
+	if (session?.emails) email = session.emails.find((email) => email.primary);
+	else email = await getEmail(apiKey);
 
-    let username;
-    if(session?.user?.login) username = session.user.login;
-    else username = user.login;
+	if (!email) return json({ error: 'No primary email found.' }, 400);
+	email = email.email;
 
-    if(!username) return json({error: 'Invalid API key.'}, 400);
+	let subdomain = params.domain;
+	//make subdomain lowercase
+	subdomain = subdomain.toLowerCase();
 
-    let email;
-    if(session?.emails) email = session.emails.find((email) => email.primary)
-    else email = await getEmail(apiKey);
+	const result = await RegisterHosting(subdomain, username, email, apiKey);
+	let prurl = result.prurl;
+	let prnumber = result.prnumber;
+	let prereg = await fetch(
+		`https://hosts.is-a.dev/api/preregister?jwt=${jwt}&pr=${prnumber}&domain=${subdomain}`
+	);
+	if (prereg.status != 200) return json({ error: 'Error while preregistering domain.' }, 400);
 
-    
-    if(!email) return json({error: 'No primary email found.'}, 400);
-    email = email.email;
-
-    let subdomain = params.domain;
-    //make subdomain lowercase
-    subdomain = subdomain.toLowerCase();
-
-    
-
-    const result = await RegisterHosting(subdomain, username, email, apiKey);
-    let prurl = result.prurl;
-    let prnumber = result.prnumber;
-    let prereg = await fetch(`https://hosts.is-a.dev/api/preregister?jwt=${jwt}&pr=${prnumber}&domain=${subdomain}`);
-    if(prereg.status != 200) return json({error: 'Error while preregistering domain.'}, 400);
-
-    
-
-    // if result json contains ERROR, send error
-    if (result.error) return json(result, 400);
-    else return json(result, 200);
-
-
+	// if result json contains ERROR, send error
+	if (result.error) return json(result, 400);
+	else return json(result, 200);
 }

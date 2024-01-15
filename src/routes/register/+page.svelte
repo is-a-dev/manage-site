@@ -17,7 +17,7 @@
 
 	let loaded = false;
 
-	async function registerHosting(domain){
+	async function registerHosting(domain) {
 		let emailToUse = data.emails.find((email) => email.primary);
 		let toFetch = `/api/domains/${domain}/host`;
 
@@ -106,8 +106,8 @@
 							placeholder="johndoe"
 							autofocus
 							on:input={async (e) => {
-                                e.target.value = e.target.value.toLowerCase();
-								if (!e.target.value || e.target.value === '' || e.target.value.length < 2 ) {
+								e.target.value = e.target.value.toLowerCase();
+								if (!e.target.value || e.target.value === '' || e.target.value.length < 2) {
 									availableStatus = 'Start typing';
 									availableStatusClasses = '';
 									available = false;
@@ -165,10 +165,12 @@
 						/>
 
 						<button
-							class="plausible-event-name=Enter+Domain btn text-2xl terminal-font ${!available ? 'disabled' : ''}"
+							class="plausible-event-name=Enter+Domain btn text-2xl terminal-font ${!available
+								? 'disabled'
+								: ''}"
 							on:click={() => {
-								if ( domain.length < 2) {
-									alert("The domain name must be atleast two characters.");
+								if (domain.length < 2) {
+									alert('The domain name must be atleast two characters.');
 									return;
 								}
 								if (available) {
@@ -231,8 +233,7 @@
 								//if the user selects the hosting option, skip to page 5
 								if (recordType === 'host') {
 									page = 5;
-								}
-								else if (recordType) page = 4;
+								} else if (recordType) page = 4;
 							}}
 						>
 							<option value="" disabled selected>Select record type</option>
@@ -304,11 +305,9 @@
 								// if recordType is host, set recordValue to the hosting URL
 								if (recordType === 'host') {
 									registerHosting(domain);
-								}
-								else {
+								} else {
 									register(domain, recordType, recordValue);
 								}
-								
 							}}
 						>
 							Set up domain

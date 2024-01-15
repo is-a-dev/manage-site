@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import {goto} from '$app/navigation';
-	import { AppRail, AppRailAnchor, Modal, Toast, modalStore} from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
+	import { AppRail, AppRailAnchor, Modal, Toast, modalStore } from '@skeletonlabs/skeleton';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import {
@@ -9,7 +9,7 @@
 		faKeyboard,
 		faLock,
 		faEnvelope,
-		faRightFromBracket,
+		faRightFromBracket
 	} from '@fortawesome/free-solid-svg-icons';
 	// The ordering of these imports is critical to your app working properly
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
@@ -34,8 +34,9 @@
 		}
 	];
 </script>
+
 <Modal />
-<Toast/>
+<Toast />
 <div class="grid grid-cols-[auto_1fr] w-full h-full">
 	<AppRail class="overflow-hidden">
 		<svelte:fragment slot="lead">
@@ -92,21 +93,23 @@
 		<!-- --- -->
 		<svelte:fragment slot="trail">
 			{#if data.user}
-				<AppRailAnchor title="Sign out" href="#" on:click={(e) => {
-					e.preventDefault()
-					modalStore.trigger({
-						type: 'confirm',
-	// Data
-	title: 'Logging out',
-	body: 'Are you sure you want to log out?',
-	// TRUE if confirm pressed, FALSE if cancel pressed
-	response: (r) => {
-		if(r) goto('/login/out')
-	},
-})
-					
-
-				}}>
+				<AppRailAnchor
+					title="Sign out"
+					href="#"
+					on:click={(e) => {
+						e.preventDefault();
+						modalStore.trigger({
+							type: 'confirm',
+							// Data
+							title: 'Logging out',
+							body: 'Are you sure you want to log out?',
+							// TRUE if confirm pressed, FALSE if cancel pressed
+							response: (r) => {
+								if (r) goto('/login/out');
+							}
+						});
+					}}
+				>
 					<svelte:fragment slot="lead">
 						<Fa icon={faRightFromBracket} size="lg" />
 					</svelte:fragment>
