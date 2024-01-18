@@ -38,51 +38,7 @@
 <Modal />
 <h2 class="h2">{data.domain.name}.is-a.dev</h2>
 <br />
-{#if hosting}
-	<button
-		class="btn variant-filled mb-2"
-		on:click={() => {
-			//<script defer data-domain="{data.domain.name}.is-a.dev" src="{env.PUBLIC_ANALYTICS_URL}/js/script.js"></script>
-			modalStore.trigger({
-				type: 'confirm',
-				buttonTextConfirm: 'Online editor',
-				buttonTextCancel: 'Close',
-				title: 'How to manage files',
-				response: (r) => {
-					console.log('response:', r);
-					if (r) {
-						window.open(
-							`https://www.net2ftp.com/index.php?protocol=FTP&ftpserver=hosts.is-a.dev&ftpserverport=21&sshfingerprint=&username=${data.domain.name}&language=en&skin=shinra&ftpmode=automatic&passivemode=yes&viewmode=list&sort=&sortorder=&state=login_small&state2=bookmark&go_to_state=browse&go_to_state2=main&directory=&entry=/`
-						);
-					}
-				},
-				body: `To manage files you can use our online file editor or you can connect using FTP using the following credentials:
-			<br /><br />
-			<code>Host: hosts.is-a.dev</code><br />
-			<code>Port: 21</code><br />
-			<code>Username: ${data.domain.name}</code><br />
-			<code>Password: Set by User</code><br />
-`
-			});
-		}}
-	>
-		Manage files
-	</button>
-	<button
-		class="btn variant-filled mb-2"
-		on:click={() =>
-			window.open(`https://hosts.is-a.dev/api/panel?domain=${data.domain.name}&jwt=${data.jwt}`)}
-	>
-		Hosting Settings
-	</button>
-	<button
-		class="btn variant-filled mb-2"
-		on:click={() =>
-			window.open(`https://hosts.is-a.dev/api/download?domain=${data.domain.name}&jwt=${data.jwt}`)}
-	>
-		Export Data
-	</button>
-{/if}
+
 <br />
 <!--
 <button class="btn variant-filled mb-2" on:click={() => goto(`/domains/${data.domain.name}/edit`)}>
@@ -96,72 +52,6 @@
 </button>
 -->
 
-{#if !hosting}
-	<button
-		class="btn variant-filled mb-2"
-		hidden
-		on:click={async () => {
-			let response = await fetch(
-				`https://hosts.is-a.dev/api/register?jwt=${data.jwt}&domain=${data.domain.name}`
-			);
-			response = await response.json();
-			if (response.error && response.error !== 'Domain already exists') {
-				modalStore.trigger({
-					type: 'alert',
-					title: 'Error',
-					body: response.error
-				});
-			} else {
-				let ftppassword = data.domain.name + ' FTPPASSWORD';
-				localStorage.setItem(ftppassword, response.pass);
-				modalStore.trigger({
-					type: 'confirm',
-					title: 'Success',
-					body: 'Your domain has been registered successfully. Do you want to automatically update your DNS records? Note: this will overwrite <b>all</b> of your existing DNS records.',
-					response: async (r) => {
-						if (r) {
-							console.log('confirm');
-
-							let toFetch = `/api/domains/${data.domain.name}/hosting?`;
-
-							let response = await fetch(toFetch, {
-								method: 'GET'
-							})
-								.then((res) => res.json())
-								.catch((err) => {
-									console.error(err);
-									return { error: true };
-								});
-							if (response.error) {
-								modalStore.trigger({
-									type: 'alert',
-									title: 'Failed to automatically update DNS records',
-									body: response.error
-								});
-								return;
-							} else {
-								modalStore.trigger({
-									type: 'alert',
-									title: 'Successfully updated DNS records',
-									body: 'A PR for updating your DNS records has been created!'
-								});
-								window.open(response.prurl, '_blank');
-							}
-						} else {
-							modalStore.trigger({
-								type: 'alert',
-								title: 'Failed to automatically update DNS records',
-								body: 'You can manually update your DNS records by adding a CNAME record with the value <code>hosts.is-a.dev</code>.'
-							});
-						}
-					}
-				});
-			}
-		}}
-	>
-		Create webserver
-	</button>
-{/if}
 
 <button
 	class="btn variant-filled"
