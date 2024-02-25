@@ -241,7 +241,7 @@
 							<option value="A">A</option>
 							<option value="URL">URL</option>
 							<option value="MX">MX</option>
-							<option value="TXT">TXT</option>
+							<option value="AAAA">AAAA</option>
 						</select>
 					</div>
 				</div>
