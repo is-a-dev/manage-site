@@ -384,10 +384,10 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
 			regexPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
 			break;
 		case 'CNAME':
-			regexPattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$/;
+			regexPattern = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9];
 			break;
 		case 'MX':
-			regexPattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$/;
+			regexPattern = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9];
 			break;
 		case 'TXT':
 			regexPattern = /^.*$/;
