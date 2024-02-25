@@ -380,27 +380,25 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
 	let regexPattern;
 	let content;
 	switch (type) {
-		case 'A':
-			regexPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
-			break;
-		case 'CNAME':
-			regexPattern = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9];
-			break;
-		case 'MX':
-			regexPattern = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9];
-			break;
-		case 'TXT':
-			regexPattern = /^.*$/;
-			break;
-		case 'URL':
-			regexPattern =
-				/^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.){1,}[a-zA-Z]{2,}(\/[a-zA-Z0-9-_.~:/?#[\]@!$&'()*+,;=%]*)?$/;
-			break;
-		default:
-			return { error: 'Invalid record type.' };
+	    case 'A':
+	        regexPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+	        break;
+	    case 'CNAME':
+	    case 'MX':
+	        regexPattern = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/;
+	        break;
+	    case 'TXT':
+	        regexPattern = /^.*$/;
+	        break;
+	    case 'URL':
+	        regexPattern = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.){1,}[a-zA-Z]{2,}(\/[a-zA-Z0-9-_.~:/?#[\]@!$&'()*+,;=%]*)?$/;
+	        break;
+	    default:
+	        return { error: 'Invalid record type.' };
 	}
-
+	
 	if (!regexPattern.test(recordString)) return { error: 'Invalid record string.' };
+
 
 	let octokit = new Octokit({ auth: apikey });
 
