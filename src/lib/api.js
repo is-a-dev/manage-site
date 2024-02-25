@@ -393,6 +393,9 @@ async function RegisterDomain(subdomain, type, username, email, apikey, recordSt
 	    case 'URL':
 	        regexPattern = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.){1,}[a-zA-Z]{2,}(\/[a-zA-Z0-9-_.~:/?#[\]@!$&'()*+,;=%]*)?$/;
 	        break;
+	    case 'AAAA':
+		regexPattern = /^[a-fA-F0-9]{1,4}(:[a-fA-F0-9]{1,4}){7}$/;
+		break;	
 	    default:
 	        return { error: 'Invalid record type.' };
 	}
